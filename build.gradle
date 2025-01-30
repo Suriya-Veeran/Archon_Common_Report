@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.p3solutions'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    /**
+     * Lombook
+     */
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+
+    /**
+     * Itext Pdf
+     */
+    implementation 'com.itextpdf:itext7-core:7.2.5'
+}
+
+test {
+    useJUnitPlatform()
+}
