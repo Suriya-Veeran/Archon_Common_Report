@@ -13,9 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 
-// Builder
 @Slf4j
-public class ReportBuilder extends AbstactReport{
+public class ReportBuilder extends AbstractReport {
 
     private final Report report;
     public ReportBuilder(String outputPath) throws IOException {
