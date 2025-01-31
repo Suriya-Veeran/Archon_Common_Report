@@ -4,7 +4,7 @@ import com.itextpdf.layout.Document;
 
 import java.io.IOException;
 
-public interface ReportComponent{
+public interface ReportComponent {
     void render(Document document) throws IOException;
 
 

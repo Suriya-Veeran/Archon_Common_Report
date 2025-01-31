@@ -28,6 +28,7 @@ public class SummaryComponent implements ReportComponent {
                 .setFontColor(hexaDecimalToRGB(inputBean.getHexaDecimal()))
                 .setFont(PdfFontFactory.createFont(inputBean.getFontFamily(), PdfEncodings.WINANSI))
                 .setFontSize(inputBean.getFontSize())
+                .setPaddingLeft(-17)
 
         );
         document.flush();

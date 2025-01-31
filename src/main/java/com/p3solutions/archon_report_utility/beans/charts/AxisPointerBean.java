@@ -1,0 +1,14 @@
+package com.p3solutions.archon_report_utility.beans.charts;
+
+
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AxisPointerBean {
+    @Builder.Default
+    private String type = "line"; // 'line', 'shadow', 'cross'
+}

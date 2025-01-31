@@ -1,24 +1,28 @@
 package com.p3solutions.archon_report_utility;
 
+import static com.p3solutions.archon_report_utility.builder.ChartCreationConfigUtil.buildChartCreationConfig;
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
 import static com.p3solutions.archon_report_utility.builder.SummaryBeanBuilder.buildSummaryBean;
+import static com.p3solutions.archon_report_utility.builder.ChartBeanUtils.buildDataInfoBean;
+import static com.p3solutions.archon_report_utility.builder.ChartBeanUtils.*;
 
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
 import com.p3solutions.archon_report_utility.beans.*;
+import com.p3solutions.archon_report_utility.beans.charts.DataInfoBean;
+import com.p3solutions.archon_report_utility.beans.charts.HtmlCreationInfoBean;
 import com.p3solutions.archon_report_utility.core.Report;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.DividerType;
 import com.p3solutions.archon_report_utility.enums.FontType;
+import com.p3solutions.archon_report_utility.enums.FormatTypes;
 import com.p3solutions.archon_report_utility.enums.TableTypeEnum;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ReportGenerator {
     public static void main(String[] args) {
@@ -40,15 +44,15 @@ public class ReportGenerator {
 
 
             Report report = new ReportBuilder(outputPath).build();
-            ReportComponent dividerComponent = ReportBuilder.addComponent(buildDividerInputBean(785L, 1L, "B8B8B8", 1, DividerType.PAGE_TO_PAGE));
+            ReportComponent dividerComponent = ReportBuilder.addComponent(buildDividerInputBean(805L, 0.5f, "B8B8B8", 1, DividerType.PAGE_TO_PAGE));
             ReportComponent tableComponent = ReportBuilder.addComponent(getTableBean(parameters));
-            ReportComponent dividerComponent1 = ReportBuilder.addComponent(buildDividerInputBean(755L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+            ReportComponent dividerComponent1 = ReportBuilder.addComponent(buildDividerInputBean(780L, 1, "B8B8B8", 1, DividerType.CONTENT));
             ReportComponent jobSummaryComponent = ReportBuilder.addComponent(buildSummaryBean("Job Summary", "030303", 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent dividerComponent2 = ReportBuilder.addComponent(buildDividerInputBean(735L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+            ReportComponent dividerComponent2 = ReportBuilder.addComponent(buildDividerInputBean(760L, 1L, "B8B8B8", 1, DividerType.CONTENT));
             ReportComponent jobTableComponent = ReportBuilder.addComponent(getTableBean(jobSummaryParameters));
-            ReportComponent dividerComponent3 = ReportBuilder.addComponent(buildDividerInputBean(675L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+            ReportComponent dividerComponent3 = ReportBuilder.addComponent(buildDividerInputBean(680L, 1L, "B8B8B8", 1, DividerType.CONTENT));
             ReportComponent objectiveHeaderComponent = ReportBuilder.addComponent(buildSummaryBean("Objective", "030303", 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
@@ -62,10 +66,11 @@ public class ReportGenerator {
             ReportComponent licenseVolumeMetrics = ReportBuilder.addComponent(buildSummaryBean("License Volume Metrics", "030303", 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent dividerComponent4 = ReportBuilder.addComponent(buildDividerInputBean(635L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+            ReportComponent dividerComponent4 = ReportBuilder.addComponent(buildDividerInputBean(605L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+            ReportComponent footerDivider = ReportBuilder.addComponent(buildDividerInputBean(30L, 1L, "B8B8B8", 1, DividerType.PAGE_TO_PAGE));
             ReportComponent headerComponent = ReportBuilder.addComponent(new HeaderBean());
             ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
-
+            ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());
 
             report.addComponent(tableComponent);
             report.addComponent(dividerComponent1);
@@ -77,9 +82,11 @@ public class ReportGenerator {
             report.addComponent(fileObjectiveValue);
             report.addComponent(licenseVolumeMetrics);
             report.addComponent(dividerComponent4);
-            report.addComponent(dividerComponent);
+            report.addComponent(chartComponent);
             report.addComponent(headerComponent);
+            report.addComponent(dividerComponent);
             report.addComponent(footerComponent);
+            report.addComponent(footerDivider);
             report.render();
             report.close();
 

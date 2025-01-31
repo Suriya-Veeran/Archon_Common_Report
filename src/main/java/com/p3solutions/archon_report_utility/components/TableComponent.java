@@ -41,6 +41,7 @@ public class TableComponent implements ReportComponent {
             table.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
             table.setKeepTogether(inputBean.isKeepTogether());
             table.setBorder(inputBean.getBorder());
+            table.setMarginLeft(-18);
             document.add(table);
         }
         document.flush();

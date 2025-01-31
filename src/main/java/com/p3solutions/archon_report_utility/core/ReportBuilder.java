@@ -1,9 +1,8 @@
 package com.p3solutions.archon_report_utility.core;
 
 import com.p3solutions.archon_report_utility.beans.*;
-import com.p3solutions.archon_report_utility.beans.charts.PieChartBean;
 import com.p3solutions.archon_report_utility.components.*;
-import com.p3solutions.archon_report_utility.components.charts.PieChartComponent;
+import com.p3solutions.archon_report_utility.components.charts.ChartComponent;
 import com.p3solutions.archon_report_utility.enums.ComponentType;
 import com.p3solutions.archon_report_utility.factory.ReportComponentFactory;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
@@ -40,8 +39,8 @@ public class ReportBuilder extends AbstractReport {
         return DividerComponent.builder()
                 .inputBean(bean).build();
     }
-    public static ReportComponent addComponent(PieChartBean bean){
-        return PieChartComponent.builder()
+    public static ReportComponent addComponent(ChartCreationConfig bean){
+        return ChartComponent.builder()
                 .inputBean(bean).build();
     }
     public static ReportComponent addComponent(SummaryBean bean){
