@@ -11,18 +11,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReportComponentFactory {
 
-    public static ReportComponent createComponent(ComponentType type, ReportBean bean) {
-        try {
-            return switch (type) {
-                case HEADER -> ReportBuilder.addComponent((HeaderBean) bean);
-                case SUMMARY -> ReportBuilder.addComponent((SummaryBean) bean);
-                case FOOTER -> ReportBuilder.addComponent((FooterBean) bean);
-                case TABLE -> ReportBuilder.addComponent((TableBean) bean);
-                case DIVIDER -> ReportBuilder.addComponent((DividerBean) bean);
-                case PIE_CHART -> ReportBuilder.addComponent((ChartCreationConfig) bean);
-            };
-        } catch (Exception exception) {
-            throw new IllegalArgumentException("Component Builder failed due to mismatch of : " + type);
-        }
+  public static ReportComponent createComponent(ComponentType type, ReportBean bean) {
+    try {
+      ReportComponent component = null;
+      switch (type) {
+        case HEADER:
+          component = ReportBuilder.addComponent((HeaderBean) bean);
+          break;
+        case SUMMARY:
+          component = ReportBuilder.addComponent((SummaryBean) bean);
+          break;
+        case FOOTER:
+          component = ReportBuilder.addComponent((FooterBean) bean);
+          break;
+        case TABLE:
+          component = ReportBuilder.addComponent((TableBean) bean);
+          break;
+        case DIVIDER:
+          component = ReportBuilder.addComponent((DividerBean) bean);
+          break;
+        case PIE_CHART:
+          component = ReportBuilder.addComponent((ChartCreationConfig) bean);
+          break;
+        case GRID_TABLE:
+          component = ReportBuilder.addComponent((GridTableBean) bean);
+          break;
+        default:
+          throw new IllegalArgumentException("Unexpected value: " + type);
+      }
+      return component;
+    } catch (Exception exception) {
+      throw new IllegalArgumentException("Component Builder failed due to mismatch of : " + type);
     }
+  }
 }

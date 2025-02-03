@@ -35,6 +35,17 @@ public class ReportBuilder extends AbstractReport {
         return HeaderComponent.builder()
                 .inputBean(bean).build();
     }
+
+    public static ReportComponent addComponent(CardBean bean){
+        return CardComponent.builder()
+                .inputBean(bean).build();
+    }
+
+    public static ReportComponent addComponent(GridTableBean bean){
+        return GridTableComponent.builder()
+                .inputBean(bean).build();
+    }
+
     public static ReportComponent addComponent(DividerBean bean){
         return DividerComponent.builder()
                 .inputBean(bean).build();
