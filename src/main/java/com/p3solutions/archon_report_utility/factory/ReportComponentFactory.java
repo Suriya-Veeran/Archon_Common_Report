@@ -1,8 +1,6 @@
 package com.p3solutions.archon_report_utility.factory;
 
 import com.p3solutions.archon_report_utility.beans.*;
-import com.p3solutions.archon_report_utility.beans.charts.HtmlCreationInfoBean;
-import com.p3solutions.archon_report_utility.beans.charts.PieChartBean;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.ComponentType;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;

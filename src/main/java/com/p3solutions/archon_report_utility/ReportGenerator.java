@@ -1,28 +1,29 @@
 package com.p3solutions.archon_report_utility;
 
-import static com.p3solutions.archon_report_utility.builder.ChartCreationConfigUtil.buildChartCreationConfig;
-import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
-import static com.p3solutions.archon_report_utility.builder.SummaryBeanBuilder.buildSummaryBean;
-import static com.p3solutions.archon_report_utility.builder.ChartBeanUtils.buildDataInfoBean;
-import static com.p3solutions.archon_report_utility.builder.ChartBeanUtils.*;
-
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
-import com.p3solutions.archon_report_utility.beans.*;
-import com.p3solutions.archon_report_utility.beans.charts.DataInfoBean;
-import com.p3solutions.archon_report_utility.beans.charts.HtmlCreationInfoBean;
+import com.p3solutions.archon_report_utility.beans.FooterBean;
+import com.p3solutions.archon_report_utility.beans.HeaderBean;
+import com.p3solutions.archon_report_utility.beans.TableBean;
 import com.p3solutions.archon_report_utility.core.Report;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.DividerType;
 import com.p3solutions.archon_report_utility.enums.FontType;
-import com.p3solutions.archon_report_utility.enums.FormatTypes;
 import com.p3solutions.archon_report_utility.enums.TableTypeEnum;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static com.p3solutions.archon_report_utility.builder.ChartCreationConfigUtil.buildChartCreationConfig;
+import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
+import static com.p3solutions.archon_report_utility.builder.SummaryBeanBuilder.buildSummaryBean;
+import static com.p3solutions.archon_report_utility.constants.ColorConstants.GREY_COLOR;
+import static com.p3solutions.archon_report_utility.constants.ColorConstants.GREY_LINE_COLOR;
 
 public class ReportGenerator {
     public static void main(String[] args) {
@@ -44,16 +45,16 @@ public class ReportGenerator {
 
 
             Report report = new ReportBuilder(outputPath).build();
-            ReportComponent dividerComponent = ReportBuilder.addComponent(buildDividerInputBean(805L, 0.5f, "B8B8B8", 1, DividerType.PAGE_TO_PAGE));
+            ReportComponent dividerComponent = ReportBuilder.addComponent(buildDividerInputBean(805L, 0.5f, GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
             ReportComponent tableComponent = ReportBuilder.addComponent(getTableBean(parameters));
-            ReportComponent dividerComponent1 = ReportBuilder.addComponent(buildDividerInputBean(780L, 1, "B8B8B8", 1, DividerType.CONTENT));
-            ReportComponent jobSummaryComponent = ReportBuilder.addComponent(buildSummaryBean("Job Summary", "030303", 10, FontType.HELVETICA_BOLD.getFontName(),
+            ReportComponent dividerComponent1 = ReportBuilder.addComponent(buildDividerInputBean(780L, 1, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent jobSummaryComponent = ReportBuilder.addComponent(buildSummaryBean("Job Summary", GREY_LINE_COLOR, 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent dividerComponent2 = ReportBuilder.addComponent(buildDividerInputBean(760L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+            ReportComponent dividerComponent2 = ReportBuilder.addComponent(buildDividerInputBean(760L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
             ReportComponent jobTableComponent = ReportBuilder.addComponent(getTableBean(jobSummaryParameters));
-            ReportComponent dividerComponent3 = ReportBuilder.addComponent(buildDividerInputBean(680L, 1L, "B8B8B8", 1, DividerType.CONTENT));
-            ReportComponent objectiveHeaderComponent = ReportBuilder.addComponent(buildSummaryBean("Objective", "030303", 10, FontType.HELVETICA_BOLD.getFontName(),
+            ReportComponent dividerComponent3 = ReportBuilder.addComponent(buildDividerInputBean(680L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent objectiveHeaderComponent = ReportBuilder.addComponent(buildSummaryBean("Objective", GREY_LINE_COLOR, 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
             ReportComponent fileObjectiveValue = ReportBuilder.addComponent(buildSummaryBean(
@@ -63,11 +64,11 @@ public class ReportGenerator {
                     "0D0D0D", 8, FontType.HELVETICA.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent licenseVolumeMetrics = ReportBuilder.addComponent(buildSummaryBean("License Volume Metrics", "030303", 10, FontType.HELVETICA_BOLD.getFontName(),
+            ReportComponent licenseVolumeMetrics = ReportBuilder.addComponent(buildSummaryBean("License Volume Metrics", GREY_LINE_COLOR, 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent dividerComponent4 = ReportBuilder.addComponent(buildDividerInputBean(605L, 1L, "B8B8B8", 1, DividerType.CONTENT));
-            ReportComponent footerDivider = ReportBuilder.addComponent(buildDividerInputBean(30L, 1L, "B8B8B8", 1, DividerType.PAGE_TO_PAGE));
+            ReportComponent dividerComponent4 = ReportBuilder.addComponent(buildDividerInputBean(605L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent footerDivider = ReportBuilder.addComponent(buildDividerInputBean(30L, 1L, GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
             ReportComponent headerComponent = ReportBuilder.addComponent(new HeaderBean());
             ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
             ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());

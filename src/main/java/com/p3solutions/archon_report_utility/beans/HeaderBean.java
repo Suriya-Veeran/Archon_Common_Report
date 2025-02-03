@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class HeaderBean implements ReportBean {
 
     @Builder.Default
-    private String title = "Archon Report";
+    private String title = "License Volume Statistics Report";
 
     @Builder.Default
     private TextAlignment textAlignment = TextAlignment.LEFT; // Text alignment for header content
