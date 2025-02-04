@@ -1,5 +1,9 @@
 package com.p3solutions.archon_report_utility.components;
 
+import static com.itextpdf.io.font.constants.StandardFonts.*;
+import static com.p3solutions.archon_report_utility.constants.ColorConstants.BLUE_BG_COLOR;
+import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
+
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
@@ -10,19 +14,13 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.beans.GridTableBean;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import static com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD;
-import static com.p3solutions.archon_report_utility.constants.ColorConstants.BLUE_BG_COLOR;
-
-import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 
 @Builder
 @Data
@@ -50,14 +48,17 @@ public class GridTableComponent implements ReportComponent {
       table.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       table.setKeepTogether(inputBean.isKeepTogether());
       table.setMarginLeft(-18f);
+      table.setMarginRight(-18f);
       table.setBorder(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
 
       Map<String, List<String>> parameterMap = inputBean.getParameterMap();
       for (String header : parameterMap.keySet()) {
         Cell headerCell =
             new Cell()
-                .add(new Paragraph(header).setFont(PdfFontFactory.createFont(HELVETICA_BOLD)))
+                .add(new Paragraph(header)
+                        .setFont(PdfFontFactory.createFont(HELVETICA_BOLD)))
                 .setBorder(Border.NO_BORDER)
+                .setFontSize(10)
                 .setBackgroundColor(hexaDecimalToRGB(BLUE_BG_COLOR))
                 .setPadding(5);
         table.addCell(headerCell);
@@ -77,7 +78,6 @@ public class GridTableComponent implements ReportComponent {
           table.addCell(cell);
         }
       }
-
       document.add(table);
     }
   }

@@ -50,10 +50,11 @@ public class CardComponent implements ReportComponent {
      * Renders a Multiple Details Info Card (Table-style card).
      */
     private void renderMultipleDetailsCard(Document document) throws IOException {
-        Color cardBackground = hexaDecimalToRGB("F5F5F5"); // Light grey background
-        Color borderColor = hexaDecimalToRGB("D3D3D3"); // Light border color
+        Color cardBackground = hexaDecimalToRGB("E8EDF7"); // Light grey background
+        Color borderColor = hexaDecimalToRGB("DCDCDC"); // Light border color
         Color headerColor = hexaDecimalToRGB("000000");
-        Color valueColor = hexaDecimalToRGB("1a1a1a");
+        Color valueColor = hexaDecimalToRGB("2C2C2C");
+        Color successColor = hexaDecimalToRGB("007D2B");
 
         PdfFont headerFont = PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
         PdfFont valueFont = PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
@@ -66,11 +67,11 @@ public class CardComponent implements ReportComponent {
         cardTable.setBorderRight(new SolidBorder(borderColor, 1));
         cardTable.setPadding(10);
         cardTable.setMarginLeft(-18f);
+        cardTable.setMarginRight(-18f);
 
         Paragraph cardHeader = new Paragraph(inputBean.getHeader())
                 .setFont(headerFont)
-                .setFontSize(14)
-                .setBold()
+                .setFontSize(10)
                 .setTextAlignment(TextAlignment.LEFT);
 
         Cell headerCell = new Cell()
@@ -88,6 +89,7 @@ public class CardComponent implements ReportComponent {
             parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
             parameterTable.setPadding(10);
             parameterTable.setMarginLeft(-18f);
+            parameterTable.setMarginRight(-18f);
             for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
                 String header = entry.getKey();
                 String value = entry.getValue();
@@ -127,7 +129,7 @@ public class CardComponent implements ReportComponent {
      * Renders a Single Details Info Card (Header + Date + Description).
      */
     private void renderSingleDetailsCard(Document document) throws IOException {
-        Color cardBackground = hexaDecimalToRGB("F5F5F5"); // Light grey background
+        Color cardBackground = hexaDecimalToRGB("DFEAFF"); // Light grey background
 
         PdfFont headerFont = PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
         PdfFont valueFont = PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
@@ -135,31 +137,33 @@ public class CardComponent implements ReportComponent {
         Table headerTable = new Table(2);
         headerTable.setWidth(UnitValue.createPercentValue(100));
         headerTable.setBackgroundColor(cardBackground);
-        headerTable.setBorderTop(new SolidBorder(cardBackground, 1));
-        headerTable.setBorderLeft(new SolidBorder(cardBackground, 1));
-        headerTable.setBorderRight(new SolidBorder(cardBackground, 1));
+        headerTable.setBorderTop(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+        headerTable.setBorderLeft(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+        headerTable.setBorderRight(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
         headerTable.addCell(new Cell()
                 .add(new Paragraph(inputBean.getHeader())
                         .setFont(headerFont)
-                        .setFontSize(12)
-                        .setBold())
+                        .setFontColor(hexaDecimalToRGB("030303"))
+                        .setFontSize(10))
                 .setBorder(Border.NO_BORDER)
                 .setPadding(5)
                 .setTextAlignment(TextAlignment.LEFT));
 
         headerTable.addCell(new Cell()
                 .add(new Paragraph(inputBean.getGeneratedTime())
-                        .setFont(valueFont)
+                        .setFont(headerFont)
+                        .setFontColor(hexaDecimalToRGB("030303"))
                         .setFontSize(10))
                 .setBorder(Border.NO_BORDER)
                 .setPadding(5)
                 .setTextAlignment(TextAlignment.RIGHT));
         headerTable.setMarginLeft(-18f);
+        headerTable.setMarginRight(-18f);
         document.add(headerTable);
 
         Table contentTable = new Table(1);
         contentTable.setWidth(UnitValue.createPercentValue(100));
-        contentTable.setBorderBottom(new SolidBorder(cardBackground, 1)); // Only bottom border
+        contentTable.setBorderBottom(new SolidBorder(cardBackground, 1));
         contentTable.setBorderLeft(new SolidBorder(cardBackground, 1));
         contentTable.setBorderRight(new SolidBorder(cardBackground, 1));
 
@@ -167,10 +171,11 @@ public class CardComponent implements ReportComponent {
                 .add(new Paragraph(inputBean.getContent())
                         .setFont(valueFont)
                         .setFontSize(12)
-                        .setFontColor(hexaDecimalToRGB("1a1a1a")))
+                        .setFontColor(hexaDecimalToRGB("000000")))
                 .setBorder(Border.NO_BORDER)
                 .setPadding(10);
         contentTable.setMarginLeft(-18f);
+        contentTable.setMarginRight(-18f);
         contentTable.addCell(contentCell);
         document.add(contentTable);
 
