@@ -1,6 +1,7 @@
 package com.p3solutions.archon_report_utility.components;
 
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
+import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
 
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
@@ -18,23 +19,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DividerComponent implements ReportComponent {
-  private DividerBean inputBean;
+    private DividerBean inputBean;
 
-  public void render(Document document) {
-    PdfPage pdfPage = document.getPdfDocument().getPage(inputBean.getPageNumber());
-    PdfCanvas canvas = new PdfCanvas(pdfPage);
-    canvas.setStrokeColor(hexaDecimalToRGB(inputBean.getHexDecimal()));
+    public void render(Document document) {
+        PdfPage pdfPage = document.getPdfDocument().getPage(inputBean.getPageNumber());
+        PdfCanvas canvas = new PdfCanvas(pdfPage);
+        canvas.setStrokeColor(hexaDecimalToRGB(inputBean.getHexDecimal()));
 
-    if (inputBean.getDividerType() == DividerType.CONTENT) {
-      canvas.moveTo(20, inputBean.getHeight());
-      canvas.lineTo(pdfPage.getPageSize().getWidth() - 18, inputBean.getHeight());
-    } else if (inputBean.getDividerType() == DividerType.PAGE_TO_PAGE) {
-      canvas.moveTo(0, inputBean.getHeight());
-      canvas.lineTo(pdfPage.getPageSize().getWidth(), inputBean.getHeight());
-      document.flush();
+        if (inputBean.getDividerType() == DividerType.CONTENT) {
+            canvas.moveTo(20, inputBean.getHeight());
+            canvas.lineTo(pdfPage.getPageSize().getWidth() - 18, inputBean.getHeight());
+        } else if (inputBean.getDividerType() == DividerType.PAGE_TO_PAGE) {
+            canvas.moveTo(0, inputBean.getHeight());
+            canvas.lineTo(pdfPage.getPageSize().getWidth(), inputBean.getHeight());
+            document.flush();
+        }
+        canvas.setLineWidth(inputBean.getLineWidth());
+        canvas.closePathStroke();
+        addEmptyLines(1, document);
+        document.flush();
     }
-    canvas.setLineWidth(inputBean.getLineWidth());
-    canvas.closePathStroke();
-    document.flush();
-  }
 }

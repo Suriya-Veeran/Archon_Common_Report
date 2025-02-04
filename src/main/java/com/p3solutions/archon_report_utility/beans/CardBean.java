@@ -13,14 +13,21 @@ import java.util.*;
 @AllArgsConstructor
 public class CardBean implements ReportBean {
 
-  @Builder.Default private String header = "";
+    @Builder.Default
+    private String header = "";
 
-  @Builder.Default private String generatedTime = new Date().toString();
+    @Builder.Default
+    private String content = "";
 
-  @Builder.Default private Map<String, String> parameters = new LinkedHashMap<>();
+    @Builder.Default
+    private String generatedTime = new Date().toString();
 
-  @Builder.Default
-  private List<Map<String, String>> tableData = null;
+    @Builder.Default
+    private Map<String, String> parameters = new LinkedHashMap<>();
 
-  @Builder.Default private CardType cardType = CardType.SINGLE_DETAILS_INFO;
+    @Builder.Default
+    private CardType cardType = CardType.SINGLE_DETAILS_INFO;
+
+    @Builder.Default
+    private CellInputBean cellInputBean = new CellInputBean();
 }

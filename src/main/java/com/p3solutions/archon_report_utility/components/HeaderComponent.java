@@ -23,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 
+import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -36,6 +38,7 @@ public class HeaderComponent implements ReportComponent {
         for (int i = 1; i <= numberOfPages; i++) {
             applyHeaderToPage(document, i);
         }
+        addEmptyLines(91, document);
         document.flush();
     }
 

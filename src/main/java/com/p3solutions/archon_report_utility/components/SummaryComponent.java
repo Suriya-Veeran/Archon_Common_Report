@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import java.io.IOException;
 
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
+import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
 
 @Builder
 @Data
@@ -31,6 +32,7 @@ public class SummaryComponent implements ReportComponent {
                 .setPaddingLeft(-17)
 
         );
+        addEmptyLines(1, document);
         document.flush();
     }
 

@@ -10,12 +10,14 @@ import java.util.Map;
 public class CardBuilder {
 
     public static CardBean buildCard(String header, CardType cardType, Map<String,String> parameters,
-                                     String generatedTime) {
+                                     String generatedTime,
+                                     String value) {
         return CardBean.
                 builder()
                 .cardType(cardType)
                 .header(header)
                 .generatedTime(generatedTime)
+                .content(value)
                 .parameters(parameters)
                 .build();
     }

@@ -5,6 +5,7 @@ import com.p3solutions.archon_report_utility.enums.ComponentType;
 import com.p3solutions.archon_report_utility.factory.ReportComponentFactory;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
