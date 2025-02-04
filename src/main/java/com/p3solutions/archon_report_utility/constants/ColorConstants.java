@@ -31,4 +31,6 @@ public class ColorConstants {
     // hexa decimal
     public static final String GREY_COLOR = "B8B8B8";
     public static final String GREY_LINE_COLOR = "030303";
+
+    public static final String BLUE_BG_COLOR = "DFEAFF";
 }

@@ -65,6 +65,7 @@ public class CardComponent implements ReportComponent {
         cardTable.setBorderLeft(new SolidBorder(borderColor, 1));
         cardTable.setBorderRight(new SolidBorder(borderColor, 1));
         cardTable.setPadding(10);
+        cardTable.setMarginLeft(-18f);
 
         Paragraph cardHeader = new Paragraph(inputBean.getHeader())
                 .setFont(headerFont)
@@ -86,6 +87,7 @@ public class CardComponent implements ReportComponent {
             parameterTable.setBorderLeft(new SolidBorder(borderColor, 1));
             parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
             parameterTable.setPadding(10);
+            parameterTable.setMarginLeft(-18f);
             for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
                 String header = entry.getKey();
                 String value = entry.getValue();
@@ -152,7 +154,7 @@ public class CardComponent implements ReportComponent {
                 .setBorder(Border.NO_BORDER)
                 .setPadding(5)
                 .setTextAlignment(TextAlignment.RIGHT));
-
+        headerTable.setMarginLeft(-18f);
         document.add(headerTable);
 
         Table contentTable = new Table(1);
@@ -168,6 +170,7 @@ public class CardComponent implements ReportComponent {
                         .setFontColor(hexaDecimalToRGB("1a1a1a")))
                 .setBorder(Border.NO_BORDER)
                 .setPadding(10);
+        contentTable.setMarginLeft(-18f);
         contentTable.addCell(contentCell);
         document.add(contentTable);
 
