@@ -68,13 +68,13 @@ public class ReportGenerator {
             Report report = new ReportBuilder(outputPath).build();
             ReportComponent dividerComponent = ReportBuilder.addComponent(buildDividerInputBean(805L, 0.5f, GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
             ReportComponent tableComponent = ReportBuilder.addComponent(getTableBean(parameters));
-            ReportComponent dividerComponent1 = ReportBuilder.addComponent(buildDividerInputBean(780L, 1, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent dividerComponent1 = ReportBuilder.addComponent(buildDividerInputBean(760L, 1, GREY_COLOR, 1, DividerType.CONTENT));
             ReportComponent jobSummaryComponent = ReportBuilder.addComponent(buildSummaryBean("Job Summary", GREY_LINE_COLOR, 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent dividerComponent2 = ReportBuilder.addComponent(buildDividerInputBean(760L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent dividerComponent2 = ReportBuilder.addComponent(buildDividerInputBean(740L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
             ReportComponent jobTableComponent = ReportBuilder.addComponent(getTableBean(jobSummaryParameters));
-            ReportComponent dividerComponent3 = ReportBuilder.addComponent(buildDividerInputBean(680L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent dividerComponent3 = ReportBuilder.addComponent(buildDividerInputBean(670L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
             ReportComponent objectiveHeaderComponent = ReportBuilder.addComponent(buildSummaryBean("Objective", GREY_LINE_COLOR, 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
@@ -89,11 +89,11 @@ public class ReportGenerator {
             ReportComponent licenseVolumeMetrics = ReportBuilder.addComponent(buildSummaryBean("License Volume Metrics", GREY_LINE_COLOR, 10, FontType.HELVETICA_BOLD.getFontName(),
                     TextAlignment.LEFT,
                     VerticalAlignment.TOP));
-            ReportComponent dividerComponent4 = ReportBuilder.addComponent(buildDividerInputBean(605L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
+            ReportComponent dividerComponent4 = ReportBuilder.addComponent(buildDividerInputBean(625L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
             ReportComponent footerDivider = ReportBuilder.addComponent(buildDividerInputBean(30L, 1L, GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
             ReportComponent headerComponent = ReportBuilder.addComponent(new HeaderBean());
             ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
-            ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());
+//            ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());
             ReportComponent gridComponent = ReportBuilder.addComponent(buildGridTableComponent(gridParameters));
             ReportComponent auditComponent = ReportBuilder.addComponent(buildCard("ADS_DEMO_CHECK", CardType.MULTIPLE_DETAILS_INFO, auditParameters
                     , new Date().toString(),
@@ -116,7 +116,7 @@ public class ReportGenerator {
             report.addComponent(dividerComponent4);
             report.addComponent(auditComponent);
             report.addComponent(singleCardComponent);
-            report.addComponent(chartComponent);
+//            report.addComponent(chartComponent);
             report.addComponent(gridComponent);
             report.addComponent(headerComponent);
             report.addComponent(dividerComponent);

@@ -6,6 +6,7 @@ import com.p3solutions.archon_report_utility.factory.ReportComponentFactory;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,23 @@ public class Report {
             component.render(this.document);
         }
         components.clear();
+        removeTempFiles("src/main/resources/HtmlFiles");
+        removeTempFiles("src/main/resources/SnapFiles");
+    }
+
+    private void removeTempFiles(String path) {
+
+
+        if (path != null) {
+
+            File file = new File(path);
+            if (file.isDirectory()) {
+                for (File listFile : Objects.requireNonNull(file.listFiles())) {
+                    listFile.delete();
+                }
+            }
+        }
+
     }
 
     public void close() {
