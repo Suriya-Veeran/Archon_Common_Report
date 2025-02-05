@@ -52,12 +52,29 @@ public class CardComponent implements ReportComponent {
     private void renderMultipleDetailsCard(Document document) throws IOException {
         Color cardBackground = hexaDecimalToRGB("E8EDF7"); // Light grey background
         Color borderColor = hexaDecimalToRGB("DCDCDC"); // Light border color
-        Color headerColor = hexaDecimalToRGB("000000");
-        Color valueColor = hexaDecimalToRGB("2C2C2C");
         Color successColor = hexaDecimalToRGB("007D2B");
 
-        PdfFont headerFont = PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
-        PdfFont valueFont = PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
+
+        Color headerColor = hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "2C2C2C" : "000000");
+        Color valueColor = hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "000000" : "2C2C2C");
+
+
+        PdfFont headerFont =
+                inputBean.getCellInputBean().isValueHeader()
+                        ? PdfFontFactory.createFont(FontType.HELVETICA.getFontName())
+                        : PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
+
+        PdfFont valueFont =
+                inputBean.getCellInputBean().isValueHeader()
+                        ? PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName())
+                        : PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
+
+
+        Table parentTable = new Table(1);
+        parentTable.setWidth(UnitValue.createPercentValue(100)); // Takes full width
+        parentTable.setBorder(Border.NO_BORDER);
+        parentTable.setMarginLeft(-10f);  // Left margin adjustment
+//        parentTable.setMarginRight(10f); // Right margin adjustment
 
         Table cardTable = new Table(1);
         cardTable.setWidth(UnitValue.createPercentValue(100));
@@ -66,8 +83,6 @@ public class CardComponent implements ReportComponent {
         cardTable.setBorderLeft(new SolidBorder(borderColor, 1));
         cardTable.setBorderRight(new SolidBorder(borderColor, 1));
         cardTable.setPadding(10);
-        cardTable.setMarginLeft(-18f);
-        cardTable.setMarginRight(-18f);
 
         Paragraph cardHeader = new Paragraph(inputBean.getHeader())
                 .setFont(headerFont)
@@ -81,6 +96,8 @@ public class CardComponent implements ReportComponent {
         cardTable.addCell(headerCell);
         document.add(cardTable);
 
+        parentTable.addCell(new Cell().add(cardTable).setBorder(Border.NO_BORDER));
+
         if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
             Table parameterTable = new Table(3);
             parameterTable.setWidth(UnitValue.createPercentValue(100));
@@ -88,8 +105,6 @@ public class CardComponent implements ReportComponent {
             parameterTable.setBorderLeft(new SolidBorder(borderColor, 1));
             parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
             parameterTable.setPadding(10);
-            parameterTable.setMarginLeft(-18f);
-            parameterTable.setMarginRight(-18f);
             for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
                 String header = entry.getKey();
                 String value = entry.getValue();
@@ -103,6 +118,8 @@ public class CardComponent implements ReportComponent {
 
                 PdfFont valueFinalFont = isValueHeader ? valueFont : headerFont;
 
+                Color valueFinalColor = "Success".equalsIgnoreCase(value) ? successColor : valueColor;
+
                 Cell cell =
                         new Cell()
                                 .add(
@@ -113,7 +130,7 @@ public class CardComponent implements ReportComponent {
                                 .add(
                                         new Paragraph(new Text(value))
                                                 .setFont(valueFinalFont)
-                                                .setFontColor(valueColor)
+                                                .setFontColor(valueFinalColor)
                                                 .setFontSize(valueFontSize))
                                 .setBackgroundColor(inputBean.getCellInputBean().getBackgroundColor())
                                 .setBorder(inputBean.getCellInputBean().getBorder())
@@ -121,6 +138,7 @@ public class CardComponent implements ReportComponent {
                                 .setVerticalAlignment(inputBean.getCellInputBean().getVerticalAlignment());
                 parameterTable.addCell(cell);
             }
+            parentTable.addCell(new Cell().add(parameterTable).setBorder(Border.NO_BORDER));
             document.add(parameterTable);
         }
     }

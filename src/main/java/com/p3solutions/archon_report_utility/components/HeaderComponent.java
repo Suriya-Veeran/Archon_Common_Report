@@ -2,19 +2,16 @@ package com.p3solutions.archon_report_utility.components;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.properties.TextAlignment;
 import com.p3solutions.archon_report_utility.beans.HeaderBean;
+import com.p3solutions.archon_report_utility.event_handler.HeaderEventHandler;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +19,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
-
-import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Objects;
 
 @Builder
 @Data
@@ -34,12 +32,9 @@ public class HeaderComponent implements ReportComponent {
     private HeaderBean inputBean;
 
     public void render(Document document) throws IOException {
-        int numberOfPages = document.getPdfDocument().getNumberOfPages();
-        for (int i = 1; i <= numberOfPages; i++) {
-            applyHeaderToPage(document, i);
-        }
-        addEmptyLines(91, document);
-        document.flush();
+        PdfDocument pdfDocument = document.getPdfDocument();
+        pdfDocument.addEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler(inputBean,document));
+//        document.flush();
     }
 
     private void applyHeaderToPage(Document document, int pageIndex) throws IOException {

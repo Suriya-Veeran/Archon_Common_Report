@@ -25,7 +25,7 @@ public class HeaderBean implements ReportBean {
     private float rightMargin = 580; // Margin for the right side
 
     @Builder.Default
-    private float topMargin = 30; // Margin for the top
+    private float topMargin = 20; // Margin for the top
 
     @Builder.Default
     private float leftMargin = 20; // Margin for the left
