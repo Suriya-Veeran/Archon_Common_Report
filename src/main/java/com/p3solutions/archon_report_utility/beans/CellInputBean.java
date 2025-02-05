@@ -18,7 +18,7 @@ import lombok.*;
 public class CellInputBean {
 
   @Builder.Default private String content = "";
-  @Builder.Default private int fontSize = 8;
+  @Builder.Default private int fontSize = 10;
   @Builder.Default private Color backgroundColor = ColorConstants.WHITE;
   @Builder.Default private Border border = Border.NO_BORDER;
   @Builder.Default private String font = FontType.HELVETICA.getFontName();

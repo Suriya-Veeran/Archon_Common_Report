@@ -39,7 +39,7 @@ public class FooterBean implements ReportBean {
     @Builder.Default
     private String font = "Helvetica";  // Default font for footer text
     @Builder.Default
-    private Color fontColor = ColorConstants.BLACK;  // Default font color for footer text
+    private String fontColor = "3F3F3F";  // Default font color for footer text
     @Builder.Default
     private Border border = Border.NO_BORDER;  // Default border style for footer text
 
@@ -57,4 +57,10 @@ public class FooterBean implements ReportBean {
     private float pageAlignmentWidth = 30f;  // Default page alignment width
     @Builder.Default
     private float pageAlignmentHeight = 10f;
+
+    @Builder.Default
+    private Boolean isDividerNeeded = true;
+
+    @Builder.Default
+    private DividerBean dividerBean = new DividerBean();
 }

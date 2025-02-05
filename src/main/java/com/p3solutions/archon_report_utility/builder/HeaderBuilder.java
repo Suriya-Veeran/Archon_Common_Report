@@ -34,4 +34,5 @@ public class HeaderBuilder {
                 .textAlignment(textAlignment)
                 .build();
     }
+
 }

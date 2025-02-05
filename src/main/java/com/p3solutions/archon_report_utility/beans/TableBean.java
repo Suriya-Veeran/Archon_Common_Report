@@ -1,6 +1,7 @@
 package com.p3solutions.archon_report_utility.beans;
 
 import com.itextpdf.layout.borders.Border;
+import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.enums.TableTypeEnum;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,12 @@ public class TableBean implements ReportBean {
   @Builder.Default private Map<String, String> parameters = new LinkedHashMap<>();
   @Builder.Default private TableTypeEnum type = TableTypeEnum.NUMBER_OF_COLUMNS;
   @Builder.Default private CellInputBean cellInputBean = new CellInputBean();
+
+  @Builder.Default private DividerBean dividerBean = new DividerBean();
+
+  @Builder.Default
+  private Boolean isDividerNeeded = true;
+
+  @Builder.Default
+  private TableType tableType = TableType.HEADER;
 }

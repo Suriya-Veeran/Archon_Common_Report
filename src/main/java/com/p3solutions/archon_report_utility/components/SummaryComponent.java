@@ -1,20 +1,18 @@
 package com.p3solutions.archon_report_utility.components;
 
+import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
+
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.p3solutions.archon_report_utility.beans.SummaryBean;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
+import java.io.IOException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.IOException;
-
-import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
-import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
 
 @Builder
 @Data
@@ -32,7 +30,6 @@ public class SummaryComponent implements ReportComponent {
                 .setPaddingLeft(-17)
 
         );
-        addEmptyLines(1, document);
         document.flush();
     }
 

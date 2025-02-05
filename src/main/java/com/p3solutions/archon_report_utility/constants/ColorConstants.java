@@ -28,7 +28,6 @@ public class ColorConstants {
     public static final Color WHITE = new DeviceRgb(255, 255, 255);
 
 
-    // hexa decimal
     public static final String GREY_COLOR = "B8B8B8";
     public static final String GREY_LINE_COLOR = "030303";
 

@@ -1,10 +1,14 @@
 package com.p3solutions.archon_report_utility.components;
 
-import com.itextpdf.kernel.font.PdfFontFactory;
+import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
+import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
+
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Link;
@@ -12,14 +16,14 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
+import com.p3solutions.archon_report_utility.beans.DividerBean;
 import com.p3solutions.archon_report_utility.beans.FooterBean;
+import com.p3solutions.archon_report_utility.enums.DividerType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.IOException;
 
 @Builder
 @Data
@@ -33,10 +37,8 @@ public class FooterComponent implements ReportComponent {
             return;
         }
 
-        // Get the total number of pages to apply footer to
         int numberOfPages = document.getPdfDocument().getNumberOfPages();
 
-        // Loop through each page and apply footer
         for (int i = 1; i <= numberOfPages; i++) {
             applyFooterToPage(document, i, numberOfPages);
         }
@@ -45,8 +47,14 @@ public class FooterComponent implements ReportComponent {
     }
 
     private void applyFooterToPage(Document document, int pageIndex, int totalPages) {
+
+        DividerBean dividerBean = buildDividerInputBean(30L, 1L, "E2E2E2", 1, DividerType.PAGE_TO_PAGE);
+        inputBean.setDividerBean(dividerBean);
+
+        PdfPage page = document.getPdfDocument().getPage(pageIndex);
         Rectangle pageSize = document.getPdfDocument().getPage(pageIndex).getPageSize();
         float width = pageSize.getWidth();
+        float height = pageSize.getHeight();
 
         Rectangle rectangle =
                 new Rectangle(inputBean.getRectangleWidth(), inputBean.getRectangleHeight());
@@ -65,7 +73,7 @@ public class FooterComponent implements ReportComponent {
         Paragraph pageNumberParagraph =
                 new Paragraph(pageText)
                         .setFontSize(inputBean.getFontSize())
-                        .setFontColor(inputBean.getFontColor())
+                        .setFontColor(hexaDecimalToRGB(inputBean.getFontColor()))
                         .setTextAlignment(TextAlignment.LEFT)
                         .setVerticalAlignment(VerticalAlignment.BOTTOM);
         document.showTextAligned(
@@ -76,6 +84,17 @@ public class FooterComponent implements ReportComponent {
                 inputBean.getTextAlignment(),
                 inputBean.getVerticalAlignment(),
                 0);
+
+        if (Boolean.TRUE.equals(inputBean.getIsDividerNeeded())) {
+            PdfCanvas dividerCanvas = new PdfCanvas(page);
+            dividerCanvas.setStrokeColor(hexaDecimalToRGB(inputBean.getDividerBean().getHexDecimal()));
+            dividerCanvas.setLineWidth(inputBean.getDividerBean().getLineWidth());
+
+            float dividerYPosition = 30;
+            dividerCanvas.moveTo(0, dividerYPosition);
+            dividerCanvas.lineTo(pageSize.getWidth(), dividerYPosition);
+            dividerCanvas.closePathStroke();
+        }
 
     }
 
@@ -96,7 +115,7 @@ public class FooterComponent implements ReportComponent {
                 .setVerticalAlignment(footerInputBean.getVerticalAlignment())
                 .setFontSize(footerInputBean.getFontSize())
                 .setBorder(footerInputBean.getBorder())
-                .setFontColor(footerInputBean.getFontColor())
+                .setFontColor(hexaDecimalToRGB(footerInputBean.getFontColor()))
                 .add(footerInputBean.getCopyRightText())
                 .add(link)
                 .add(footerInputBean.getAllRightsReservedText());

@@ -32,11 +32,9 @@ public class DividerComponent implements ReportComponent {
         } else if (inputBean.getDividerType() == DividerType.PAGE_TO_PAGE) {
             canvas.moveTo(0, inputBean.getHeight());
             canvas.lineTo(pdfPage.getPageSize().getWidth(), inputBean.getHeight());
-            document.flush();
         }
         canvas.setLineWidth(inputBean.getLineWidth());
         canvas.closePathStroke();
         addEmptyLines(1, document);
-        document.flush();
     }
 }
