@@ -19,6 +19,15 @@ public enum ReportNameConstants {
   LICENSE_VOLUME_STATISTICS_REPORT(
       "License Volume Statistics Report", "License_Volume_Statistics.pdf"),
 
+  ROLLBACK_REPORT("Rollback Report", "Rollback_Report.pdf"),
+
+  CONSOLIDATED_INGESTION_VALIDATION_REPORT(
+      "Consolidation Ingestion Report", "Consolidated_Ingestion_Validation.pdf"),
+
+  AUDIT_REPORT("Audit Report", "Audit_Report.pdf"),
+
+  CHAIN_OF_CUSTODY_REPORT("Chain of Custom Order Report", "Chain_of_Custom_Order.pdf"),
+
   SOURCE_TO_VALIDATION_REPORT("Source To Validation Report", "Source_To_Validation_Report.pdf");
 
   private final String reportName;

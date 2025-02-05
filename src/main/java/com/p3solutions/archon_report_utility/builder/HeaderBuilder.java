@@ -10,7 +10,7 @@ public class HeaderBuilder {
         return new HeaderBean();
     }
 
-    public HeaderBean getHeaderBean(String title) {
+    public static HeaderBean getHeaderBean(String title) {
         return HeaderBean.builder().title(title).build();
     }
 

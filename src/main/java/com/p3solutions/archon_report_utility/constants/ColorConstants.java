@@ -28,8 +28,11 @@ public class ColorConstants {
     public static final Color WHITE = new DeviceRgb(255, 255, 255);
 
 
-    public static final String GREY_COLOR = "B8B8B8";
-    public static final String GREY_LINE_COLOR = "030303";
+    public static final String DIVIDER_GREY_COLOR = "B8B8B8";
+    public static final String HEADER_TABLE_DIVIDER_GREY_COLOR = "BCBCBC";
+    public static final String HEADER_FONT_COLOR = "030303";
+
+    public static final String OBJECTIVE_FONT_COLOR = "0D0D0D";
 
     public static final String BLUE_BG_COLOR = "DFEAFF";
 }

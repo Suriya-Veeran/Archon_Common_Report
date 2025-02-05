@@ -26,6 +26,7 @@ public abstract class AbstractReport {
     AbstractReport() throws IOException {
     }
 
+
     AbstractReport(String outputPath) throws IOException {
         initialize(outputPath);
     }
@@ -60,7 +61,7 @@ public abstract class AbstractReport {
         File outputFile = checkOutputPathExists(outputPath);
         File outputPdfFile =
                 createOutputFile(
-                        outputFile.getAbsolutePath() + File.separator + UUID.randomUUID().toString() + PDF,
+                        outputFile.getAbsolutePath() + File.separator + UUID.randomUUID() + PDF,
                         outputFile);
         document =
                 new Document(

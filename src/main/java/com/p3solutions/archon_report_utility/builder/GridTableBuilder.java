@@ -10,16 +10,16 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class GridTableBuilder {
 
-    public static GridTableBean buildGridTableComponent( Map<String, List<String>> gridParameters){
-        return GridTableBean.builder()
-                .numberOfColumns(5)
-                .pointColumnWidth(new float[]{450L, 450L, 450L, 450L, 450L})
-                .width(100)
-                .border(Border.NO_BORDER)
-                .keepTogether(true)
-                .parameterMap(gridParameters)
-                .type(TableTypeEnum.POINT_COLUMN_WIDTH)
-                .build();
-    }
-
+  public static GridTableBean buildGridTableComponent(
+      Map<String, List<String>> gridParameters, int size) {
+    return GridTableBean.builder()
+        .numberOfColumns(size)
+        .pointColumnWidth(new float[] {450L, 450L, 450L, 450L, 450L})
+        .width(100)
+        .border(Border.NO_BORDER)
+        .keepTogether(true)
+        .parameterMap(gridParameters)
+        .type(TableTypeEnum.NUMBER_OF_COLUMNS)
+        .build();
+  }
 }

@@ -18,22 +18,16 @@ import java.util.Map;
 @NoArgsConstructor
 public class GridTableBean implements ReportBean {
 
-    @Builder.Default
-    private float width = 100;
-    @Builder.Default
-    private boolean keepTogether = false;
-    @Builder.Default
-    private Border border = Border.NO_BORDER;
-    @Builder.Default
-    private int numberOfColumns = 1;
-    @Builder.Default
-    private float[] pointColumnWidth = new float[]{1L};
-    @Builder.Default
-    private TableTypeEnum type = TableTypeEnum.NUMBER_OF_COLUMNS;
-    @Builder.Default
-    private CellInputBean cellInputBean = new CellInputBean();
-    @Builder.Default
-    private Map<String, List<String>> parameterMap = new LinkedHashMap<>();
+  @Builder.Default private float width = 100;
+  @Builder.Default private boolean keepTogether = false;
+  @Builder.Default private Border border = Border.NO_BORDER;
+  @Builder.Default private int numberOfColumns = 1;
+  @Builder.Default private float[] pointColumnWidth = new float[] {1L};
+  @Builder.Default private TableTypeEnum type = TableTypeEnum.NUMBER_OF_COLUMNS;
+  @Builder.Default private CellInputBean cellInputBean = new CellInputBean();
+  @Builder.Default private Map<String, List<String>> parameterMap = new LinkedHashMap<>();
 
+  @Builder.Default private MarginBean marginBean = new MarginBean();
 
+  @Builder.Default private BorderBean borderBean = new BorderBean();
 }

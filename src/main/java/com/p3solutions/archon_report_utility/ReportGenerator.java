@@ -4,7 +4,7 @@ import static com.p3solutions.archon_report_utility.builder.ChartCreationConfigU
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
 import static com.p3solutions.archon_report_utility.builder.SummaryBeanBuilder.buildSummaryBean;
 import static com.p3solutions.archon_report_utility.builder.TableBuilder.getTableBean;
-import static com.p3solutions.archon_report_utility.constants.ColorConstants.GREY_COLOR;
+import static com.p3solutions.archon_report_utility.constants.ColorConstants.*;
 
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
@@ -40,64 +40,64 @@ public class ReportGenerator {
       jobSummaryParameters.put("End Time", new Date().toString());
       jobSummaryParameters.put("Total Time", new Date().toString());
 
-      Report report = new ReportBuilder(outputPath).build();
+      Report report = new ReportBuilder(outputPath, "Report.pdf").build();
       ReportComponent tableComponent =
-          ReportBuilder.addComponent(getTableBean(parameters, TableType.HEADER));
+              ReportBuilder.addComponent(getTableBean(parameters, TableType.HEADER));
       ReportComponent dividerComponent =
-          ReportBuilder.addComponent(
-              buildDividerInputBean(760L, 1L, "BCBCBC", 1, DividerType.PAGE_TO_PAGE));
+              ReportBuilder.addComponent(
+                      buildDividerInputBean(760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
       ReportComponent jobSummaryComponent =
-          ReportBuilder.addComponent(
-              buildSummaryBean(
-                  "Job Summary",
-                  "030303",
-                  13,
-                  FontType.HELVETICA_BOLD.getFontName(),
-                  TextAlignment.LEFT,
-                  VerticalAlignment.TOP));
+              ReportBuilder.addComponent(
+                      buildSummaryBean(
+                              "Job Summary",
+                              HEADER_FONT_COLOR,
+                              13,
+                              FontType.HELVETICA_BOLD.getFontName(),
+                              TextAlignment.LEFT,
+                              VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
-          ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+              ReportBuilder.addComponent(
+                      buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobTableComponent =
-          ReportBuilder.addComponent(getTableBean(jobSummaryParameters, TableType.SUMMARY));
+              ReportBuilder.addComponent(getTableBean(jobSummaryParameters, TableType.SUMMARY));
       ReportComponent objectiveHeaderComponent =
-          ReportBuilder.addComponent(
-              buildSummaryBean(
-                  "Objective",
-                  "030303",
-                  13,
-                  FontType.HELVETICA_BOLD.getFontName(),
-                  TextAlignment.LEFT,
-                  VerticalAlignment.TOP));
+              ReportBuilder.addComponent(
+                      buildSummaryBean(
+                              "Objective",
+                              HEADER_FONT_COLOR,
+                              13,
+                              FontType.HELVETICA_BOLD.getFontName(),
+                              TextAlignment.LEFT,
+                              VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
-          ReportBuilder.addComponent(
-              buildDividerInputBean(640L, 1L, "B8B8B8", 1, DividerType.CONTENT));
+              ReportBuilder.addComponent(
+                      buildDividerInputBean(640L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
-          "The License Volume Statistics Report provides detailed insights into the utilization of software licenses within an organization. "
-              + "It includes metrics on the total number of licenses available, the number of licenses currently in use, and any remaining or unused licenses. "
-              + "This report helps organizations manage compliance, optimize license allocation, and plan for future licensing needs, ensuring cost-effective use of software resources and adherence to licensing agreements.";
+              "The License Volume Statistics Report provides detailed insights into the utilization of software licenses within an organization. "
+                      + "It includes metrics on the total number of licenses available, the number of licenses currently in use, and any remaining or unused licenses. "
+                      + "This report helps organizations manage compliance, optimize license allocation, and plan for future licensing needs, ensuring cost-effective use of software resources and adherence to licensing agreements.";
       ReportComponent fileObjectiveValue =
-          ReportBuilder.addComponent(
-              buildSummaryBean(
-                  reportDescription,
-                  "0D0D0D",
-                  10,
-                  FontType.HELVETICA.getFontName(),
-                  TextAlignment.LEFT,
-                  VerticalAlignment.TOP));
+              ReportBuilder.addComponent(
+                      buildSummaryBean(
+                              reportDescription,
+                              OBJECTIVE_FONT_COLOR,
+                              10,
+                              FontType.HELVETICA.getFontName(),
+                              TextAlignment.LEFT,
+                              VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetrics =
-          ReportBuilder.addComponent(
-              buildSummaryBean(
-                  "License Volume Metrics",
-                  "030303",
-                  13,
-                  FontType.HELVETICA_BOLD.getFontName(),
-                  TextAlignment.LEFT,
-                  VerticalAlignment.TOP));
+              ReportBuilder.addComponent(
+                      buildSummaryBean(
+                              "License Volume Metrics",
+                              HEADER_FONT_COLOR,
+                              13,
+                              FontType.HELVETICA_BOLD.getFontName(),
+                              TextAlignment.LEFT,
+                              VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetricDivider =
-          ReportBuilder.addComponent(
-              buildDividerInputBean(538L, 1L, GREY_COLOR, 1, DividerType.CONTENT));
+              ReportBuilder.addComponent(
+                      buildDividerInputBean(538L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent headerComponent = ReportBuilder.addComponent(new HeaderBean());
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
       ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());

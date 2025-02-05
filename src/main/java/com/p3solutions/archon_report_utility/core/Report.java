@@ -14,50 +14,47 @@ import java.util.Objects;
 
 // Composite
 public class Report {
-    private final Document document;
-    private List<ReportComponent> components = new LinkedList<>();
+  private final Document document;
+  private List<ReportComponent> components = new LinkedList<>();
 
-    public Report(Document document) {
-        this.document = document;
+  public Report(Document document) {
+    this.document = document;
+  }
+
+  public void addComponent(ComponentType type, ReportBean bean) {
+    components.add(ReportComponentFactory.createComponent(type, bean));
+  }
+
+  public void addComponent(ReportComponent reportComponent) {
+    components.add(reportComponent);
+  }
+
+  public void render() throws IOException {
+    for (ReportComponent component : components) {
+      component.render(this.document);
     }
+    components.clear();
+    removeTempFiles("src/main/resources/HtmlFiles");
+    removeTempFiles("src/main/resources/SnapFiles");
+  }
 
+  private void removeTempFiles(String path) {
 
-    public void addComponent(ComponentType type, ReportBean bean) {
-        components.add(ReportComponentFactory.createComponent(type, bean));
-    }
+    if (path != null) {
 
-    public void addComponent(ReportComponent reportComponent) {
-        components.add(reportComponent);
-    }
-
-    public void render() throws IOException {
-        for (ReportComponent component : components) {
-            component.render(this.document);
+      File file = new File(path);
+      if (file.isDirectory()) {
+        for (File listFile : Objects.requireNonNull(file.listFiles())) {
+          listFile.delete();
         }
-        components.clear();
-        removeTempFiles("src/main/resources/HtmlFiles");
-        removeTempFiles("src/main/resources/SnapFiles");
+      }
     }
+  }
 
-    private void removeTempFiles(String path) {
-
-
-        if (path != null) {
-
-            File file = new File(path);
-            if (file.isDirectory()) {
-                for (File listFile : Objects.requireNonNull(file.listFiles())) {
-                    listFile.delete();
-                }
-            }
-        }
-
+  public void close() {
+    if (Objects.nonNull(this.document)) {
+      this.document.flush();
+      this.document.close();
     }
-
-    public void close() {
-        if (Objects.nonNull(this.document)) {
-            this.document.flush();
-            this.document.close();
-        }
-    }
+  }
 }
