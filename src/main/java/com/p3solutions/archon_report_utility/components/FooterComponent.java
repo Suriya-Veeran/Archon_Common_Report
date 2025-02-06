@@ -54,7 +54,6 @@ public class FooterComponent implements ReportComponent {
         PdfPage page = document.getPdfDocument().getPage(pageIndex);
         Rectangle pageSize = document.getPdfDocument().getPage(pageIndex).getPageSize();
         float width = pageSize.getWidth();
-        float height = pageSize.getHeight();
 
         Rectangle rectangle =
                 new Rectangle(inputBean.getRectangleWidth(), inputBean.getRectangleHeight());

@@ -3,6 +3,7 @@ package com.p3solutions.archon_report_utility.components;
 import static com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
+import static com.p3solutions.archon_report_utility.utils.CommonUtils.configTable;
 
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.font.PdfFont;
@@ -48,17 +49,7 @@ public class TableComponent implements ReportComponent {
 
     if (Boolean.TRUE.equals(inputBean.getTableType().equals(TableType.JOB_STATUS))
         && Boolean.TRUE.equals(inputBean.getIsJobStatusTableNeeded())) {
-      Table jobStatusTable = null;
-      switch (inputBean.getType()) {
-        case POINT_COLUMN_WIDTH:
-          jobStatusTable = new Table(UnitValue.createPercentArray(inputBean.getPointColumnWidth()));
-          break;
-        case NUMBER_OF_COLUMNS:
-          jobStatusTable = new Table(inputBean.getNumberOfColumns());
-          break;
-        default:
-          throw new IllegalArgumentException("Unsupported type: " + inputBean.getType());
-      }
+      Table jobStatusTable = configTable(inputBean);
       setJobStatusCellValue(inputBean, jobStatusTable);
       jobStatusTable.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       jobStatusTable.setKeepTogether(inputBean.isKeepTogether());
@@ -69,17 +60,7 @@ public class TableComponent implements ReportComponent {
     }
 
     if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
-      Table table = null;
-      switch (inputBean.getType()) {
-        case POINT_COLUMN_WIDTH:
-          table = new Table(UnitValue.createPercentArray(inputBean.getPointColumnWidth()));
-          break;
-        case NUMBER_OF_COLUMNS:
-          table = new Table(inputBean.getNumberOfColumns());
-          break;
-        default:
-          throw new IllegalArgumentException("Unsupported type: " + inputBean.getType());
-      }
+      Table table = configTable(inputBean);
       setCellValues(inputBean, table);
       table.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       table.setKeepTogether(inputBean.isKeepTogether());
