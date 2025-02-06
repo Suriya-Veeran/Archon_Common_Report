@@ -16,18 +16,27 @@ public class SummaryBean implements ReportBean {
 
   @Builder.Default private String summaryText = "Header";
 
-  @Builder.Default
-  private String hexaDecimal = "030303";
+  @Builder.Default private String hexaDecimal = "030303";
 
-  @Builder.Default
-  private int fontSize = 10;
+  @Builder.Default private int fontSize = 10;
 
-  @Builder.Default
-  private String fontFamily = "Helvetica-Bold";
+  @Builder.Default private String fontFamily = "Helvetica-Bold";
 
-  @Builder.Default
-  private TextAlignment textAlignment = TextAlignment.LEFT;
+  @Builder.Default private TextAlignment textAlignment = TextAlignment.LEFT;
 
-  @Builder.Default
-  private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
+  @Builder.Default private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
+
+  @Builder.Default private float paddingLeft = 10;
+
+  @Builder.Default private float paddingRight = 10;
+
+  @Builder.Default private float paddingTop = 10;
+
+  @Builder.Default private float paddingBottom = 10;
+
+  @Builder.Default private float padding = 10;
+
+  @Builder.Default private String backgroundColor = "#f0f0f0";
+
+  @Builder.Default private float backgroundOpacity = 1.0f;
 }
