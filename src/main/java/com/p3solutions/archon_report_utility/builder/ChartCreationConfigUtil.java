@@ -19,8 +19,8 @@ public class ChartCreationConfigUtil {
 
         ChartCreationConfig chartCreationConfig = ChartCreationConfig.
                 builder()
-                .fitHeight(300)
-                .fitWeight(300).build();
+                .fitHeight(400)
+                .fitWeight(400).build();
 
         switch (reportNameConstants){
             case INGESTION_REPORT :

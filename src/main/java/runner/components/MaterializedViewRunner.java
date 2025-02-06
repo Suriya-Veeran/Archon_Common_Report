@@ -19,9 +19,8 @@ import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import runner.enums.ReportNameConstants;
 import runner.services.CommonRunner;
@@ -52,7 +51,10 @@ public class MaterializedViewRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+
+      ReportComponent jobStatusComponent =
+          ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
 
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
@@ -68,7 +70,7 @@ public class MaterializedViewRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(610L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(555L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The materialised view after being created once, needs to be refreshed at intervals "
               + "to get real-time data. Find the details of this job run below. "
@@ -93,7 +95,7 @@ public class MaterializedViewRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent additionalDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(538L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(478L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent additionalTableComponent =
           ReportBuilder.addComponent(getTableBean(additionalTableParameters(), TableType.SUMMARY));
       ReportComponent headerComponent =
@@ -105,6 +107,7 @@ public class MaterializedViewRunner implements CommonRunner {
       report.addComponent(dividerComponent);
       report.addComponent(jobSummaryComponent);
       report.addComponent(summaryDividerComponent);
+      report.addComponent(jobStatusComponent);
       report.addComponent(jobTableComponent);
       report.addComponent(objectiveHeaderComponent);
       report.addComponent(dividerAfterObjective);

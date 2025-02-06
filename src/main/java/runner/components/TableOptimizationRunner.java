@@ -21,6 +21,8 @@ import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedHashMap;
+
 import lombok.extern.slf4j.Slf4j;
 import runner.enums.ReportNameConstants;
 import runner.services.CommonRunner;
@@ -50,7 +52,11 @@ public class TableOptimizationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+
+      ReportComponent jobStatusComponent =
+              ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
+
 
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
@@ -66,7 +72,7 @@ public class TableOptimizationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(578L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(540L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
               "This report shows the storage optimisation achieved after the process run. "
                       + "Table data optimisation jobs identify scope of optimising the way this data is stored "
@@ -92,7 +98,7 @@ public class TableOptimizationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent optimizationStatisticsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(495L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(450L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent optimizationGridComponent =
           ReportBuilder.addComponent(buildGridTableComponent(buildGridValue(reportNameConstants), buildGridValue(reportNameConstants).size()));
       ReportComponent headerComponent =
@@ -104,6 +110,7 @@ public class TableOptimizationRunner implements CommonRunner {
       report.addComponent(dividerComponent);
       report.addComponent(jobSummaryComponent);
       report.addComponent(summaryDividerComponent);
+      report.addComponent(jobStatusComponent);
       report.addComponent(jobTableComponent);
       report.addComponent(objectiveHeaderComponent);
       report.addComponent(dividerAfterObjective);

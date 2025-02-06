@@ -15,6 +15,7 @@ import runner.services.CommonRunner;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import static com.p3solutions.archon_report_utility.builder.ChartCreationConfigUtil.buildChartCreationConfig;
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
@@ -28,96 +29,101 @@ import static runner.builder.TableValueBuilder.headerTableParameters;
 
 @Slf4j
 public class SourceToValidationRunner implements CommonRunner {
-    @Override
-    public void generateReport(String location, ReportNameConstants reportNameConstants) {
-        try {
+  @Override
+  public void generateReport(String location, ReportNameConstants reportNameConstants) {
+    try {
 
-            Report report = new ReportBuilder(location, reportNameConstants.getFileName()).build();
-            ReportComponent tableComponent =
-                    ReportBuilder.addComponent(getTableBean(headerTableParameters(), TableType.HEADER));
-            ReportComponent dividerComponent =
-                    ReportBuilder.addComponent(
-                            buildDividerInputBean(
-                                    760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
-            ReportComponent jobSummaryComponent =
-                    ReportBuilder.addComponent(
-                            buildSummaryBean(
-                                    "Job Summary",
-                                    HEADER_FONT_COLOR,
-                                    13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
-                                    TextAlignment.LEFT,
-                                    VerticalAlignment.TOP));
-            ReportComponent summaryDividerComponent =
-                    ReportBuilder.addComponent(
-                            buildDividerInputBean(740, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+      Report report = new ReportBuilder(location, reportNameConstants.getFileName()).build();
+      ReportComponent tableComponent =
+          ReportBuilder.addComponent(getTableBean(headerTableParameters(), TableType.HEADER));
+      ReportComponent dividerComponent =
+          ReportBuilder.addComponent(
+              buildDividerInputBean(
+                  760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
+      ReportComponent jobSummaryComponent =
+          ReportBuilder.addComponent(
+              buildSummaryBean(
+                  "Job Summary",
+                  HEADER_FONT_COLOR,
+                  13,
+                  FontType.HELVETICA_BOLD.getFontName(),
+                  TextAlignment.LEFT,
+                  VerticalAlignment.TOP));
+      ReportComponent summaryDividerComponent =
+          ReportBuilder.addComponent(
+              buildDividerInputBean(735, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
-            ReportComponent jobTableComponent =
-                    ReportBuilder.addComponent(
-                            getTableBean(buildContentForJobSummary(reportNameConstants), TableType.SUMMARY));
-            ReportComponent objectiveHeaderComponent =
-                    ReportBuilder.addComponent(
-                            buildSummaryBean(
-                                    "Objective",
-                                    HEADER_FONT_COLOR,
-                                    13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
-                                    TextAlignment.LEFT,
-                                    VerticalAlignment.TOP));
-            ReportComponent dividerAfterObjective =
-                    ReportBuilder.addComponent(
-                            buildDividerInputBean(525L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
-            String reportDescription =
-                    "The Source to Target Validation Report ensures data integrity and accuracy during data migration or ETL (Extract, Transform"
-                            + "Load) processes. It includes checks to confirm that data from the source matches the data loaded into the target system"
-                            + "verifying record counts, data types, and key business rules. This report helps identify discrepancies early, ensuring reliable"
-                            + "and consistent data transfer, which is critical for maintaining data quality in the target system.";
-            ReportComponent fileObjectiveValue =
-                    ReportBuilder.addComponent(
-                            buildSummaryBean(
-                                    reportDescription,
-                                    OBJECTIVE_FONT_COLOR,
-                                    10,
-                                    FontType.HELVETICA.getFontName(),
-                                    TextAlignment.LEFT,
-                                    VerticalAlignment.TOP));
-            ReportComponent licenseVolumeMetrics =
-                    ReportBuilder.addComponent(
-                            buildSummaryBean(
-                                    "Session Metrics",
-                                    HEADER_FONT_COLOR,
-                                    13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
-                                    TextAlignment.LEFT,
-                                    VerticalAlignment.TOP));
-            ReportComponent licenseVolumeMetricDivider =
-                    ReportBuilder.addComponent(
-                            buildDividerInputBean(420L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
-            ReportComponent headerComponent =
-                    ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
-            ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
-            ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig(reportNameConstants));
+      ReportComponent jobStatusComponent =
+          ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>(), TableType.JOB_STATUS));
 
-            report.addComponent(headerComponent);
-            report.addComponent(tableComponent);
-            report.addComponent(dividerComponent);
-            report.addComponent(jobSummaryComponent);
-            report.addComponent(summaryDividerComponent);
-            report.addComponent(jobTableComponent);
-            report.addComponent(objectiveHeaderComponent);
-            report.addComponent(dividerAfterObjective);
-            report.addComponent(fileObjectiveValue);
-            report.addComponent(licenseVolumeMetrics);
-            report.addComponent(licenseVolumeMetricDivider);
-            report.addComponent(chartComponent);
-            report.addComponent(footerComponent);
-            report.render();
-            report.close();
+      ReportComponent jobTableComponent =
+          ReportBuilder.addComponent(
+              getTableBean(buildContentForJobSummary(reportNameConstants), TableType.SUMMARY));
+      ReportComponent objectiveHeaderComponent =
+          ReportBuilder.addComponent(
+              buildSummaryBean(
+                  "Objective",
+                  HEADER_FONT_COLOR,
+                  13,
+                  FontType.HELVETICA_BOLD.getFontName(),
+                  TextAlignment.LEFT,
+                  VerticalAlignment.TOP));
+      ReportComponent dividerAfterObjective =
+          ReportBuilder.addComponent(
+              buildDividerInputBean(475L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+      String reportDescription =
+          "The Source to Target Validation Report ensures data integrity and accuracy during data migration or ETL (Extract, Transform"
+              + "Load) processes. It includes checks to confirm that data from the source matches the data loaded into the target system"
+              + "verifying record counts, data types, and key business rules. This report helps identify discrepancies early, ensuring reliable"
+              + "and consistent data transfer, which is critical for maintaining data quality in the target system.";
+      ReportComponent fileObjectiveValue =
+          ReportBuilder.addComponent(
+              buildSummaryBean(
+                  reportDescription,
+                  OBJECTIVE_FONT_COLOR,
+                  10,
+                  FontType.HELVETICA.getFontName(),
+                  TextAlignment.LEFT,
+                  VerticalAlignment.TOP));
+      ReportComponent licenseVolumeMetrics =
+          ReportBuilder.addComponent(
+              buildSummaryBean(
+                  "Session Metrics",
+                  HEADER_FONT_COLOR,
+                  13,
+                  FontType.HELVETICA_BOLD.getFontName(),
+                  TextAlignment.LEFT,
+                  VerticalAlignment.TOP));
+      ReportComponent licenseVolumeMetricDivider =
+          ReportBuilder.addComponent(
+              buildDividerInputBean(370L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+      ReportComponent headerComponent =
+          ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
+      ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
+      ReportComponent chartComponent =
+          ReportBuilder.addComponent(buildChartCreationConfig(reportNameConstants));
 
-        } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e);
-        }
+      report.addComponent(headerComponent);
+      report.addComponent(tableComponent);
+      report.addComponent(dividerComponent);
+      report.addComponent(jobSummaryComponent);
+      report.addComponent(summaryDividerComponent);
+      report.addComponent(jobStatusComponent);
+      report.addComponent(jobTableComponent);
+      report.addComponent(objectiveHeaderComponent);
+      report.addComponent(dividerAfterObjective);
+      report.addComponent(fileObjectiveValue);
+      report.addComponent(licenseVolumeMetrics);
+      report.addComponent(licenseVolumeMetricDivider);
+      report.addComponent(chartComponent);
+      report.addComponent(footerComponent);
+      report.render();
+      report.close();
+
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException(e.getMessage());
+    } catch (IOException e) {
+      throw new IllegalArgumentException(e);
     }
+  }
 }

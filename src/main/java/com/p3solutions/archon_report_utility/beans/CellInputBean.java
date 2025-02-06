@@ -33,7 +33,5 @@ public class CellInputBean {
   @Builder.Default private int columnSpan = 0;
   @Builder.Default private int cellHeight = 30;
 
-  @Builder.Default private boolean isJobSummaryHeader = false;
   @Builder.Default private boolean valueHeader = true;
-  @Builder.Default private String jobStatus = "Success";
 }

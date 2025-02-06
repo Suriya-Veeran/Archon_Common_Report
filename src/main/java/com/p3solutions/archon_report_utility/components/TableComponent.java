@@ -1,5 +1,6 @@
 package com.p3solutions.archon_report_utility.components;
 
+import static com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
 
@@ -12,6 +13,7 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.beans.CellInputBean;
 import com.p3solutions.archon_report_utility.beans.TableBean;
@@ -34,9 +36,35 @@ import lombok.extern.slf4j.Slf4j;
 public class TableComponent implements ReportComponent {
   private TableBean inputBean;
 
+  public static final String LIGHT_GREEN_HEXA_DECIMAL = "007D2B";
+
+  public static final String RED_HEXA_DECIMAL = "D60000";
+
   public void render(Document document) throws IOException {
 
     if (inputBean.getTableType().equals(TableType.HEADER)) {
+      addEmptyLines(1, document);
+    }
+
+    if (Boolean.TRUE.equals(inputBean.getTableType().equals(TableType.JOB_STATUS))
+        && Boolean.TRUE.equals(inputBean.getIsJobStatusTableNeeded())) {
+      Table jobStatusTable = null;
+      switch (inputBean.getType()) {
+        case POINT_COLUMN_WIDTH:
+          jobStatusTable = new Table(UnitValue.createPercentArray(inputBean.getPointColumnWidth()));
+          break;
+        case NUMBER_OF_COLUMNS:
+          jobStatusTable = new Table(inputBean.getNumberOfColumns());
+          break;
+        default:
+          throw new IllegalArgumentException("Unsupported type: " + inputBean.getType());
+      }
+      setJobStatusCellValue(inputBean, jobStatusTable);
+      jobStatusTable.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
+      jobStatusTable.setKeepTogether(inputBean.isKeepTogether());
+      jobStatusTable.setMarginLeft(-18);
+      jobStatusTable.setMarginRight(-18);
+      document.add(jobStatusTable);
       addEmptyLines(1, document);
     }
 
@@ -63,6 +91,44 @@ public class TableComponent implements ReportComponent {
         addEmptyLines(1, document);
       }
     }
+  }
+
+  private void setJobStatusCellValue(TableBean inputBean, Table jobStatusTable) throws IOException {
+
+    Cell jobStatusCell = new Cell(1, 3);
+
+    Color fontColor =
+        inputBean.getJobStatus().getStatus().equalsIgnoreCase("Success")
+            ? hexaDecimalToRGB(LIGHT_GREEN_HEXA_DECIMAL)
+            : hexaDecimalToRGB(RED_HEXA_DECIMAL);
+
+    jobStatusCell.add(
+        new Paragraph(new Text("Job Status: " + inputBean.getJobStatus().getStatus()))
+            .setFont(PdfFontFactory.createFont(HELVETICA_BOLD))
+            .setFontSize(7)
+            .setFontColor(hexaDecimalToRGB("FFFFFF"))
+            .setTextAlignment(TextAlignment.LEFT)
+            .setMarginLeft(4f));
+    jobStatusCell.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
+    jobStatusCell.setBackgroundColor(fontColor);
+    jobStatusCell.setBorder(Border.NO_BORDER);
+    jobStatusTable.addCell(jobStatusCell);
+
+    if(!inputBean.getJobStatus().getStatus().equalsIgnoreCase("Success")) {
+      Cell errorCell = new Cell(1, 3);
+      errorCell.add(new Paragraph(new Text("Error Message: " + inputBean.getErrorMessage()))
+              .setFont(PdfFontFactory.createFont(HELVETICA_BOLD))
+              .setFontSize(7)
+              .setFontColor(fontColor)
+              .setTextAlignment(TextAlignment.LEFT)
+              .setMarginLeft(4f));
+      errorCell.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
+      errorCell.setBackgroundColor(hexaDecimalToRGB("FFEAEA"));
+      errorCell.setBorder(Border.NO_BORDER);
+      jobStatusTable.addCell(errorCell);
+    }
+
+    jobStatusTable.setFixedLayout();
   }
 
   private void setCellValues(TableBean inputBean, Table table) throws IOException {
@@ -120,7 +186,6 @@ public class TableComponent implements ReportComponent {
               .setBackgroundColor(backgroundColor)
               .setBorder(cellInputBean.getBorder())
               .setTextAlignment(cellInputBean.getTextAlignment())
-              .setPadding(0)
               .setVerticalAlignment(cellInputBean.getVerticalAlignment());
 
       table.addCell(cell);

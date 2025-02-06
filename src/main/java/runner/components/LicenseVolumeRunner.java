@@ -52,7 +52,10 @@ public class LicenseVolumeRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+
+      ReportComponent jobStatusComponent =
+              ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>(), TableType.JOB_STATUS));
 
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
@@ -68,7 +71,7 @@ public class LicenseVolumeRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(640L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(600L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The License Volume Statistics Report provides detailed insights into the utilization of software licenses within an organization. "
               + "It includes metrics on the total number of licenses available, the number of licenses currently in use, and any remaining or unused licenses. "
@@ -93,7 +96,7 @@ public class LicenseVolumeRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetricDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(538L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(500L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent headerComponent =
           ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
@@ -104,6 +107,7 @@ public class LicenseVolumeRunner implements CommonRunner {
       report.addComponent(dividerComponent);
       report.addComponent(jobSummaryComponent);
       report.addComponent(summaryDividerComponent);
+      report.addComponent(jobStatusComponent);
       report.addComponent(jobTableComponent);
       report.addComponent(objectiveHeaderComponent);
       report.addComponent(dividerAfterObjective);

@@ -9,7 +9,7 @@ import java.util.*;
 public class TableValueBuilder {
   public static Map<String, String> buildContentForJobSummary(ReportNameConstants type) {
     Date scheduledTime = new Date();
-    Map<String, String> contentMap = new HashMap<>();
+    Map<String, String> contentMap = new LinkedHashMap<>();
     Date startTime = new Date();
 
     switch (Objects.requireNonNull(type)) {

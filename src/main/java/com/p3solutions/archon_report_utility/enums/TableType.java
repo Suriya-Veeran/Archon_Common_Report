@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum TableType {
     HEADER("Header"),
+    JOB_STATUS("Job Status"),
     SUMMARY("Summary");
 
     private String value;

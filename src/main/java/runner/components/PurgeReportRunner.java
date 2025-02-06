@@ -50,7 +50,7 @@ public class PurgeReportRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
               getTableBean(buildContentForJobSummary(reportNameConstants), TableType.SUMMARY));
@@ -65,7 +65,7 @@ public class PurgeReportRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(635L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(628L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The purge report use case involves identifying and removing outdated or irrelevant data from the system to maintain database "
               + "efficiency and integrity. It includes setting criteria for data to be purged, executing the purge process, and verifying successful "
@@ -90,7 +90,7 @@ public class PurgeReportRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent approvalDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(550L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(540L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent approvalDetailsTableComponent =
           ReportBuilder.addComponent(
               getTableBean(approvalDetailTableParameters(), TableType.SUMMARY));
@@ -105,7 +105,7 @@ public class PurgeReportRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent recordGroupDetailDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(450L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(430L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent recordGroupTableGridComponent =
           ReportBuilder.addComponent(
               buildGridTableComponent(

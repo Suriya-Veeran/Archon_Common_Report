@@ -23,6 +23,8 @@ import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashMap;
+
 import lombok.extern.slf4j.Slf4j;
 import runner.enums.ReportNameConstants;
 import runner.services.CommonRunner;
@@ -51,7 +53,11 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+
+      ReportComponent jobStatusComponent =
+              ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
+
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
               getTableBean(buildContentForJobSummary(reportNameConstants), TableType.SUMMARY));
@@ -66,7 +72,7 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(535L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(490L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
               "The Consolidated Ingestion Validation Report ensures the accuracy and completeness of data ingested into the system from "
                       + "various sources. It includes validation checks for data integrity, consistency, and alignment with predefined standards. This "
@@ -91,7 +97,7 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(435L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(385L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent tableLevelMultiCardComponent = ReportBuilder.addComponent( buildCard(
               "ADS_DEMO_CHECK",
@@ -109,6 +115,7 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
       report.addComponent(dividerComponent);
       report.addComponent(jobSummaryComponent);
       report.addComponent(summaryDividerComponent);
+      report.addComponent(jobStatusComponent);
       report.addComponent(jobTableComponent);
       report.addComponent(objectiveHeaderComponent);
       report.addComponent(dividerAfterObjective);

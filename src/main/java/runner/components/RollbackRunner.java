@@ -15,6 +15,7 @@ import runner.services.CommonRunner;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
 import static com.p3solutions.archon_report_utility.builder.GridTableBuilder.buildGridTableComponent;
@@ -51,7 +52,11 @@ public class RollbackRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(740L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+
+      ReportComponent jobStatusComponent =
+              ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
+
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
               getTableBean(buildContentForJobSummary(reportNameConstants), TableType.SUMMARY));
@@ -66,7 +71,7 @@ public class RollbackRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(578L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(540L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The rollback report use case focuses on documenting instances where system changes were reversed to a previous state. "
               + "It includes capturing details of the rollback event, such as the reason for the rollback, the changes that were undone, and the "
@@ -91,7 +96,7 @@ public class RollbackRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(480L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(435L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent tableLevelGridComponent =
           ReportBuilder.addComponent(
               buildGridTableComponent(
@@ -105,6 +110,7 @@ public class RollbackRunner implements CommonRunner {
       report.addComponent(dividerComponent);
       report.addComponent(jobSummaryComponent);
       report.addComponent(summaryDividerComponent);
+      report.addComponent(jobStatusComponent);
       report.addComponent(jobTableComponent);
       report.addComponent(objectiveHeaderComponent);
       report.addComponent(dividerAfterObjective);

@@ -9,7 +9,8 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class TableBuilder {
-    public static TableBean getTableBean(Map<String, String> parameters, TableType tableType) {
+    public static TableBean getTableBean(Map<String, String> parameters,
+                                         TableType tableType) {
 
         return TableBean.builder()
                 .numberOfColumns(3)

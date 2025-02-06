@@ -26,9 +26,10 @@ public enum ReportNameConstants {
 
   AUDIT_REPORT("Audit Report", "Audit_Report.pdf"),
 
-  CHAIN_OF_CUSTODY_REPORT("Chain of Custom Order Report", "Chain_of_Custom_Order.pdf"),
+  CHAIN_OF_CUSTODY_REPORT("Chain of Custody Report", "Chain_of_Custody.pdf"),
 
-  SOURCE_TO_TARGET_VALIDATION_REPORT("Source To Target Validation Report", "Source_To_Target_Validation_Report.pdf");
+  SOURCE_TO_TARGET_VALIDATION_REPORT(
+      "Source To Target Validation Report", "Source_To_Target_Validation_Report.pdf");
 
   private final String reportName;
   private final String fileName;
