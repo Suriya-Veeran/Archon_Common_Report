@@ -23,6 +23,12 @@ public class ReportGeneratorFactory {
         return new AuditReportRunner();
       case CONSOLIDATED_INGESTION_VALIDATION_REPORT:
         return new ConsolidatedIngestionValidationRunner();
+      case SOURCE_TO_TARGET_VALIDATION_REPORT:
+        return new SourceToValidationRunner();
+      case INGESTION_REPORT:
+        return new IngestionRunner();
+      case CHAIN_OF_CUSTODY_REPORT:
+        return new ChainOfCustodyRunner();
       default:
         throw new IllegalArgumentException("Unsupported report type " + reportNameConstants);
     }

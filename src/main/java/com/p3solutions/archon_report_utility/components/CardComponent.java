@@ -65,35 +65,6 @@ public class CardComponent implements ReportComponent {
             ? PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName())
             : PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
 
-    Table parentTable = new Table(1);
-    parentTable.setWidth(UnitValue.createPercentValue(100));
-    parentTable.setBorder(Border.NO_BORDER);
-    parentTable.setMarginLeft(-18f);
-    parentTable.setMarginRight(-18f);
-    parentTable.setKeepTogether(true);
-
-
-    Table cardTable = new Table(1);
-    cardTable.setWidth(UnitValue.createPercentValue(100));
-    cardTable.setBackgroundColor(cardBackground);
-    cardTable.setBorderTop(new SolidBorder(borderColor, 1));
-    cardTable.setBorderLeft(new SolidBorder(borderColor, 1));
-    cardTable.setBorderRight(new SolidBorder(borderColor, 1));
-    cardTable.setBorderBottom(new SolidBorder(borderColor, 1));
-    cardTable.setKeepTogether(true);
-
-    Paragraph cardHeader =
-        new Paragraph(inputBean.getHeader())
-            .setFont(headerFont)
-            .setFontSize(10)
-            .setTextAlignment(TextAlignment.LEFT);
-
-    Cell headerCell = new Cell().add(cardHeader)
-            .setBorder(Border.NO_BORDER);
-    cardTable.addCell(headerCell);
-
-    parentTable.addCell(new Cell().add(cardTable).setBorder(Border.NO_BORDER));
-
     if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
       Table parameterTable = new Table(3);
       parameterTable.setWidth(UnitValue.createPercentValue(100));
@@ -101,17 +72,20 @@ public class CardComponent implements ReportComponent {
       parameterTable.setBorderBottom(new SolidBorder(borderColor, 1));
       parameterTable.setBorderLeft(new SolidBorder(borderColor, 1));
       parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
+      parameterTable.setMarginLeft(-18f);
+      parameterTable.setMarginRight(-18f);
       parameterTable.setKeepTogether(true);
-      Paragraph sample1 =
+      Paragraph paragraph =
               new Paragraph(inputBean.getHeader())
                       .setFont(headerFont)
                       .setFontSize(10)
                       .setTextAlignment(TextAlignment.LEFT);
 
-      Cell sample12 = new Cell(1,3).add(sample1)
+      Cell paragraphCell = new Cell(1,3).add(paragraph)
+              .setBackgroundColor(cardBackground)
               .setBorder(new SolidBorder(borderColor, 1));
-      sample12.setKeepTogether(true);
-      parameterTable.addCell(sample12);
+      paragraphCell.setKeepTogether(true);
+      parameterTable.addCell(paragraphCell);
       for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
         String header = entry.getKey();
         String value = entry.getValue();
@@ -151,8 +125,7 @@ public class CardComponent implements ReportComponent {
         parameterTable.addCell(cell);
         parameterTable.setBorder(new SolidBorder(borderColor, 1));
       }
-      parentTable.addCell(new Cell().add(parameterTable).setBorder(Border.NO_BORDER));
-      document.add(parentTable);
+      document.add(parameterTable);
     }
   }
 

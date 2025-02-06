@@ -35,7 +35,7 @@ public class TableValueBuilder {
         contentMap.put("End Time", new Date().toString());
         contentMap.put("Total Time", totalTimeCalculation(startTime, new Date()));
         break;
-      case SOURCE_TO_VALIDATION_REPORT:
+      case SOURCE_TO_TARGET_VALIDATION_REPORT:
         contentMap.put("Ingestion Session Id", "1234567890123");
         addCommonContent(contentMap, startTime, scheduledTime);
         addCommonContentForIngestionAndSourceValidation(contentMap);
@@ -72,6 +72,15 @@ public class TableValueBuilder {
         contentMap.put("Number of schemas involved", "1");
         contentMap.put("Number of tables involved", "1");
         contentMap.put("Number of ingestion sessions involved", "1");
+        break;
+      case CHAIN_OF_CUSTODY_REPORT:
+        contentMap.put("Job Type", "Sysadmin");
+        contentMap.put("Scheduled By", "Sysadmin");
+        contentMap.put("Scheduled Time", scheduledTime.toString());
+        contentMap.put("Start Time", new Date().toString());
+        contentMap.put("End Time", new Date().toString());
+        contentMap.put("Total Time", totalTimeCalculation(startTime, new Date()));
+        contentMap.put("Application Name", "App name");
         break;
       default:
         throw new IllegalArgumentException("Unsupported content type: " + type);

@@ -28,7 +28,7 @@ public enum ReportNameConstants {
 
   CHAIN_OF_CUSTODY_REPORT("Chain of Custom Order Report", "Chain_of_Custom_Order.pdf"),
 
-  SOURCE_TO_VALIDATION_REPORT("Source To Validation Report", "Source_To_Validation_Report.pdf");
+  SOURCE_TO_TARGET_VALIDATION_REPORT("Source To Target Validation Report", "Source_To_Target_Validation_Report.pdf");
 
   private final String reportName;
   private final String fileName;

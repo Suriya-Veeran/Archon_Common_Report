@@ -97,7 +97,7 @@ public class LicenseVolumeRunner implements CommonRunner {
       ReportComponent headerComponent =
           ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
-      ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());
+      ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig(reportNameConstants));
 
       report.addComponent(headerComponent);
       report.addComponent(tableComponent);

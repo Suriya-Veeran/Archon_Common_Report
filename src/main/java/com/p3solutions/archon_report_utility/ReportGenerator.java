@@ -16,6 +16,8 @@ import com.p3solutions.archon_report_utility.enums.DividerType;
 import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
+import runner.enums.ReportNameConstants;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
@@ -100,7 +102,7 @@ public class ReportGenerator {
                       buildDividerInputBean(538L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent headerComponent = ReportBuilder.addComponent(new HeaderBean());
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
-      ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig());
+      ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig(ReportNameConstants.getReportNameConstants("License Volume Statistics Report")));
 
 
       report.addComponent(headerComponent);

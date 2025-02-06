@@ -52,6 +52,10 @@ public class GridValueBuilder {
         gridValue.put("Status", List.of("Success", "Success", "Success", "Success"));
         break;
       case CHAIN_OF_CUSTODY_REPORT:
+        gridValue.put("SI No", List.of("1","2","3","4"));
+        gridValue.put("Schema Name", List.of("Schema1", "Schema2", "Schema3", "Schema4"));
+        gridValue.put("Table Name", List.of("Table1", "Table2", "Table3", "Table4"));
+        gridValue.put("Ingestion Status", List.of("Success", "Failed", "Failed", "Failed"));
         break;
       default:
         throw new IllegalArgumentException("Unsupported report name: " + reportNameConstants);
