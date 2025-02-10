@@ -46,146 +46,146 @@ public class CardComponent implements ReportComponent {
 
   /** Renders a Multiple Details Info Card (Table-style card). */
   private void renderMultipleDetailsCard(Document document) throws IOException {
-    Color cardBackground = hexaDecimalToRGB("E8EDF7"); // Light grey background
-    Color borderColor = hexaDecimalToRGB("DCDCDC"); // Light border color
-    Color successColor = hexaDecimalToRGB("007D2B");
-
-    Color headerColor =
-        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "2C2C2C" : "000000");
-    Color valueColor =
-        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "000000" : "2C2C2C");
-
-    PdfFont headerFont =
-        inputBean.getCellInputBean().isValueHeader()
-            ? PdfFontFactory.createFont(FontType.HELVETICA.getFontName())
-            : PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
-
-    PdfFont valueFont =
-        inputBean.getCellInputBean().isValueHeader()
-            ? PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName())
-            : PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
-
-    if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
-      Table parameterTable = new Table(3);
-      parameterTable.setWidth(UnitValue.createPercentValue(100));
-      parameterTable.setFixedLayout();
-      parameterTable.setBorderBottom(new SolidBorder(borderColor, 1));
-      parameterTable.setBorderLeft(new SolidBorder(borderColor, 1));
-      parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
-      parameterTable.setMarginLeft(-18f);
-      parameterTable.setMarginRight(-18f);
-      parameterTable.setKeepTogether(true);
-      Paragraph paragraph =
-              new Paragraph(inputBean.getHeader())
-                      .setFont(headerFont)
-                      .setFontSize(10)
-                      .setTextAlignment(TextAlignment.LEFT);
-
-      Cell paragraphCell = new Cell(1,3).add(paragraph)
-              .setBackgroundColor(cardBackground)
-              .setBorder(new SolidBorder(borderColor, 1));
-      paragraphCell.setKeepTogether(true);
-      parameterTable.addCell(paragraphCell);
-      for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
-        String header = entry.getKey();
-        String value = entry.getValue();
-
-        boolean isValueHeader = inputBean.getCellInputBean().isValueHeader();
-
-        float headerFontSize =
-            isValueHeader
-                ? inputBean.getCellInputBean().getFontSize() - 1
-                : inputBean.getCellInputBean().getFontSize();
-        float valueFontSize =
-            isValueHeader
-                ? inputBean.getCellInputBean().getFontSize()
-                : inputBean.getCellInputBean().getFontSize() - 1;
-
-        PdfFont valueFinalFont = isValueHeader ? valueFont : headerFont;
-
-        Color valueFinalColor = "Success".equalsIgnoreCase(value) ? successColor : valueColor;
-
-        Cell cell =
-            new Cell()
-                .add(new Paragraph(new Text(header))
-                        .setFont(headerFont)
-                        .setFontColor(headerColor)
-                        .setFontSize(headerFontSize))
-                .add(
-                    new Paragraph(new Text(value))
-                        .setFont(valueFinalFont)
-                        .setFontColor(valueFinalColor)
-                        .setFontSize(valueFontSize))
-                .setBackgroundColor(inputBean.getCellInputBean().getBackgroundColor())
-                .setBorder(inputBean.getCellInputBean().getBorder())
-                .setTextAlignment(inputBean.getCellInputBean().getTextAlignment())
-                .setVerticalAlignment(inputBean.getCellInputBean().getVerticalAlignment());
-
-        cell.setKeepTogether(true);
-        parameterTable.addCell(cell);
-        parameterTable.setBorder(new SolidBorder(borderColor, 1));
-      }
-      document.add(parameterTable);
-    }
+//    Color cardBackground = hexaDecimalToRGB("E8EDF7"); // Light grey background
+//    Color borderColor = hexaDecimalToRGB("DCDCDC"); // Light border color
+//    Color successColor = hexaDecimalToRGB("007D2B");
+//
+//    Color headerColor =
+//        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "2C2C2C" : "000000");
+//    Color valueColor =
+//        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "000000" : "2C2C2C");
+//
+//    PdfFont headerFont =
+//        inputBean.getCellInputBean().isValueHeader()
+//            ? PdfFontFactory.createFont(FontType.HELVETICA.getFontName())
+//            : PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
+//
+//    PdfFont valueFont =
+//        inputBean.getCellInputBean().isValueHeader()
+//            ? PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName())
+//            : PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
+//
+//    if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
+//      Table parameterTable = new Table(3);
+//      parameterTable.setWidth(UnitValue.createPercentValue(100));
+//      parameterTable.setFixedLayout();
+//      parameterTable.setBorderBottom(new SolidBorder(borderColor, 1));
+//      parameterTable.setBorderLeft(new SolidBorder(borderColor, 1));
+//      parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
+//      parameterTable.setMarginLeft(-18f);
+//      parameterTable.setMarginRight(-18f);
+//      parameterTable.setKeepTogether(true);
+//      Paragraph paragraph =
+//              new Paragraph(inputBean.getHeader())
+//                      .setFont(headerFont)
+//                      .setFontSize(10)
+//                      .setTextAlignment(TextAlignment.LEFT);
+//
+//      Cell paragraphCell = new Cell(1,3).add(paragraph)
+//              .setBackgroundColor(cardBackground)
+//              .setBorder(new SolidBorder(borderColor, 1));
+//      paragraphCell.setKeepTogether(true);
+//      parameterTable.addCell(paragraphCell);
+//      for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
+//        String header = entry.getKey();
+//        String value = entry.getValue();
+//
+//        boolean isValueHeader = inputBean.getCellInputBean().isValueHeader();
+//
+//        float headerFontSize =
+//            isValueHeader
+//                ? inputBean.getCellInputBean().getFontSize() - 1
+//                : inputBean.getCellInputBean().getFontSize();
+//        float valueFontSize =
+//            isValueHeader
+//                ? inputBean.getCellInputBean().getFontSize()
+//                : inputBean.getCellInputBean().getFontSize() - 1;
+//
+//        PdfFont valueFinalFont = isValueHeader ? valueFont : headerFont;
+//
+//        Color valueFinalColor = "Success".equalsIgnoreCase(value) ? successColor : valueColor;
+//
+//        Cell cell =
+//            new Cell()
+//                .add(new Paragraph(new Text(header))
+//                        .setFont(headerFont)
+//                        .setFontColor(headerColor)
+//                        .setFontSize(headerFontSize))
+//                .add(
+//                    new Paragraph(new Text(value))
+//                        .setFont(valueFinalFont)
+//                        .setFontColor(valueFinalColor)
+//                        .setFontSize(valueFontSize))
+//                .setBackgroundColor(inputBean.getCellInputBean().getBackgroundColor())
+//                .setBorder(inputBean.getCellInputBean().getBorder())
+//                .setTextAlignment(inputBean.getCellInputBean().getTextAlignment())
+//                .setVerticalAlignment(inputBean.getCellInputBean().getVerticalAlignment());
+//
+//        cell.setKeepTogether(true);
+//        parameterTable.addCell(cell);
+//        parameterTable.setBorder(new SolidBorder(borderColor, 1));
+//      }
+//      document.add(parameterTable);
+//    }
   }
 
   /** Renders a Single Details Info Card (Header + Date + Description). */
   private void renderSingleDetailsCard(Document document) throws IOException {
-    addEmptyLines(2, document);
-    Color cardBackground = hexaDecimalToRGB("DFEAFF"); // Light grey background
-
-    PdfFont headerFont = PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
-    PdfFont valueFont = PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
-
-    Table headerTable = new Table(2);
-    headerTable.setWidth(UnitValue.createPercentValue(100));
-    headerTable.setBackgroundColor(cardBackground);
-    headerTable.setBorderTop(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
-    headerTable.setBorderLeft(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
-    headerTable.setBorderRight(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
-    headerTable.addCell(
-        new Cell()
-            .add(
-                new Paragraph(inputBean.getHeader())
-                    .setFont(headerFont)
-                    .setFontColor(hexaDecimalToRGB("030303"))
-                    .setFontSize(10))
-            .setBorder(Border.NO_BORDER)
-            .setPadding(5)
-            .setTextAlignment(TextAlignment.LEFT));
-
-    headerTable.addCell(
-        new Cell()
-            .add(
-                new Paragraph(inputBean.getGeneratedTime())
-                    .setFont(headerFont)
-                    .setFontColor(hexaDecimalToRGB("030303"))
-                    .setFontSize(10))
-            .setBorder(Border.NO_BORDER)
-            .setPadding(5)
-            .setTextAlignment(TextAlignment.RIGHT));
-    headerTable.setMarginLeft(-18f);
-    headerTable.setMarginRight(-18f);
-    document.add(headerTable);
-
-    Table contentTable = new Table(1);
-    contentTable.setWidth(UnitValue.createPercentValue(100));
-    contentTable.setBorderBottom(new SolidBorder(cardBackground, 1));
-    contentTable.setBorderLeft(new SolidBorder(cardBackground, 1));
-    contentTable.setBorderRight(new SolidBorder(cardBackground, 1));
-
-    Cell contentCell =
-        new Cell()
-            .add(
-                new Paragraph(inputBean.getContent())
-                    .setFont(valueFont)
-                    .setFontSize(12)
-                    .setFontColor(hexaDecimalToRGB("000000")))
-            .setBorder(Border.NO_BORDER)
-            .setPadding(10);
-    contentTable.setMarginLeft(-18f);
-    contentTable.setMarginRight(-18f);
-    contentTable.addCell(contentCell);
-    document.add(contentTable);
+//    addEmptyLines(2, document);
+//    Color cardBackground = hexaDecimalToRGB("DFEAFF"); // Light grey background
+//
+//    PdfFont headerFont = PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
+//    PdfFont valueFont = PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
+//
+//    Table headerTable = new Table(2);
+//    headerTable.setWidth(UnitValue.createPercentValue(100));
+//    headerTable.setBackgroundColor(cardBackground);
+//    headerTable.setBorderTop(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+//    headerTable.setBorderLeft(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+//    headerTable.setBorderRight(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+//    headerTable.addCell(
+//        new Cell()
+//            .add(
+//                new Paragraph(inputBean.getHeader())
+//                    .setFont(headerFont)
+//                    .setFontColor(hexaDecimalToRGB("030303"))
+//                    .setFontSize(10))
+//            .setBorder(Border.NO_BORDER)
+//            .setPadding(5)
+//            .setTextAlignment(TextAlignment.LEFT));
+//
+//    headerTable.addCell(
+//        new Cell()
+//            .add(
+//                new Paragraph(inputBean.getGeneratedTime())
+//                    .setFont(headerFont)
+//                    .setFontColor(hexaDecimalToRGB("030303"))
+//                    .setFontSize(10))
+//            .setBorder(Border.NO_BORDER)
+//            .setPadding(5)
+//            .setTextAlignment(TextAlignment.RIGHT));
+//    headerTable.setMarginLeft(-18f);
+//    headerTable.setMarginRight(-18f);
+//    document.add(headerTable);
+//
+//    Table contentTable = new Table(1);
+//    contentTable.setWidth(UnitValue.createPercentValue(100));
+//    contentTable.setBorderBottom(new SolidBorder(cardBackground, 1));
+//    contentTable.setBorderLeft(new SolidBorder(cardBackground, 1));
+//    contentTable.setBorderRight(new SolidBorder(cardBackground, 1));
+//
+//    Cell contentCell =
+//        new Cell()
+//            .add(
+//                new Paragraph(inputBean.getContent())
+//                    .setFont(valueFont)
+//                    .setFontSize(12)
+//                    .setFontColor(hexaDecimalToRGB("000000")))
+//            .setBorder(Border.NO_BORDER)
+//            .setPadding(10);
+//    contentTable.setMarginLeft(-18f);
+//    contentTable.setMarginRight(-18f);
+//    contentTable.addCell(contentCell);
+//    document.add(contentTable);
   }
 }

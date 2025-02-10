@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DividerBean implements ReportBean {
+
   @Builder.Default private String hexDecimal = "000000";
 
   @Builder.Default private float lineWidth = 1L;

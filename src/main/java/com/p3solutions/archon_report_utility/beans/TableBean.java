@@ -1,16 +1,12 @@
 package com.p3solutions.archon_report_utility.beans;
 
-import com.itextpdf.layout.borders.Border;
-import com.p3solutions.archon_report_utility.enums.JobStatusEnum;
-import com.p3solutions.archon_report_utility.enums.TableType;
-import com.p3solutions.archon_report_utility.enums.TableTypeEnum;
+import com.p3solutions.archon_report_utility.enums.PaddingType;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
+import java.util.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.*;
 
 @Data
 @Builder
@@ -30,10 +26,13 @@ public class TableBean implements ReportBean {
 
   @Builder.Default private BorderBean borderBean = new BorderBean();
 
+  @Builder.Default private PaddingInputBean paddingInputBean = new PaddingInputBean();
+
   @Builder.Default private JobStatusInputBean jobStatusInputBean = new JobStatusInputBean();
+
+  @Builder.Default private AlignmentBean alignmentBean = new AlignmentBean();
 
   @Builder.Default private Boolean isDividerNeeded = true;
 
-  @Builder.Default private Boolean isJobStatusTableNeeded = true;
-
+  @Builder.Default private PaddingType paddingType = PaddingType.COMMON_PADDING;
 }

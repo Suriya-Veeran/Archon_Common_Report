@@ -14,21 +14,12 @@ import java.util.Map;
 @AllArgsConstructor
 public class TableConfigBean {
 
-    @Builder.Default
-    private float width = 100;
-    @Builder.Default
-    private boolean keepTogether = false;
-
-    @Builder.Default
-    private int numberOfColumns = 1;
-    @Builder.Default
-    private float[] pointColumnWidth = new float[]{1L};
-    @Builder.Default
-    private Map<String, String> parameters = new LinkedHashMap<>();
-    @Builder.Default
-    private TableTypeEnum type = TableTypeEnum.NUMBER_OF_COLUMNS;
-    @Builder.Default
-    private TableType tableType = TableType.HEADER;
-
-
+  @Builder.Default private float width = 100;
+  @Builder.Default private boolean keepTogether = false;
+  @Builder.Default private int numberOfColumns = 1;
+  @Builder.Default private float[] pointColumnWidth = new float[] {1L};
+  @Builder.Default private Map<String, String> parameters = new LinkedHashMap<>();
+  @Builder.Default private TableTypeEnum type = TableTypeEnum.NUMBER_OF_COLUMNS;
+  @Builder.Default private TableType tableType = TableType.HEADER;
+  @Builder.Default private Boolean setFixedLayout = false;
 }

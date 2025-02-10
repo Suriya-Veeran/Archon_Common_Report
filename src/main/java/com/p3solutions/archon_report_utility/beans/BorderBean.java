@@ -1,6 +1,7 @@
 package com.p3solutions.archon_report_utility.beans;
 
 import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.properties.BorderRadius;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,13 +31,13 @@ public class BorderBean {
 
   @Builder.Default private Border borderRight = Border.NO_BORDER;
 
-  @Builder.Default private float borderRadius = 0f;
+  @Builder.Default private BorderRadius borderRadius = new BorderRadius(0f);
 
-  @Builder.Default private float borderTopRightRadius = 0f;
+  @Builder.Default private BorderRadius borderTopRightRadius = new BorderRadius(0f);
 
-  @Builder.Default private float borderTopLeftRadius = 0f;
+  @Builder.Default private BorderRadius borderTopLeftRadius = new BorderRadius(0f);
 
-  @Builder.Default private float borderBottomRightRadius = 0f;
+  @Builder.Default private BorderRadius borderBottomRightRadius = new BorderRadius(0f);
 
-  @Builder.Default private float borderBottomLeftRadius = 0f;
+  @Builder.Default private BorderRadius borderBottomLeftRadius = new BorderRadius(0f);
 }

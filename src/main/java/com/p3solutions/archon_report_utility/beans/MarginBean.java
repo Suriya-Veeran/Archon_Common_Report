@@ -12,14 +12,16 @@ import lombok.NoArgsConstructor;
 public class MarginBean {
 
     @Builder.Default
-    private float leftMargin = -18f;
+    private float leftMargin = 0f;
 
     @Builder.Default
-    private float rightMargin = -18f;
+    private float rightMargin = 0f;
 
-    private float topMargin = -18f;
+    @Builder.Default
+    private float topMargin = 0f;
 
-    private float bottomMargin = -18f;
+    @Builder.Default
+    private float bottomMargin = 0f;
 
 
 

@@ -14,10 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AlignmentBean {
 
-    private TextAlignment textAlignment;
+    @Builder.Default
+    private TextAlignment textAlignment = TextAlignment.LEFT;
 
-    private HorizontalAlignment horizontalAlignment;
+    @Builder.Default
+    private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;
 
-    private VerticalAlignment verticalAlignment;
+    @Builder.Default
+    private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
 
 }
