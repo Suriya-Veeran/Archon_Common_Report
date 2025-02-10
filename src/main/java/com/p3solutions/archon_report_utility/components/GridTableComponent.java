@@ -47,7 +47,8 @@ public class GridTableComponent implements ReportComponent {
       for (String header : parameterMap.keySet()) {
         Cell headerCell =
             new Cell()
-                .add(new Paragraph(header).setFont(PdfFontFactory.createFont(HELVETICA_BOLD)))
+                .add(new Paragraph(header)
+                        .setFont(PdfFontFactory.createFont(HELVETICA_BOLD)))
                 .setBorder(Border.NO_BORDER)
                 .setTextAlignment(TextAlignment.LEFT)
                 .setFontSize(10)

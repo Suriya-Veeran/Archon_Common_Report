@@ -29,13 +29,15 @@ public class TableBean implements ReportBean {
 
   @Builder.Default private DividerBean dividerBean = new DividerBean();
 
+  @Builder.Default private MarginBean marginBean = new MarginBean();
+
+  @Builder.Default private BorderBean borderBean = new BorderBean();
+
+  @Builder.Default private JobStatusInputBean jobStatusInputBean = new JobStatusInputBean();
+
   @Builder.Default private Boolean isDividerNeeded = true;
 
   @Builder.Default private Boolean isJobStatusTableNeeded = true;
-
-  @Builder.Default private JobStatusEnum jobStatus = JobStatusEnum.SUCCESS;
-
-  @Builder.Default private String errorMessage = "Schema Ads is not found";
 
   @Builder.Default private TableType tableType = TableType.HEADER;
 }

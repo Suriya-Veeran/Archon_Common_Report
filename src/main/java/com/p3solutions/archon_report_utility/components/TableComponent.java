@@ -53,8 +53,8 @@ public class TableComponent implements ReportComponent {
       setJobStatusCellValue(inputBean, jobStatusTable);
       jobStatusTable.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       jobStatusTable.setKeepTogether(inputBean.isKeepTogether());
-      jobStatusTable.setMarginLeft(-18);
-      jobStatusTable.setMarginRight(-18);
+      jobStatusTable.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
+      jobStatusTable.setMarginRight(inputBean.getMarginBean().getRightMargin());
       document.add(jobStatusTable);
       addEmptyLines(1, document);
     }
@@ -65,8 +65,8 @@ public class TableComponent implements ReportComponent {
       table.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       table.setKeepTogether(inputBean.isKeepTogether());
       table.setBorder(inputBean.getBorder());
-      table.setMarginLeft(-18);
-      table.setMarginRight(-18);
+      table.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
+      table.setMarginRight(inputBean.getMarginBean().getRightMargin());
       document.add(table);
       if (inputBean.getTableType().equals(TableType.SUMMARY)) {
         addEmptyLines(1, document);
@@ -79,12 +79,12 @@ public class TableComponent implements ReportComponent {
     Cell jobStatusCell = new Cell(1, 3);
 
     Color fontColor =
-        inputBean.getJobStatus().getStatus().equalsIgnoreCase("Success")
+        inputBean.getJobStatusInputBean().getJobStatus().getStatus().equalsIgnoreCase("Success")
             ? hexaDecimalToRGB(LIGHT_GREEN_HEXA_DECIMAL)
             : hexaDecimalToRGB(RED_HEXA_DECIMAL);
 
     jobStatusCell.add(
-        new Paragraph(new Text("Job Status: " + inputBean.getJobStatus().getStatus()))
+        new Paragraph(new Text("Job Status: " + inputBean.getJobStatusInputBean().getJobStatus().getStatus()))
             .setFont(PdfFontFactory.createFont(HELVETICA_BOLD))
             .setFontSize(7)
             .setFontColor(hexaDecimalToRGB("FFFFFF"))
@@ -95,9 +95,9 @@ public class TableComponent implements ReportComponent {
     jobStatusCell.setBorder(Border.NO_BORDER);
     jobStatusTable.addCell(jobStatusCell);
 
-    if(!inputBean.getJobStatus().getStatus().equalsIgnoreCase("Success")) {
+    if(!inputBean.getJobStatusInputBean().getJobStatus().getStatus().equalsIgnoreCase("Success")) {
       Cell errorCell = new Cell(1, 3);
-      errorCell.add(new Paragraph(new Text("Error Message: " + inputBean.getErrorMessage()))
+      errorCell.add(new Paragraph(new Text("Error Message: " + inputBean.getJobStatusInputBean().getErrorMessage()))
               .setFont(PdfFontFactory.createFont(HELVETICA_BOLD))
               .setFontSize(7)
               .setFontColor(fontColor)

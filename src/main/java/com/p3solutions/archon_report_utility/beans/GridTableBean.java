@@ -28,6 +28,5 @@ public class GridTableBean implements ReportBean {
   @Builder.Default private Map<String, List<String>> parameterMap = new LinkedHashMap<>();
 
   @Builder.Default private MarginBean marginBean = new MarginBean();
-
   @Builder.Default private BorderBean borderBean = new BorderBean();
 }
