@@ -1,8 +1,11 @@
 package com.p3solutions.archon_report_utility.helpers;
 
+import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.BorderRadius;
 import com.itextpdf.layout.properties.UnitValue;
 import lombok.experimental.UtilityClass;
 
@@ -34,14 +37,28 @@ public class TableHelper {
     }
 
     public void setFixedLayout(Table table, boolean fixedLayout) {
-       if (fixedLayout) {
-           table.setFixedLayout();
-       }
+        if (fixedLayout) {
+            table.setFixedLayout();
+        }
     }
 
-    public void addCell(Table table , Cell cell) {
+    public void addCell(Table table, Cell cell) {
         table.addCell(cell);
     }
+
+    public void addCell(Table table, Image image) {
+        table.addCell(image);
+    }
+
+    public void addCell(Table table, String content) {
+        table.addCell(content);
+    }
+
+    public void setBackgroundColor(Table table, Color backgroundColor) {
+        table.setBackgroundColor(backgroundColor);
+
+    }
+
 
     public void setBorder(Table table, Border border) {
         table.setBorder(border);
@@ -64,6 +81,28 @@ public class TableHelper {
     }
 
 
+    public void setBorderBottomLeftRadius(Table table, BorderRadius borderBottomLeftRadius) {
+        table.setBorderBottomLeftRadius(borderBottomLeftRadius);
+    }
 
+    public void setBorderBottomRightRadius(Table table, BorderRadius borderBottomRightRadius) {
+        table.setBorderBottomRightRadius(borderBottomRightRadius);
+    }
+
+    public void setBorderTopLeftRadius(Table table, BorderRadius borderBottomTopRadius) {
+        table.setBorderTopLeftRadius(borderBottomTopRadius);
+    }
+
+    public void setBorderTopRightRadius(Table table, BorderRadius borderTopRightRadius) {
+        table.setBorderTopRightRadius(borderTopRightRadius);
+    }
+
+    public void setFontSize(Table table, float fontSize){
+        table.setFontSize(fontSize);
+    }
+
+    public void setFontFamily(Table table, String fontName){
+        table.setFontFamily(fontName);
+    }
 
 }
