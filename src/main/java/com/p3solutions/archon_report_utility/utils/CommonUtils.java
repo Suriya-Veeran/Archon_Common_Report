@@ -2,13 +2,16 @@ package com.p3solutions.archon_report_utility.utils;
 
 import static com.p3solutions.archon_report_utility.enums.TableTypeEnum.NUMBER_OF_COLUMNS;
 import static com.p3solutions.archon_report_utility.enums.TableTypeEnum.POINT_COLUMN_WIDTH;
+import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.CellConfigBean;
 import com.p3solutions.archon_report_utility.beans.GridTableBean;
+import com.p3solutions.archon_report_utility.beans.PaddingInputBean;
 import com.p3solutions.archon_report_utility.beans.TableBean;
+import com.p3solutions.archon_report_utility.enums.PaddingType;
 import com.p3solutions.archon_report_utility.exception.EnumNotFound;
 import com.p3solutions.archon_report_utility.helpers.TableHelper;
 import lombok.experimental.UtilityClass;
@@ -52,25 +55,25 @@ public class CommonUtils {
     return table;
   }
 
-  public static void paddingConfiguration(Table table, TableBean inputBean) {
-    switch (inputBean.getPaddingType()) {
+  public static void paddingConfiguration(Table table, PaddingInputBean paddingInputBean) {
+    switch (paddingInputBean.getPaddingType()) {
       case COMMON_PADDING:
-        TableHelper.setPadding(table, inputBean.getPaddingInputBean().getCommonPadding());
+        TableHelper.setPadding(table, paddingInputBean.getCommonPadding());
         break;
       case TOP_PADDING:
-        TableHelper.setPaddingTop(table, inputBean.getPaddingInputBean().getPaddingTop());
+        TableHelper.setPaddingTop(table,paddingInputBean.getPaddingTop());
         break;
       case BOTTOM_PADDING:
-        TableHelper.setPaddingBottom(table, inputBean.getPaddingInputBean().getPaddingBottom());
+        TableHelper.setPaddingBottom(table, paddingInputBean.getPaddingBottom());
         break;
       case LEFT_PADDING:
-        TableHelper.setPaddingLeft(table, inputBean.getPaddingInputBean().getPaddingLeft());
+        TableHelper.setPaddingLeft(table, paddingInputBean.getPaddingLeft());
         break;
       case RIGHT_PADDING:
-        TableHelper.setPaddingRight(table, inputBean.getPaddingInputBean().getPaddingRight());
+        TableHelper.setPaddingRight(table, paddingInputBean.getPaddingRight());
         break;
       default:
-        throw new EnumNotFound("Illegal padding type : " + inputBean.getPaddingType());
+        throw new EnumNotFound("Illegal padding type : " + paddingInputBean.getPaddingType());
     }
   }
 
@@ -95,7 +98,7 @@ public class CommonUtils {
         cell.add(new Paragraph(configBean.getContent())
                 .setFont(configBean.getParagraphFont().getFont())
                 .setFontSize(configBean.getParagraphFont().getFontSize())
-                .setFontColor(configBean.getParagraphFont().getFontColor())
+                .setFontColor(hexaDecimalToRGB(configBean.getParagraphFont().getFontColor()))
                 .setVerticalAlignment(configBean.getParagraphAlignment().getVerticalAlignment())
                 .setHorizontalAlignment(configBean.getParagraphAlignment().getHorizontalAlignment())
                 .setTextAlignment(configBean.getParagraphAlignment().getTextAlignment())

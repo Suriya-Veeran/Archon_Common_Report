@@ -19,10 +19,13 @@ public class ChartCreationConfig implements ReportBean {
     @Builder.Default
     private List<HtmlCreationInfoBean> htmlCreationInfoBean = new ArrayList<>();
 
+    @Builder.Default
     private int numberOfRows = 2;
 
+    @Builder.Default
     private float fitWeight = 300;
 
+    @Builder.Default
     private float fitHeight = 300;
 
 

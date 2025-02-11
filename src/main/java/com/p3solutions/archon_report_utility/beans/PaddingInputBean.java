@@ -1,5 +1,6 @@
 package com.p3solutions.archon_report_utility.beans;
 
+import com.p3solutions.archon_report_utility.enums.PaddingType;
 import lombok.*;
 
 @Getter
@@ -9,14 +10,21 @@ import lombok.*;
 @AllArgsConstructor
 public class PaddingInputBean {
 
-    private float commonPadding;
+    @Builder.Default private PaddingType paddingType = PaddingType.COMMON_PADDING;
 
-    private float paddingLeft;
+    @Builder.Default
+    private float commonPadding = 0.0f;
 
-    private float paddingRight;
+    @Builder.Default
+    private float paddingLeft = 0.0f;
 
-    private float paddingTop;
+    @Builder.Default
+    private float paddingRight = 0.0f;
 
-    private float paddingBottom;
+    @Builder.Default
+    private float paddingTop = 0.0f;
+
+    @Builder.Default
+    private float paddingBottom = 0.0f;
 
 }

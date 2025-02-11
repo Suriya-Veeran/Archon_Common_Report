@@ -24,59 +24,40 @@ import static com.p3solutions.archon_report_utility.utils.CommonUtils.paddingCon
 @Slf4j
 public class TableComponent implements ReportComponent {
 
-  private TableBean inputBean;
+    private TableBean inputBean;
 
-  public void render(Document document) throws IOException {
+    public void render(Document document) throws IOException {
 
-    Table table = null;
+        Table table = null;
 
-    switch (inputBean.getTableConfigBean().getTableType()) {
-      case HEADER:
-        table = createHeaderTable(inputBean);
-        break;
-      case SUMMARY:
-        table = createSummaryTable(inputBean);
-        break;
-      case JOB_STATUS:
-       table =  createJobStatusTable(inputBean);
-        break;
-      default:
-        throw new EnumNotFound(
-            "Illegal table type : " + inputBean.getTableConfigBean().getTableType());
+        table = createTable(inputBean);
+
+        document.add(table);
     }
 
-    document.add(table);
+    private Table createTable(TableBean inputBean) {
+        Table table = configTable(inputBean);
+        TableHelper.setCellConfiguration(table, inputBean);
+        tableCommonContent(table, inputBean);
+        return table;
+    }
 
-  }
+    private void tableCommonContent(Table table, TableBean inputBean) {
+        TableHelper.setTableWidth(table, inputBean.getTableConfigBean().getWidth());
+        TableHelper.setFixedLayout(table, inputBean.getTableConfigBean().getSetFixedLayout());
+        TableHelper.setKeepTogether(table, inputBean.getTableConfigBean().isKeepTogether());
+        TableHelper.setFontFamily(table, inputBean.getFontConfigBean().getFontName());
+        TableHelper.setFontSize(table, inputBean.getFontConfigBean().getFontSize());
+        TableHelper.setFont(table, inputBean.getFontConfigBean().getFont());
+        TableHelper.setMargin(
+                table,
+                inputBean.getMarginBean().getLeftMargin(),
+                inputBean.getMarginBean().getTopMargin(),
+                inputBean.getMarginBean().getRightMargin(),
+                inputBean.getMarginBean().getBottomMargin());
+        TableHelper.setAlignment(table, inputBean.getAlignmentBean().getHorizontalAlignment(), inputBean.getAlignmentBean().getVerticalAlignment());
+        TableHelper.setTextAlignment(table, inputBean.getAlignmentBean().getTextAlignment());
+        paddingConfiguration(table, inputBean.getPaddingInputBean());
+    }
 
-  private Table createJobStatusTable(TableBean inputBean) {
-    Table table = configTable(inputBean);
-    return table;
-  }
-
-  private Table createSummaryTable(TableBean inputBean) {
-    Table table = configTable(inputBean);
-    return table;
-  }
-
-  private Table createHeaderTable(TableBean inputBean) {
-    Table table = configTable(inputBean);
-    TableHelper.setTableWidth(table, inputBean.getTableConfigBean().getWidth());
-    TableHelper.setFixedLayout(table, inputBean.getTableConfigBean().getSetFixedLayout());
-    TableHelper.setKeepTogether(table, inputBean.getTableConfigBean().isKeepTogether());
-    TableHelper.setFontFamily(table, inputBean.getFontConfigBean().getFontName());
-    TableHelper.setFontSize(table, inputBean.getFontConfigBean().getFontSize());
-    TableHelper.setFont(table, inputBean.getFontConfigBean().getFont());
-    TableHelper.setMargin(
-        table,
-        inputBean.getMarginBean().getLeftMargin(),
-        inputBean.getMarginBean().getTopMargin(),
-        inputBean.getMarginBean().getRightMargin(),
-        inputBean.getMarginBean().getBottomMargin());
-    TableHelper.setAlignment(table, inputBean.getAlignmentBean().getHorizontalAlignment(), inputBean.getAlignmentBean().getVerticalAlignment());
-    TableHelper.setTextAlignment(table, inputBean.getAlignmentBean().getTextAlignment());
-    paddingConfiguration(table, inputBean);
-    TableHelper.setCellConfiguration(table, inputBean);
-    return table;
-  }
 }

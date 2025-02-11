@@ -34,5 +34,4 @@ public class TableBean implements ReportBean {
 
   @Builder.Default private Boolean isDividerNeeded = true;
 
-  @Builder.Default private PaddingType paddingType = PaddingType.COMMON_PADDING;
 }

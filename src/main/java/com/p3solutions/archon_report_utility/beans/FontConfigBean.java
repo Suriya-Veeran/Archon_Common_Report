@@ -18,7 +18,7 @@ public class FontConfigBean {
 
     private PdfFont font;
 
-    private Color fontColor;
+    private String fontColor;
 
     private float fontSize;
 

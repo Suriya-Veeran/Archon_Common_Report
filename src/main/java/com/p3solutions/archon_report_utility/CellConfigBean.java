@@ -3,8 +3,12 @@ package com.p3solutions.archon_report_utility;
 import com.itextpdf.layout.element.Image;
 import com.p3solutions.archon_report_utility.beans.*;
 import com.p3solutions.archon_report_utility.enums.CellContentType;
+import com.p3solutions.archon_report_utility.enums.CellStructureType;
 import com.p3solutions.archon_report_utility.enums.CellType;
 import lombok.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -63,4 +67,23 @@ public class CellConfigBean {
 
     @Builder.Default
     private String backgroundColor = "";
+
+    @Builder.Default
+    private String headerCellColor = "2C2C2C";
+
+    @Builder.Default
+    private String valueCellColor = "000000";
+
+    @Builder.Default
+    private float headerFontSize = 12;
+
+    @Builder.Default
+    private float valueFontSize = 13;
+
+    @Builder.Default
+    private CellStructureType cellStructureType = CellStructureType.SINGLE_CELL;
+
+    @Builder.Default
+    private Map<String,String> headerAndValueParameters = new LinkedHashMap<>();
+
 }

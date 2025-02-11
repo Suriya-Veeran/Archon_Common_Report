@@ -1,6 +1,5 @@
 package com.p3solutions.archon_report_utility.beans;
 
-import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.enums.TableTypeEnum;
 import lombok.*;
 
@@ -20,6 +19,5 @@ public class TableConfigBean {
   @Builder.Default private float[] pointColumnWidth = new float[] {1L};
   @Builder.Default private Map<String, String> parameters = new LinkedHashMap<>();
   @Builder.Default private TableTypeEnum type = TableTypeEnum.NUMBER_OF_COLUMNS;
-  @Builder.Default private TableType tableType = TableType.HEADER;
   @Builder.Default private Boolean setFixedLayout = false;
 }
