@@ -3,6 +3,8 @@ package com.p3solutions.archon_report_utility.components;
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -20,6 +22,7 @@ import com.p3solutions.archon_report_utility.beans.DividerBean;
 import com.p3solutions.archon_report_utility.beans.FooterBean;
 import com.p3solutions.archon_report_utility.enums.DividerType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
+import java.io.IOException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +35,7 @@ import lombok.NoArgsConstructor;
 public class FooterComponent implements ReportComponent {
     private FooterBean inputBean;
 
-    public void render(Document document) {
+    public void render(Document document) throws IOException {
         if (inputBean == null) {
             return;
         }
@@ -46,7 +49,7 @@ public class FooterComponent implements ReportComponent {
         document.flush();
     }
 
-    private void applyFooterToPage(Document document, int pageIndex, int totalPages) {
+    private void applyFooterToPage(Document document, int pageIndex, int totalPages) throws IOException {
 
         DividerBean dividerBean = buildDividerInputBean(30L, 1L, "E2E2E2", 1, DividerType.PAGE_TO_PAGE);
         inputBean.setDividerBean(dividerBean);
@@ -72,6 +75,9 @@ public class FooterComponent implements ReportComponent {
         Paragraph pageNumberParagraph =
                 new Paragraph(pageText)
                         .setFontSize(inputBean.getFontSize())
+                        .setFont(PdfFontFactory.createFont("src/main/resources/fonts/Roboto-Regular.ttf",
+                                PdfEncodings.IDENTITY_H,
+                                PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
                         .setFontColor(hexaDecimalToRGB(inputBean.getFontColor()))
                         .setTextAlignment(TextAlignment.LEFT)
                         .setVerticalAlignment(VerticalAlignment.BOTTOM);
@@ -97,7 +103,7 @@ public class FooterComponent implements ReportComponent {
 
     }
 
-    private Paragraph createFooterParagraph(FooterBean footerInputBean, Rectangle rectangle) {
+    private Paragraph createFooterParagraph(FooterBean footerInputBean, Rectangle rectangle) throws IOException {
 
         PdfLinkAnnotation annotation = new PdfLinkAnnotation(rectangle);
         annotation.setBorder(new PdfArray(new int[]{0, 0, 0}));
@@ -114,6 +120,9 @@ public class FooterComponent implements ReportComponent {
                 .setVerticalAlignment(footerInputBean.getVerticalAlignment())
                 .setFontSize(footerInputBean.getFontSize())
                 .setBorder(footerInputBean.getBorder())
+                .setFont(PdfFontFactory.createFont("src/main/resources/fonts/Roboto-Regular.ttf",
+                        PdfEncodings.IDENTITY_H,
+                        PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
                 .setFontColor(hexaDecimalToRGB(footerInputBean.getFontColor()))
                 .add(footerInputBean.getCopyRightText())
                 .add(link)

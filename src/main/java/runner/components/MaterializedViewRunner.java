@@ -39,19 +39,19 @@ public class MaterializedViewRunner implements CommonRunner {
       ReportComponent dividerComponent =
           ReportBuilder.addComponent(
               buildDividerInputBean(
-                  760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
+                  750L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
       ReportComponent jobSummaryComponent =
           ReportBuilder.addComponent(
               buildSummaryBean(
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                  "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(715L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
           ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
@@ -65,12 +65,12 @@ public class MaterializedViewRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(555L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(518L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The materialised view after being created once, needs to be refreshed at intervals "
               + "to get real-time data. Find the details of this job run below. "
@@ -81,7 +81,7 @@ public class MaterializedViewRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                  "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent additionalDetails =
@@ -90,12 +90,12 @@ public class MaterializedViewRunner implements CommonRunner {
                   "Additional Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent additionalDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(478L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(436L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent additionalTableComponent =
           ReportBuilder.addComponent(getTableBean(additionalTableParameters(), TableType.SUMMARY));
       ReportComponent headerComponent =

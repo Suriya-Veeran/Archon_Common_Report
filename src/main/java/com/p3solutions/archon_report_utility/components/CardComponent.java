@@ -3,6 +3,7 @@ package com.p3solutions.archon_report_utility.components;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
 
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -134,8 +135,11 @@ public class CardComponent implements ReportComponent {
     addEmptyLines(2, document);
     Color cardBackground = hexaDecimalToRGB("DFEAFF"); // Light grey background
 
-    PdfFont headerFont = PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
-    PdfFont valueFont = PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
+    String valueFontPath = "src/main/resources/fonts/Roboto-Regular.ttf";
+    String headerFontPath = "src/main/resources/fonts/Roboto-Medium.ttf";
+
+    PdfFont headerFont = PdfFontFactory.createFont(headerFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+    PdfFont valueFont = PdfFontFactory.createFont(valueFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
     Table headerTable = new Table(2);
     headerTable.setWidth(UnitValue.createPercentValue(100));

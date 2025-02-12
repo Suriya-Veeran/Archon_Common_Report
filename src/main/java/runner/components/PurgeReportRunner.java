@@ -45,12 +45,12 @@ public class PurgeReportRunner implements CommonRunner {
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(715L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
               getTableBean(buildContentForJobSummary(reportNameConstants), TableType.SUMMARY));
@@ -60,12 +60,12 @@ public class PurgeReportRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(628L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(583L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The purge report use case involves identifying and removing outdated or irrelevant data from the system to maintain database "
               + "efficiency and integrity. It includes setting criteria for data to be purged, executing the purge process, and verifying successful "
@@ -76,7 +76,7 @@ public class PurgeReportRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                      "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent approvalDetails =
@@ -85,12 +85,12 @@ public class PurgeReportRunner implements CommonRunner {
                   "Approval Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent approvalDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(540L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(470L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent approvalDetailsTableComponent =
           ReportBuilder.addComponent(
               getTableBean(approvalDetailTableParameters(), TableType.SUMMARY));
@@ -100,12 +100,12 @@ public class PurgeReportRunner implements CommonRunner {
                   "Record / Group Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent recordGroupDetailDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(430L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(340L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent recordGroupTableGridComponent =
           ReportBuilder.addComponent(
               buildGridTableComponent(

@@ -1,10 +1,11 @@
 package com.p3solutions.archon_report_utility.components;
 
-import static com.itextpdf.io.font.constants.StandardFonts.*;
+
 import static com.p3solutions.archon_report_utility.constants.ColorConstants.BLUE_BG_COLOR;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 import static com.p3solutions.archon_report_utility.utils.CommonUtils.configTable;
 
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
@@ -47,8 +48,13 @@ public class GridTableComponent implements ReportComponent {
       for (String header : parameterMap.keySet()) {
         Cell headerCell =
             new Cell()
-                .add(new Paragraph(header)
-                        .setFont(PdfFontFactory.createFont(HELVETICA_BOLD)))
+                .add(
+                    new Paragraph(header)
+                        .setFont(
+                            PdfFontFactory.createFont(
+                                "src/main/resources/fonts/Roboto-Regular.ttf",
+                                PdfEncodings.IDENTITY_H,
+                                PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED)))
                 .setBorder(Border.NO_BORDER)
                 .setTextAlignment(TextAlignment.LEFT)
                 .setFontSize(10)

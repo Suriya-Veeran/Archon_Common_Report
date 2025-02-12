@@ -40,19 +40,19 @@ public class TableOptimizationRunner implements CommonRunner {
       ReportComponent dividerComponent =
           ReportBuilder.addComponent(
               buildDividerInputBean(
-                  760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
+                  750L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
       ReportComponent jobSummaryComponent =
           ReportBuilder.addComponent(
               buildSummaryBean(
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(717L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
               ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
@@ -67,12 +67,12 @@ public class TableOptimizationRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(540L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(470L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
               "This report shows the storage optimisation achieved after the process run. "
                       + "Table data optimisation jobs identify scope of optimising the way this data is stored "
@@ -84,7 +84,7 @@ public class TableOptimizationRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                      "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent optimizationStatistics =
@@ -93,14 +93,15 @@ public class TableOptimizationRunner implements CommonRunner {
                   "Optimization Statistics",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent optimizationStatisticsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(450L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(367L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent optimizationGridComponent =
-          ReportBuilder.addComponent(buildGridTableComponent(buildGridValue(reportNameConstants), buildGridValue(reportNameConstants).size()));
+          ReportBuilder.addComponent(buildGridTableComponent(buildGridValue(reportNameConstants),
+                  buildGridValue(reportNameConstants).size()));
       ReportComponent headerComponent =
           ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());

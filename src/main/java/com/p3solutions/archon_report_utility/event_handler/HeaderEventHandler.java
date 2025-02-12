@@ -3,11 +3,13 @@ package com.p3solutions.archon_report_utility.event_handler;
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.events.Event;
 import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -45,36 +47,53 @@ public class HeaderEventHandler implements IEventHandler {
         PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
         PdfPage page = docEvent.getPage();
         Rectangle pageSize = page.getPageSize();
-
         float width = pageSize.getWidth();
         float y = pageSize.getHeight() - headerBean.getTopMargin();
 
-        DividerBean dividerBean = buildDividerInputBean(805L, 0.5f, "E9E9E9", 1, DividerType.PAGE_TO_PAGE);
+    DividerBean dividerBean =
+        buildDividerInputBean(y, 1f, "EE4B2B", 1, DividerType.PAGE_TO_PAGE);
         headerBean.setDividerBean(dividerBean);
 
         try {
             PdfCanvas pdfCanvas = new PdfCanvas(page);
             Canvas canvas = new Canvas(pdfCanvas, pageSize);
 
-            Table headerTable = new Table(UnitValue.createPercentArray(2)).useAllAvailableWidth();
+            Table headerTable = new Table(UnitValue.createPercentArray(new float[]{70, 30}))
+                    .setWidth(width)
+                    .setFixedPosition(0,pageSize.getHeight() - 45, width)
+                    .setBackgroundColor(hexaDecimalToRGB("F9F9F9"));
+
+            PdfFont font = PdfFontFactory.createFont("src/main/resources/fonts/Roboto-Medium.ttf",
+                    PdfEncodings.IDENTITY_H,
+                    PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
             Paragraph title = new Paragraph(headerBean.getTitle())
                     .setFontSize(headerBean.getFontSize())
-                    .setFont(PdfFontFactory.createFont(headerBean.getFont().getFontName()))
+                    .setFont(font)
                     .setFontColor(hexaDecimalToRGB(headerBean.getFontColor()))
                     .setTextAlignment(headerBean.getTextAlignment());
 
-            Cell titleCell = new Cell().add(title).setBorder(null)
-                    .setMarginLeft(headerBean.getLeftMargin())
-                    .setMarginTop(headerBean.getTopMargin())
+            Cell titleCell = new Cell().add(title)
+                    .setBorder(null)
+                    .setPaddingTop(13)
+                    .setPaddingBottom(5)
+                    .setPaddingLeft(17)
+                    .setBackgroundColor(hexaDecimalToRGB("F9F9F9"))
                     .setVerticalAlignment(headerBean.getVerticalAlignment());
             headerTable.addCell(titleCell);
 
             if (headerBean.isLogoNeeded()) {
                 Image logo = loadImage(headerBean.getImagePath(), headerBean.getFitWidth(), headerBean.getFitHeight());
+
                 if (logo != null) {
                     logo.setHorizontalAlignment(headerBean.getLogoHorizontalAlignment());
-                    Cell logoCell = new Cell().add(logo).setBorder(null);
+                    Cell logoCell = new Cell()
+                            .add(logo)
+                            .setPaddingRight(17)
+                            .setPaddingTop(15)
+                            .setPaddingBottom(3)
+                            .setBackgroundColor(hexaDecimalToRGB("F9F9F9"))
+                            .setBorder(null);
                     headerTable.addCell(logoCell);
                 } else {
                     headerTable.addCell(new Cell().setBorder(null));
@@ -82,8 +101,6 @@ public class HeaderEventHandler implements IEventHandler {
             } else {
                 headerTable.addCell(new Cell().setBorder(null));
             }
-
-            canvas.add(headerTable.setFixedPosition(headerBean.getLeftMargin(), y, width - headerBean.getRightMargin()));
 
             if (Boolean.TRUE.equals(headerBean.getIsDividerNeeded())) {
                 PdfCanvas dividerCanvas = new PdfCanvas(page);
@@ -95,6 +112,7 @@ public class HeaderEventHandler implements IEventHandler {
                 dividerCanvas.closePathStroke();
             }
             canvas.close();
+            document.add(headerTable);
 
         } catch (IOException e) {
             log.error("Error in HeaderEventHandler: {}", e.getMessage(), e);

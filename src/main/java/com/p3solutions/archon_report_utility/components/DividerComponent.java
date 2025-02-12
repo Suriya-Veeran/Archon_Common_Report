@@ -28,7 +28,7 @@ public class DividerComponent implements ReportComponent {
 
         if (inputBean.getDividerType() == DividerType.CONTENT) {
             canvas.moveTo(20, inputBean.getHeight());
-            canvas.lineTo(pdfPage.getPageSize().getWidth() - 18, inputBean.getHeight());
+            canvas.lineTo(pdfPage.getPageSize().getWidth() - 17, inputBean.getHeight());
         } else if (inputBean.getDividerType() == DividerType.PAGE_TO_PAGE) {
             canvas.moveTo(0, inputBean.getHeight());
             canvas.lineTo(pdfPage.getPageSize().getWidth(), inputBean.getHeight());

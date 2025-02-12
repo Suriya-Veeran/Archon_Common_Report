@@ -16,7 +16,7 @@ public class TableValueBuilder {
       case MATERIALIZED_VIEW_REFRESH_REPORT:
         contentMap.put("Job Type", "Materialized View Refresh Report");
         addCommonContent(contentMap, startTime, scheduledTime);
-        contentMap.put("Job Name", "Materialized View");
+        contentMap.put("Materialized View Name", "JOINVIEW");
         break;
       case TABLE_OPTIMIZATION_REPORT:
         contentMap.put("Job Instance Id", "0123546474-5252");

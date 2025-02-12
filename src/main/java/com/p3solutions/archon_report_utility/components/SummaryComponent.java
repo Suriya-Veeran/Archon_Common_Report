@@ -27,9 +27,11 @@ public class SummaryComponent implements ReportComponent {
         new Paragraph(inputBean.getSummaryText())
             .setTextAlignment(inputBean.getTextAlignment())
             .setFontColor(hexaDecimalToRGB(inputBean.getHexaDecimal()))
-            .setFont(PdfFontFactory.createFont(inputBean.getFontFamily(), PdfEncodings.WINANSI))
+            .setFont(PdfFontFactory.createFont(inputBean.getFontFamily(), PdfEncodings.IDENTITY_H,
+                    PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
             .setFontSize(inputBean.getFontSize())
             .setPaddingLeft(-17)
+                .setPaddingTop(-3)
             .setBorderBottomLeftRadius(new BorderRadius(1f)));
         document.flush();
     }

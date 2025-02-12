@@ -46,7 +46,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
@@ -65,7 +65,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
@@ -82,7 +82,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                      "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetrics =
@@ -91,7 +91,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   "Session Metrics",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetricDivider =

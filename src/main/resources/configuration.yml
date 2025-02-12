@@ -1,4 +1,4 @@
 # config.yml
-location: "/home/p3/Downloads/archon-report-utility/output/FinalFolder"
-reportName: "Consolidation Ingestion Report"
+location: "/home/p3/Downloads/archon-report-utility/output/Corrections"
+reportName: "Source To Target Validation Report"
 imagePath: "/home/p3/IdeaProjects/Pdf_POC/src/main/resources/Archon-Datastore rasterized.png"

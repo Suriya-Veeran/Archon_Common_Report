@@ -19,7 +19,7 @@ public class HeaderBean implements ReportBean {
   @Builder.Default private String title = "License Volume Statistics Report";
   @Builder.Default private TextAlignment textAlignment = TextAlignment.LEFT; // Text alignment for header content
   @Builder.Default private float rightMargin = 32; // Margin for the right side
-  @Builder.Default private float topMargin = 40; // Margin for the top
+  @Builder.Default private float topMargin = 45; // Margin for the top
   @Builder.Default private float leftMargin = 18; // Margin for the left
   @Builder.Default private String fontColor = "030303"; // Background color of the header
   @Builder.Default private int fontSize = 16; // Font size for header content
@@ -27,8 +27,8 @@ public class HeaderBean implements ReportBean {
   @Builder.Default private FontType font = FontType.HELVETICA_BOLD; // Enum FontType for font type
   @Builder.Default private boolean isLogoNeeded = true;
   @Builder.Default private String imagePath = "Archon-Datastore rasterized.png";
-  @Builder.Default private float fitWidth = 50;
-  @Builder.Default private float fitHeight = 50;
+  @Builder.Default private float fitWidth = 52;
+  @Builder.Default private float fitHeight = 25;
   @Builder.Default private float logoWidth = 90;
   @Builder.Default private float logoHeight = 35;
   @Builder.Default private TextAlignment logoTextAlignment = TextAlignment.LEFT;
