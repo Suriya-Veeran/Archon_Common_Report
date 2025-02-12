@@ -66,18 +66,27 @@ public class GridTableComponent implements ReportComponent {
       int rowCount = parameterMap.values().iterator().next().size();
       for (int i = 0; i < rowCount; i++) {
         for (List<String> values : parameterMap.values()) {
+          String originalValue = values.get(i);
+          Color fontColor = retrieveCellFontColor(originalValue);
 
-          Color fontColor = retrieveCellFontColor(values.get(i));
-          Cell cell =
-              new Cell()
-                  .add(new Paragraph(values.get(i)))
-                  .setTextAlignment(TextAlignment.LEFT)
+          Paragraph paragraph = new Paragraph();
+          String[] parts = originalValue.split(",", 2);
+          paragraph.add(new Paragraph(parts[0]).setFontSize(10));
+
+          if (parts.length > 1) {
+            paragraph.add("\n").add(new Paragraph(parts[1].trim()).setFontSize(8));
+
+          }
+
+          Cell cell = new Cell()
+                  .add(paragraph)
                   .setBorderTop(Border.NO_BORDER)
                   .setBorderLeft(Border.NO_BORDER)
                   .setBorderRight(Border.NO_BORDER)
                   .setFontColor(fontColor)
                   .setBorderBottom(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 0.5f))
                   .setPadding(5);
+
           table.addCell(cell);
         }
       }

@@ -56,6 +56,7 @@ public class ChartComponent implements ReportComponent {
             chartCell.setPaddingLeft(-80);
 
             chartTable.addCell(chartCell);
+            chartTable.setMarginTop(-12);
 
         }
         chartTable.setFixedLayout();

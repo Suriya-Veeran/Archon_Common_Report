@@ -56,15 +56,12 @@ public class CardComponent implements ReportComponent {
     Color valueColor =
         hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "000000" : "2C2C2C");
 
-    PdfFont headerFont =
-        inputBean.getCellInputBean().isValueHeader()
-            ? PdfFontFactory.createFont(FontType.HELVETICA.getFontName())
-            : PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName());
+    String valueFontPath = "src/main/resources/fonts/Roboto-Regular.ttf";
+    String headerFontPath = "src/main/resources/fonts/Roboto-Medium.ttf";
 
-    PdfFont valueFont =
-        inputBean.getCellInputBean().isValueHeader()
-            ? PdfFontFactory.createFont(FontType.HELVETICA_BOLD.getFontName())
-            : PdfFontFactory.createFont(FontType.HELVETICA.getFontName());
+    PdfFont headerFont = PdfFontFactory.createFont(headerFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+    PdfFont valueFont = PdfFontFactory.createFont(valueFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+
 
     if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
       Table parameterTable = new Table(3);
@@ -76,11 +73,16 @@ public class CardComponent implements ReportComponent {
       parameterTable.setMarginLeft(-18f);
       parameterTable.setMarginRight(-18f);
       parameterTable.setKeepTogether(true);
-      Paragraph paragraph =
-              new Paragraph(inputBean.getHeader())
-                      .setFont(headerFont)
-                      .setFontSize(10)
-                      .setTextAlignment(TextAlignment.LEFT);
+
+      Paragraph paragraph = new Paragraph();
+      paragraph.setFont(headerFont).setTextAlignment(TextAlignment.LEFT);
+      String[] parts = inputBean.getHeader().split(",", 2);
+      paragraph.add(new Paragraph(parts[0]).setFontSize(10));
+
+      if (parts.length > 1) {
+        paragraph.add("\n").add(new Paragraph(parts[1].trim()).setFontSize(8));
+
+      }
 
       Cell paragraphCell = new Cell(1,3).add(paragraph)
               .setBackgroundColor(cardBackground)

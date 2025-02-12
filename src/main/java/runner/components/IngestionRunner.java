@@ -48,12 +48,12 @@ public class IngestionRunner implements CommonRunner {
                                     "Job Summary",
                                     HEADER_FONT_COLOR,
                                     13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
+                                    "src/main/resources/fonts/Roboto-Medium.ttf",
                                     TextAlignment.LEFT,
                                     VerticalAlignment.TOP));
             ReportComponent summaryDividerComponent =
                     ReportBuilder.addComponent(
-                            buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+                            buildDividerInputBean(720L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
             ReportComponent jobStatusComponent =
                     ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
@@ -67,12 +67,12 @@ public class IngestionRunner implements CommonRunner {
                                     "Objective",
                                     HEADER_FONT_COLOR,
                                     13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
+                                    "src/main/resources/fonts/Roboto-Medium.ttf",
                                     TextAlignment.LEFT,
                                     VerticalAlignment.TOP));
             ReportComponent dividerAfterObjective =
                     ReportBuilder.addComponent(
-                            buildDividerInputBean(470L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+                            buildDividerInputBean(390L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
             String reportDescription =
                     "The ingestion report details the process of importing data from various sources into the system. It includes metrics on data "
                             + "volume, ingestion times, and success rates, as well as any errors or issues encountered. This report ensures that the data "
@@ -84,7 +84,7 @@ public class IngestionRunner implements CommonRunner {
                                     reportDescription,
                                     OBJECTIVE_FONT_COLOR,
                                     10,
-                                    FontType.HELVETICA.getFontName(),
+                                    "src/main/resources/fonts/Roboto-Regular.ttf",
                                     TextAlignment.LEFT,
                                     VerticalAlignment.TOP));
             ReportComponent sessionMetrics =
@@ -93,12 +93,12 @@ public class IngestionRunner implements CommonRunner {
                                     "Session Metrics",
                                     HEADER_FONT_COLOR,
                                     13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
+                                    "src/main/resources/fonts/Roboto-Medium.ttf",
                                     TextAlignment.LEFT,
                                     VerticalAlignment.TOP));
             ReportComponent sessionMetricsDivider =
                     ReportBuilder.addComponent(
-                            buildDividerInputBean(370L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+                            buildDividerInputBean(260L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
             ReportComponent chartComponent = ReportBuilder.addComponent(buildChartCreationConfig(reportNameConstants));
             ReportComponent tableLevelDetails =
@@ -107,12 +107,12 @@ public class IngestionRunner implements CommonRunner {
                                     "Table Level Details",
                                     HEADER_FONT_COLOR,
                                     13,
-                                    FontType.HELVETICA_BOLD.getFontName(),
+                                    "src/main/resources/fonts/Roboto-Medium.ttf",
                                     TextAlignment.LEFT,
                                     VerticalAlignment.TOP));
             ReportComponent tableLevelDetailsDivider =
                     ReportBuilder.addComponent(
-                            buildDividerInputBean(785L, 1L, DIVIDER_GREY_COLOR, 2, DividerType.CONTENT));
+                            buildDividerInputBean(770L, 1L, DIVIDER_GREY_COLOR, 2, DividerType.CONTENT));
             ReportComponent tableLevelGridComponent =
                     ReportBuilder.addComponent(
                             buildGridTableComponent(

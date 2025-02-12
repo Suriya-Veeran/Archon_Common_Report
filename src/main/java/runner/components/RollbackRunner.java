@@ -47,12 +47,12 @@ public class RollbackRunner implements CommonRunner {
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(719L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
               ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
@@ -66,12 +66,12 @@ public class RollbackRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(540L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(475L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The rollback report use case focuses on documenting instances where system changes were reversed to a previous state. "
               + "It includes capturing details of the rollback event, such as the reason for the rollback, the changes that were undone, and the "
@@ -82,7 +82,7 @@ public class RollbackRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                      "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetails =
@@ -91,12 +91,12 @@ public class RollbackRunner implements CommonRunner {
                   "Table Level Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(435L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(345L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent tableLevelGridComponent =
           ReportBuilder.addComponent(
               buildGridTableComponent(

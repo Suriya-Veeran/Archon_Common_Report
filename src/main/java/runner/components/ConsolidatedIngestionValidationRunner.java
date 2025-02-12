@@ -48,12 +48,12 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(718L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
               ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
@@ -67,12 +67,12 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(490L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(410L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
               "The Consolidated Ingestion Validation Report ensures the accuracy and completeness of data ingested into the system from "
                       + "various sources. It includes validation checks for data integrity, consistency, and alignment with predefined standards. This "
@@ -83,7 +83,7 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                      "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetails =
@@ -92,15 +92,15 @@ public class ConsolidatedIngestionValidationRunner implements CommonRunner {
                   "Table Level Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetailsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(385L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(282L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent tableLevelMultiCardComponent = ReportBuilder.addComponent( buildCard(
-              "ADS_DEMO_CHECK",
+              "ADS_DEMO_CHECK,_003_METADATA_ADS.ADS_CONTENT_FS",
               CardType.MULTIPLE_DETAILS_INFO,
               buildParametersForCard(reportNameConstants),
               new Date().toString(),

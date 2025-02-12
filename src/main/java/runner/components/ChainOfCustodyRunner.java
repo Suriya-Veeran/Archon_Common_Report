@@ -6,7 +6,6 @@ import com.p3solutions.archon_report_utility.beans.FooterBean;
 import com.p3solutions.archon_report_utility.core.Report;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.DividerType;
-import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -46,12 +45,12 @@ public class ChainOfCustodyRunner implements CommonRunner {
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(720L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
           ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>(), TableType.JOB_STATUS));
@@ -65,12 +64,12 @@ public class ChainOfCustodyRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(570L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(510L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "This report contains details of the end-to-end data and metadata track of the data object from the point of extraction to "
               + "ingestion into Archon Data Store. Chain of custody checks are run for each object, and their status is listed alongside. "
@@ -81,7 +80,7 @@ public class ChainOfCustodyRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                  FontType.HELVETICA.getFontName(),
+                      "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent chainOfCustodySummary =
@@ -90,12 +89,12 @@ public class ChainOfCustodyRunner implements CommonRunner {
                   "Chain of Custody Summary",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent chainOfCustodySummaryDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(480L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(410L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent schemaLevelDetails =
           ReportBuilder.addComponent(
@@ -103,18 +102,18 @@ public class ChainOfCustodyRunner implements CommonRunner {
                   "Schema Level Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
 
       ReportComponent schemaLevelDetailDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(445L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(370L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent schemaLevelGrid =
           ReportBuilder.addComponent(
               buildGridTableComponent(
-                  buildGridValue(reportNameConstants), buildGridValue(reportNameConstants).size()));
+                  buildGridValue(reportNameConstants, "Schema"), buildGridValue(reportNameConstants, "Schema").size()));
 
       ReportComponent tableLevelDetails =
           ReportBuilder.addComponent(
@@ -122,7 +121,7 @@ public class ChainOfCustodyRunner implements CommonRunner {
                   "Table Level Details",
                   HEADER_FONT_COLOR,
                   13,
-                  FontType.HELVETICA_BOLD.getFontName(),
+                      "src/main/resources/fonts/Roboto-Medium.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent tableLevelDetailsDivider =
@@ -131,7 +130,7 @@ public class ChainOfCustodyRunner implements CommonRunner {
       ReportComponent tableLevelGridComponent =
           ReportBuilder.addComponent(
               buildGridTableComponent(
-                  buildGridValue(reportNameConstants), buildGridValue(reportNameConstants).size()));
+                  buildGridValue(reportNameConstants, "Table"), buildGridValue(reportNameConstants, "Table").size()));
       ReportComponent headerComponent =
           ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());

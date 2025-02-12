@@ -6,7 +6,6 @@ import com.p3solutions.archon_report_utility.beans.FooterBean;
 import com.p3solutions.archon_report_utility.core.Report;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.DividerType;
-import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,6 @@ import static com.p3solutions.archon_report_utility.builder.HeaderBuilder.getHea
 import static com.p3solutions.archon_report_utility.builder.SummaryBeanBuilder.buildSummaryBean;
 import static com.p3solutions.archon_report_utility.builder.TableBuilder.getTableBean;
 import static com.p3solutions.archon_report_utility.constants.ColorConstants.*;
-import static com.p3solutions.archon_report_utility.constants.ColorConstants.DIVIDER_GREY_COLOR;
 import static runner.builder.TableValueBuilder.buildContentForJobSummary;
 import static runner.builder.TableValueBuilder.headerTableParameters;
 
@@ -51,7 +49,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(735, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(715, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
           ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>(), TableType.JOB_STATUS));
@@ -70,7 +68,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(475L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(390L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
           "The Source to Target Validation Report ensures data integrity and accuracy during data migration or ETL (Extract, Transform"
               + "Load) processes. It includes checks to confirm that data from the source matches the data loaded into the target system"
@@ -96,7 +94,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetricDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(370L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(280L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent headerComponent =
           ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
