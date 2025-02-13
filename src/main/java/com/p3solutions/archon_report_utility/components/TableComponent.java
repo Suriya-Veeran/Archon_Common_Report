@@ -10,10 +10,7 @@ import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.beans.CellInputBean;
 import com.p3solutions.archon_report_utility.beans.TableBean;
@@ -130,7 +127,6 @@ public class TableComponent implements ReportComponent {
     PdfFont headerFont = PdfFontFactory.createFont(headerFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
     PdfFont valueFont = PdfFontFactory.createFont(valueFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
-
     for (Map.Entry<String, String> entry : parameters.entrySet()) {
       String header = entry.getKey();
       String value = entry.getValue();
@@ -162,6 +158,7 @@ public class TableComponent implements ReportComponent {
                   new Paragraph(new Text(value))
                       .setFont(valueFinalFont)
                       .setFontColor(valueColor)
+                          .setMarginTop(-5f)
                           .setPaddingLeft(cellInputBean.getCellPaddingLeft())
                       .setBorder(cellInputBean.getBorder())
                       .setFontSize(valueFontSize))

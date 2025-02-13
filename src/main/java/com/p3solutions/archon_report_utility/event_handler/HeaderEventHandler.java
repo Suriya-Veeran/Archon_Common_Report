@@ -51,7 +51,7 @@ public class HeaderEventHandler implements IEventHandler {
         float y = pageSize.getHeight() - headerBean.getTopMargin();
 
     DividerBean dividerBean =
-        buildDividerInputBean(y, 1f, "E9E9E9", 1, DividerType.PAGE_TO_PAGE);
+        buildDividerInputBean(y, 3f, "E9E9E9", 1, DividerType.PAGE_TO_PAGE);
         headerBean.setDividerBean(dividerBean);
 
         try {

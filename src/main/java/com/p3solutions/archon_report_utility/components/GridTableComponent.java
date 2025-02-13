@@ -36,6 +36,7 @@ public class GridTableComponent implements ReportComponent {
   @Override
   public void render(Document document) throws IOException {
     if (inputBean.getParameterMap() != null && !inputBean.getParameterMap().isEmpty()) {
+
       Table table = configTable(inputBean);
       table.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       table.setKeepTogether(inputBean.isKeepTogether());
@@ -46,15 +47,33 @@ public class GridTableComponent implements ReportComponent {
 
       Map<String, List<String>> parameterMap = inputBean.getParameterMap();
       for (String header : parameterMap.keySet()) {
+
+        Paragraph paragraph = new Paragraph();
+        paragraph.setFont(
+                PdfFontFactory.createFont(
+                        inputBean.getFontProgram(),
+                        PdfEncodings.IDENTITY_H,
+                        PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
+
+        String[] parts = header.split(COMMA, 2);
+        paragraph.add(new Paragraph(parts[0])
+                .setBackgroundColor(hexaDecimalToRGB("953553"))
+                .setFontSize(inputBean.getCellInputBean().getFontSize()));
+
+        if (parts.length > 1) {
+          paragraph
+              .add("\n")
+              .add(
+                  new Paragraph(parts[1].trim())
+                          .setMarginTop(-1000f)
+                          .setPaddingTop(20f)
+                          .setBackgroundColor(hexaDecimalToRGB("EE4B2B"))
+                      .setFontSize(inputBean.getCellInputBean().getFontSize()));
+          }
+
         Cell headerCell =
             new Cell()
-                .add(
-                    new Paragraph(header)
-                        .setFont(
-                            PdfFontFactory.createFont(
-                                inputBean.getFontProgram(),
-                                PdfEncodings.IDENTITY_H,
-                                PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED)))
+                .add(paragraph)
                 .setBorder(inputBean.getCellInputBean().getBorder())
                 .setTextAlignment(inputBean.getCellInputBean().getTextAlignment())
                 .setFontSize(inputBean.getCellInputBean().getFontSize())
@@ -77,6 +96,7 @@ public class GridTableComponent implements ReportComponent {
           if (parts.length > 1) {
             paragraph.add("\n")
                     .add(new Paragraph(parts[1].trim())
+                            .setPaddingLeft(-10)
                     .setFontSize(inputBean.getCellInputBean().getFontSize() - 2f));
 
           }

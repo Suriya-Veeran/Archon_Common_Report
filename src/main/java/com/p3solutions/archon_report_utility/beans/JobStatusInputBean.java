@@ -26,7 +26,7 @@ public class JobStatusInputBean {
 
   @Builder.Default private String header = "Job Status: ";
 
-  @Builder.Default private String fontProgram = "src/main/resources/fonts/Roboto-BlackItalic.ttf";
+  @Builder.Default private String fontProgram = "src/main/resources/fonts/Roboto-Italic.ttf";
 
   @Builder.Default private String errorHeader = "Error Message: ";
 

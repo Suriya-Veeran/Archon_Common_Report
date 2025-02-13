@@ -9,6 +9,8 @@ import static com.p3solutions.archon_report_utility.constants.ColorConstants.*;
 import static com.p3solutions.archon_report_utility.constants.ColorConstants.DIVIDER_GREY_COLOR;
 import static runner.builder.GridValueBuilder.buildGridValue;
 import static runner.builder.TableValueBuilder.*;
+import static runner.constants.RobotoFontConstants.ROBOTO_MEDIUM;
+import static runner.constants.RobotoFontConstants.ROBOTO_REGULAR;
 
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
@@ -16,13 +18,11 @@ import com.p3solutions.archon_report_utility.beans.FooterBean;
 import com.p3solutions.archon_report_utility.core.Report;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.DividerType;
-import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedHashMap;
-
 import lombok.extern.slf4j.Slf4j;
 import runner.enums.ReportNameConstants;
 import runner.services.CommonRunner;
@@ -40,23 +40,22 @@ public class TableOptimizationRunner implements CommonRunner {
       ReportComponent dividerComponent =
           ReportBuilder.addComponent(
               buildDividerInputBean(
-                  750L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
+                  755L, 0.75f, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
       ReportComponent jobSummaryComponent =
           ReportBuilder.addComponent(
               buildSummaryBean(
                   "Job Summary",
                   HEADER_FONT_COLOR,
                   13,
-                      "src/main/resources/fonts/Roboto-Medium.ttf",
+                      ROBOTO_MEDIUM,
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent summaryDividerComponent =
           ReportBuilder.addComponent(
-              buildDividerInputBean(717L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(726L, 0.75f, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
 
       ReportComponent jobStatusComponent =
               ReportBuilder.addComponent(getTableBean(new LinkedHashMap<>() , TableType.JOB_STATUS));
-
 
       ReportComponent jobTableComponent =
           ReportBuilder.addComponent(
@@ -67,12 +66,12 @@ public class TableOptimizationRunner implements CommonRunner {
                   "Objective",
                   HEADER_FONT_COLOR,
                   13,
-                      "src/main/resources/fonts/Roboto-Medium.ttf",
+                      ROBOTO_MEDIUM,
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent dividerAfterObjective =
           ReportBuilder.addComponent(
-              buildDividerInputBean(470L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(510L, 0.75f, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       String reportDescription =
               "This report shows the storage optimisation achieved after the process run. "
                       + "Table data optimisation jobs identify scope of optimising the way this data is stored "
@@ -84,7 +83,7 @@ public class TableOptimizationRunner implements CommonRunner {
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
                   10,
-                      "src/main/resources/fonts/Roboto-Regular.ttf",
+                      ROBOTO_REGULAR,
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent optimizationStatistics =
@@ -93,12 +92,12 @@ public class TableOptimizationRunner implements CommonRunner {
                   "Optimization Statistics",
                   HEADER_FONT_COLOR,
                   13,
-                      "src/main/resources/fonts/Roboto-Medium.ttf",
+                      ROBOTO_MEDIUM,
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
       ReportComponent optimizationStatisticsDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(367L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(425L, 0.75f, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent optimizationGridComponent =
           ReportBuilder.addComponent(buildGridTableComponent(buildGridValue(reportNameConstants),
                   buildGridValue(reportNameConstants).size()));

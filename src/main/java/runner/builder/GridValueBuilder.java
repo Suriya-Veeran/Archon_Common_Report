@@ -14,8 +14,8 @@ public class GridValueBuilder {
     switch (reportNameConstants) {
       case TABLE_OPTIMIZATION_REPORT:
         gridValue.put("Description", List.of("Data Snapshots", "Data Files", "Size of Table"));
-        gridValue.put("Count of pre-data optimization", List.of("2", "8", "85.432 KB"));
-        gridValue.put("Count of post-data optimization", List.of("1", "1", "25.1 KB"));
+        gridValue.put("Count of pre-data,optimization", List.of("2", "8", "85.432 KB"));
+        gridValue.put("Count of post-data,optimization", List.of("1", "1", "25.1 KB"));
         gridValue.put(
             "Message",
             List.of(

@@ -30,6 +30,7 @@ public class SummaryComponent implements ReportComponent {
             .setFont(PdfFontFactory.createFont(inputBean.getFontFamily(), PdfEncodings.IDENTITY_H,
                     PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
             .setFontSize(inputBean.getFontSize())
+                .setMultipliedLeading(1f) // Reduce line spacing (Default is 1.2)
             .setPaddingLeft(inputBean.getPaddingLeft())
                 .setPaddingTop(inputBean.getPaddingTop())
             .setBorderBottomLeftRadius(new BorderRadius(inputBean.getBorderBean().getBorderBottomLeftRadius())));

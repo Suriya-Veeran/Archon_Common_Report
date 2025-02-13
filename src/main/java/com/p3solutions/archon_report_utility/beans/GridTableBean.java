@@ -36,7 +36,7 @@ public class GridTableBean implements ReportBean {
 
   @Builder.Default private String fontColor = "000000";
 
-  @Builder.Default private float padding = 5f;
+  @Builder.Default private float padding = 10f;
 
   @Builder.Default private String fontProgram = "src/main/resources/fonts/Roboto-Regular.ttf";
 }
