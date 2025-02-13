@@ -51,7 +51,7 @@ public class HeaderEventHandler implements IEventHandler {
         float y = pageSize.getHeight() - headerBean.getTopMargin();
 
     DividerBean dividerBean =
-        buildDividerInputBean(y, 1f, "EE4B2B", 1, DividerType.PAGE_TO_PAGE);
+        buildDividerInputBean(y, 1f, "E9E9E9", 1, DividerType.PAGE_TO_PAGE);
         headerBean.setDividerBean(dividerBean);
 
         try {
@@ -111,8 +111,8 @@ public class HeaderEventHandler implements IEventHandler {
                 dividerCanvas.lineTo(pageSize.getWidth(), y);
                 dividerCanvas.closePathStroke();
             }
+            canvas.add(headerTable);
             canvas.close();
-            document.add(headerTable);
 
         } catch (IOException e) {
             log.error("Error in HeaderEventHandler: {}", e.getMessage(), e);

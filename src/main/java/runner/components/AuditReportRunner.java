@@ -31,11 +31,11 @@ public class AuditReportRunner implements CommonRunner {
     try {
       Report report = new ReportBuilder(location, reportNameConstants.getFileName()).build();
       ReportComponent tableComponent =
-          ReportBuilder.addComponent(getTableBean(headerTableParameters(), TableType.HEADER));
+          ReportBuilder.addComponent(getTableBean(headerTableParameters(reportNameConstants), TableType.HEADER));
       ReportComponent dividerComponent =
           ReportBuilder.addComponent(
               buildDividerInputBean(
-                  760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
+                  750L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
 
       String firstHeaderValue =
           "User sysadmin (sysadmin@ads.com) exported the audit events for date range 2023-11-07 - 2024-06-12 as CSV";

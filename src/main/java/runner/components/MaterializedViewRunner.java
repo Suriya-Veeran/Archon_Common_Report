@@ -35,7 +35,7 @@ public class MaterializedViewRunner implements CommonRunner {
 
       Report report = new ReportBuilder(location, reportNameConstants.getFileName()).build();
       ReportComponent tableComponent =
-          ReportBuilder.addComponent(getTableBean(headerTableParameters(), TableType.HEADER));
+          ReportBuilder.addComponent(getTableBean(headerTableParameters(reportNameConstants), TableType.HEADER));
       ReportComponent dividerComponent =
           ReportBuilder.addComponent(
               buildDividerInputBean(

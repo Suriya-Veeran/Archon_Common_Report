@@ -33,11 +33,11 @@ public class SourceToValidationRunner implements CommonRunner {
 
       Report report = new ReportBuilder(location, reportNameConstants.getFileName()).build();
       ReportComponent tableComponent =
-          ReportBuilder.addComponent(getTableBean(headerTableParameters(), TableType.HEADER));
+          ReportBuilder.addComponent(getTableBean(headerTableParameters(reportNameConstants), TableType.HEADER));
       ReportComponent dividerComponent =
           ReportBuilder.addComponent(
               buildDividerInputBean(
-                  760L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
+                  750L, 1L, HEADER_TABLE_DIVIDER_GREY_COLOR, 1, DividerType.PAGE_TO_PAGE));
       ReportComponent jobSummaryComponent =
           ReportBuilder.addComponent(
               buildSummaryBean(
@@ -79,7 +79,7 @@ public class SourceToValidationRunner implements CommonRunner {
               buildSummaryBean(
                   reportDescription,
                   OBJECTIVE_FONT_COLOR,
-                  10,
+                  9,
                       "src/main/resources/fonts/Roboto-Regular.ttf",
                   TextAlignment.LEFT,
                   VerticalAlignment.TOP));
@@ -94,7 +94,7 @@ public class SourceToValidationRunner implements CommonRunner {
                   VerticalAlignment.TOP));
       ReportComponent licenseVolumeMetricDivider =
           ReportBuilder.addComponent(
-              buildDividerInputBean(280L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
+              buildDividerInputBean(269L, 1L, DIVIDER_GREY_COLOR, 1, DividerType.CONTENT));
       ReportComponent headerComponent =
           ReportBuilder.addComponent(getHeaderBean(reportNameConstants.getReportName()));
       ReportComponent footerComponent = ReportBuilder.addComponent(new FooterBean());
