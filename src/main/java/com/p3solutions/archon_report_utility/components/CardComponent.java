@@ -1,5 +1,6 @@
 package com.p3solutions.archon_report_utility.components;
 
+import static com.p3solutions.archon_report_utility.constants.SpecialCharacterConstants.COMMA;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 import static com.p3solutions.archon_report_utility.utils.CommonUtils.addEmptyLines;
 
@@ -18,7 +19,6 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.beans.CardBean;
 import com.p3solutions.archon_report_utility.enums.CardType;
-import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.IOException;
 import java.util.Map;
@@ -42,41 +42,43 @@ public class CardComponent implements ReportComponent {
     } else if (inputBean.getCardType() == CardType.SINGLE_DETAILS_INFO) {
       renderSingleDetailsCard(document);
     }
-    addEmptyLines(1, document);
+    addEmptyLines(inputBean.getEmptyLines(), document);
   }
 
   /** Renders a Multiple Details Info Card (Table-style card). */
   private void renderMultipleDetailsCard(Document document) throws IOException {
-    Color cardBackground = hexaDecimalToRGB("E8EDF7"); // Light grey background
-    Color borderColor = hexaDecimalToRGB("DCDCDC"); // Light border color
-    Color successColor = hexaDecimalToRGB("007D2B");
+    Color cardBackground = hexaDecimalToRGB(inputBean.getCardBackground());
+    Color borderColor = hexaDecimalToRGB(inputBean.getBorderColor());
+    Color successColor = hexaDecimalToRGB(inputBean.getSuccessColor());
 
     Color headerColor =
-        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "2C2C2C" : "000000");
+        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader()
+                ?  inputBean.getHeaderValueColor()
+                : inputBean.getValueColor());
+
     Color valueColor =
-        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader() ? "000000" : "2C2C2C");
+        hexaDecimalToRGB(inputBean.getCellInputBean().isValueHeader()
+                ? inputBean.getValueColor()
+                : inputBean.getHeaderValueColor());
 
-    String valueFontPath = "src/main/resources/fonts/Roboto-Regular.ttf";
-    String headerFontPath = "src/main/resources/fonts/Roboto-Medium.ttf";
-
-    PdfFont headerFont = PdfFontFactory.createFont(headerFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
-    PdfFont valueFont = PdfFontFactory.createFont(valueFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+    PdfFont headerFont = PdfFontFactory.createFont(inputBean.getHeaderFontPath(), PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+    PdfFont valueFont = PdfFontFactory.createFont(inputBean.getValueFontPath(), PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
 
     if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
       Table parameterTable = new Table(3);
       parameterTable.setWidth(UnitValue.createPercentValue(100));
       parameterTable.setFixedLayout();
-      parameterTable.setBorderBottom(new SolidBorder(borderColor, 1));
-      parameterTable.setBorderLeft(new SolidBorder(borderColor, 1));
-      parameterTable.setBorderRight(new SolidBorder(borderColor, 1));
-      parameterTable.setMarginLeft(-18f);
-      parameterTable.setMarginRight(-18f);
+      parameterTable.setBorderBottom(new SolidBorder(borderColor, inputBean.getBorderBean().getSolidBorderWidth()));
+      parameterTable.setBorderLeft(new SolidBorder(borderColor, inputBean.getBorderBean().getSolidBorderWidth()));
+      parameterTable.setBorderRight(new SolidBorder(borderColor, inputBean.getBorderBean().getSolidBorderWidth()));
+      parameterTable.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
+      parameterTable.setMarginRight(inputBean.getMarginBean().getRightMargin());
       parameterTable.setKeepTogether(true);
 
       Paragraph paragraph = new Paragraph();
       paragraph.setFont(headerFont).setTextAlignment(TextAlignment.LEFT);
-      String[] parts = inputBean.getHeader().split(",", 2);
+      String[] parts = inputBean.getHeader().split(COMMA, 2);
       paragraph.add(new Paragraph(parts[0]).setFontSize(10));
 
       if (parts.length > 1) {
@@ -126,7 +128,7 @@ public class CardComponent implements ReportComponent {
 
         cell.setKeepTogether(true);
         parameterTable.addCell(cell);
-        parameterTable.setBorder(new SolidBorder(borderColor, 1));
+        parameterTable.setBorder(new SolidBorder(borderColor, inputBean.getBorderBean().getSolidBorderWidth()));
       }
       document.add(parameterTable);
     }
@@ -134,21 +136,18 @@ public class CardComponent implements ReportComponent {
 
   /** Renders a Single Details Info Card (Header + Date + Description). */
   private void renderSingleDetailsCard(Document document) throws IOException {
-    addEmptyLines(2, document);
-    Color cardBackground = hexaDecimalToRGB("DFEAFF"); // Light grey background
+    addEmptyLines(inputBean.getEmptyLines(), document);
+    Color cardBackground = hexaDecimalToRGB("DFEAFF");
 
-    String valueFontPath = "src/main/resources/fonts/Roboto-Regular.ttf";
-    String headerFontPath = "src/main/resources/fonts/Roboto-Medium.ttf";
-
-    PdfFont headerFont = PdfFontFactory.createFont(headerFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
-    PdfFont valueFont = PdfFontFactory.createFont(valueFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+    PdfFont headerFont = PdfFontFactory.createFont(inputBean.getHeaderFontPath(), PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+    PdfFont valueFont = PdfFontFactory.createFont(inputBean.getValueFontPath(), PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
     Table headerTable = new Table(2);
     headerTable.setWidth(UnitValue.createPercentValue(100));
     headerTable.setBackgroundColor(cardBackground);
-    headerTable.setBorderTop(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
-    headerTable.setBorderLeft(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
-    headerTable.setBorderRight(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+    headerTable.setBorderTop(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor()), inputBean.getBorderBean().getSolidBorderWidth()));
+    headerTable.setBorderLeft(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor()), inputBean.getBorderBean().getSolidBorderWidth()));
+    headerTable.setBorderRight(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor()), inputBean.getBorderBean().getSolidBorderWidth()));
     headerTable.addCell(
         new Cell()
             .add(
@@ -170,15 +169,15 @@ public class CardComponent implements ReportComponent {
             .setBorder(Border.NO_BORDER)
             .setPadding(5)
             .setTextAlignment(TextAlignment.RIGHT));
-    headerTable.setMarginLeft(-18f);
-    headerTable.setMarginRight(-18f);
+    headerTable.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
+    headerTable.setMarginRight(inputBean.getMarginBean().getRightMargin());
     document.add(headerTable);
 
     Table contentTable = new Table(1);
     contentTable.setWidth(UnitValue.createPercentValue(100));
-    contentTable.setBorderBottom(new SolidBorder(cardBackground, 1));
-    contentTable.setBorderLeft(new SolidBorder(cardBackground, 1));
-    contentTable.setBorderRight(new SolidBorder(cardBackground, 1));
+    contentTable.setBorderBottom(new SolidBorder(cardBackground, inputBean.getBorderBean().getSolidBorderWidth()));
+    contentTable.setBorderLeft(new SolidBorder(cardBackground, inputBean.getBorderBean().getSolidBorderWidth()));
+    contentTable.setBorderRight(new SolidBorder(cardBackground, inputBean.getBorderBean().getSolidBorderWidth()));
 
     Cell contentCell =
         new Cell()
@@ -189,8 +188,8 @@ public class CardComponent implements ReportComponent {
                     .setFontColor(hexaDecimalToRGB("000000")))
             .setBorder(Border.NO_BORDER)
             .setPadding(10);
-    contentTable.setMarginLeft(-18f);
-    contentTable.setMarginRight(-18f);
+    contentTable.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
+    contentTable.setMarginRight(inputBean.getMarginBean().getRightMargin());
     contentTable.addCell(contentCell);
     document.add(contentTable);
   }

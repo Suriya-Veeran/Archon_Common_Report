@@ -19,11 +19,28 @@ public class ChartCreationConfig implements ReportBean {
     @Builder.Default
     private List<HtmlCreationInfoBean> htmlCreationInfoBean = new ArrayList<>();
 
+    @Builder.Default
     private int numberOfRows = 2;
 
+    @Builder.Default
     private float fitWeight = 300;
 
+    @Builder.Default
     private float fitHeight = 300;
 
+    @Builder.Default
+    private MarginBean marginBean = new MarginBean();
+
+    @Builder.Default
+    private CellInputBean cellInputBean = new CellInputBean();
+
+    @Builder.Default
+    private int emptyLines = 1;
+
+    @Builder.Default
+    private String browser = "chrome";
+
+    @Builder.Default
+    private float paddingLeft = -80;
 
 }

@@ -61,9 +61,9 @@ public class HeaderEventHandler implements IEventHandler {
             Table headerTable = new Table(UnitValue.createPercentArray(new float[]{70, 30}))
                     .setWidth(width)
                     .setFixedPosition(0,pageSize.getHeight() - 45, width)
-                    .setBackgroundColor(hexaDecimalToRGB("F9F9F9"));
+                    .setBackgroundColor(hexaDecimalToRGB(headerBean.getBackgroundColor()));
 
-            PdfFont font = PdfFontFactory.createFont("src/main/resources/fonts/Roboto-Medium.ttf",
+            PdfFont font = PdfFontFactory.createFont(headerBean.getFontProgram(),
                     PdfEncodings.IDENTITY_H,
                     PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
@@ -75,10 +75,10 @@ public class HeaderEventHandler implements IEventHandler {
 
             Cell titleCell = new Cell().add(title)
                     .setBorder(null)
-                    .setPaddingTop(13)
-                    .setPaddingBottom(5)
-                    .setPaddingLeft(17)
-                    .setBackgroundColor(hexaDecimalToRGB("F9F9F9"))
+                    .setPaddingTop(headerBean.getPaddingTop())
+                    .setPaddingBottom(headerBean.getPaddingBottom())
+                    .setPaddingLeft(headerBean.getPaddingLeft())
+                    .setBackgroundColor(hexaDecimalToRGB(headerBean.getBackgroundColor()))
                     .setVerticalAlignment(headerBean.getVerticalAlignment());
             headerTable.addCell(titleCell);
 
@@ -89,10 +89,10 @@ public class HeaderEventHandler implements IEventHandler {
                     logo.setHorizontalAlignment(headerBean.getLogoHorizontalAlignment());
                     Cell logoCell = new Cell()
                             .add(logo)
-                            .setPaddingRight(17)
-                            .setPaddingTop(15)
-                            .setPaddingBottom(3)
-                            .setBackgroundColor(hexaDecimalToRGB("F9F9F9"))
+                            .setPaddingRight(headerBean.getLogoPaddingRight())
+                            .setPaddingTop(headerBean.getLogoPaddingTop())
+                            .setPaddingBottom(headerBean.getLogoPaddingBottom())
+                            .setBackgroundColor(hexaDecimalToRGB(headerBean.getBackgroundColor()))
                             .setBorder(null);
                     headerTable.addCell(logoCell);
                 } else {

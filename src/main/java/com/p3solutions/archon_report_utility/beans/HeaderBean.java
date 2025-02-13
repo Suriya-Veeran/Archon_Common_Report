@@ -3,7 +3,6 @@ package com.p3solutions.archon_report_utility.beans;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
-import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +23,14 @@ public class HeaderBean implements ReportBean {
   @Builder.Default private String fontColor = "030303"; // Background color of the header
   @Builder.Default private int fontSize = 16; // Font size for header content
   @Builder.Default private VerticalAlignment verticalAlignment = VerticalAlignment.MIDDLE;
-  @Builder.Default private FontType font = FontType.HELVETICA_BOLD; // Enum FontType for font type
+  @Builder.Default private String backgroundColor = "F9F9F9";
+
+  @Builder.Default private String fontProgram = "src/main/resources/fonts/Roboto-Medium.ttf";
+  @Builder.Default private float paddingTop = 13;
+  @Builder.Default private float paddingLeft = 17;
+  @Builder.Default private float paddingBottom = 5;
+
+  
   @Builder.Default private boolean isLogoNeeded = true;
   @Builder.Default private String imagePath = "Archon-Datastore rasterized.png";
   @Builder.Default private float fitWidth = 52;
@@ -34,6 +40,14 @@ public class HeaderBean implements ReportBean {
   @Builder.Default private TextAlignment logoTextAlignment = TextAlignment.LEFT;
   @Builder.Default private VerticalAlignment logoVerticalAlignment = VerticalAlignment.TOP;
   @Builder.Default private HorizontalAlignment logoHorizontalAlignment = HorizontalAlignment.RIGHT;
+
+  @Builder.Default private float logoPaddingRight = 17f;
+  @Builder.Default private float logoPaddingBottom = 3f;
+  @Builder.Default private float logoPaddingTop = 15f;
+
+
   @Builder.Default private DividerBean dividerBean = new DividerBean();
   @Builder.Default private Boolean isDividerNeeded = true;
+
+
 }

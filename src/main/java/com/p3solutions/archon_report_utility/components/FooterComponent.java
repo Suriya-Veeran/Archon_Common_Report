@@ -1,6 +1,8 @@
 package com.p3solutions.archon_report_utility.components;
 
 import static com.p3solutions.archon_report_utility.builder.DividerBeanBuilder.buildDividerInputBean;
+import static com.p3solutions.archon_report_utility.constants.CommonConstants.OF;
+import static com.p3solutions.archon_report_utility.constants.CommonConstants.PAGE;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 
 import com.itextpdf.io.font.PdfEncodings;
@@ -41,17 +43,18 @@ public class FooterComponent implements ReportComponent {
         }
 
         int numberOfPages = document.getPdfDocument().getNumberOfPages();
-
         for (int i = 1; i <= numberOfPages; i++) {
             applyFooterToPage(document, i, numberOfPages);
         }
-
         document.flush();
     }
 
     private void applyFooterToPage(Document document, int pageIndex, int totalPages) throws IOException {
 
-        DividerBean dividerBean = buildDividerInputBean(30L, 1L, "E2E2E2", 1, DividerType.PAGE_TO_PAGE);
+        DividerBean dividerBean = buildDividerInputBean(30L,
+                1L,
+                "E2E2E2",
+                1, DividerType.PAGE_TO_PAGE);
         inputBean.setDividerBean(dividerBean);
 
         PdfPage page = document.getPdfDocument().getPage(pageIndex);
@@ -71,11 +74,11 @@ public class FooterComponent implements ReportComponent {
                 inputBean.getVerticalAlignment(),
                 0);
 
-        String pageText = "Page " + pageIndex + " Of " + totalPages;
+        String pageText = PAGE + pageIndex + OF + totalPages;
         Paragraph pageNumberParagraph =
                 new Paragraph(pageText)
                         .setFontSize(inputBean.getFontSize())
-                        .setFont(PdfFontFactory.createFont("src/main/resources/fonts/Roboto-Regular.ttf",
+                        .setFont(PdfFontFactory.createFont(inputBean.getFontProgram(),
                                 PdfEncodings.IDENTITY_H,
                                 PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
                         .setFontColor(hexaDecimalToRGB(inputBean.getFontColor()))
@@ -95,9 +98,8 @@ public class FooterComponent implements ReportComponent {
             dividerCanvas.setStrokeColor(hexaDecimalToRGB(inputBean.getDividerBean().getHexDecimal()));
             dividerCanvas.setLineWidth(inputBean.getDividerBean().getLineWidth());
 
-            float dividerYPosition = 30;
-            dividerCanvas.moveTo(0, dividerYPosition);
-            dividerCanvas.lineTo(pageSize.getWidth(), dividerYPosition);
+            dividerCanvas.moveTo(inputBean.getDividerBean().getBottomXAxis(), inputBean.getDividerBean().getBottomYAxis());
+            dividerCanvas.lineTo(pageSize.getWidth(), inputBean.getDividerBean().getBottomYAxis());
             dividerCanvas.closePathStroke();
         }
 
@@ -120,7 +122,7 @@ public class FooterComponent implements ReportComponent {
                 .setVerticalAlignment(footerInputBean.getVerticalAlignment())
                 .setFontSize(footerInputBean.getFontSize())
                 .setBorder(footerInputBean.getBorder())
-                .setFont(PdfFontFactory.createFont("src/main/resources/fonts/Roboto-Regular.ttf",
+                .setFont(PdfFontFactory.createFont(inputBean.getFontProgram(),
                         PdfEncodings.IDENTITY_H,
                         PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
                 .setFontColor(hexaDecimalToRGB(footerInputBean.getFontColor()))

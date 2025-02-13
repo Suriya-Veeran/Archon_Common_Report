@@ -34,4 +34,16 @@ public class CellInputBean {
   @Builder.Default private int cellHeight = 30;
 
   @Builder.Default private boolean valueHeader = true;
+
+  @Builder.Default private String cellHeaderColor = "2C2C2C";
+
+  @Builder.Default private String cellValueColor = "000000";
+
+  @Builder.Default private String robotoRegularFont = "src/main/resources/fonts/Roboto-Regular.ttf";
+
+  @Builder.Default private String robotMediumFont = "src/main/resources/fonts/Roboto-Medium.ttf";
+
+  @Builder.Default private float cellPaddingLeft = 17;
+
+  @Builder.Default private String headerCellBackgroundColor = "F9F9F9";
 }

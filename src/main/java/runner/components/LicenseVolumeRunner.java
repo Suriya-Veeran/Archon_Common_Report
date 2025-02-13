@@ -15,7 +15,6 @@ import com.p3solutions.archon_report_utility.beans.FooterBean;
 import com.p3solutions.archon_report_utility.core.Report;
 import com.p3solutions.archon_report_utility.core.ReportBuilder;
 import com.p3solutions.archon_report_utility.enums.DividerType;
-import com.p3solutions.archon_report_utility.enums.FontType;
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.FileNotFoundException;

@@ -30,9 +30,9 @@ public class SummaryComponent implements ReportComponent {
             .setFont(PdfFontFactory.createFont(inputBean.getFontFamily(), PdfEncodings.IDENTITY_H,
                     PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
             .setFontSize(inputBean.getFontSize())
-            .setPaddingLeft(-17)
-                .setPaddingTop(-3)
-            .setBorderBottomLeftRadius(new BorderRadius(1f)));
+            .setPaddingLeft(inputBean.getPaddingLeft())
+                .setPaddingTop(inputBean.getPaddingTop())
+            .setBorderBottomLeftRadius(new BorderRadius(inputBean.getBorderBean().getBorderBottomLeftRadius())));
         document.flush();
     }
 

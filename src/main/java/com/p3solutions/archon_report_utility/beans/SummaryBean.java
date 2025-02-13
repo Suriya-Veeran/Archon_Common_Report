@@ -26,11 +26,11 @@ public class SummaryBean implements ReportBean {
 
   @Builder.Default private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
 
-  @Builder.Default private float paddingLeft = 10;
+  @Builder.Default private float paddingLeft = -17f;
 
   @Builder.Default private float paddingRight = 10;
 
-  @Builder.Default private float paddingTop = 10;
+  @Builder.Default private float paddingTop = -3f;
 
   @Builder.Default private float paddingBottom = 10;
 
@@ -39,4 +39,6 @@ public class SummaryBean implements ReportBean {
   @Builder.Default private String backgroundColor = "#f0f0f0";
 
   @Builder.Default private float backgroundOpacity = 1.0f;
+
+  @Builder.Default private BorderBean borderBean = new BorderBean();
 }

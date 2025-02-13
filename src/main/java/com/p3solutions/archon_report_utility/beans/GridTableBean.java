@@ -29,4 +29,14 @@ public class GridTableBean implements ReportBean {
 
   @Builder.Default private MarginBean marginBean = new MarginBean();
   @Builder.Default private BorderBean borderBean = new BorderBean();
+
+  @Builder.Default private String successColor = "007D2B";
+
+  @Builder.Default private String failureColor = "D60000";
+
+  @Builder.Default private String fontColor = "000000";
+
+  @Builder.Default private float padding = 5f;
+
+  @Builder.Default private String fontProgram = "src/main/resources/fonts/Roboto-Regular.ttf";
 }

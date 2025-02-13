@@ -1,10 +1,8 @@
 package com.p3solutions.archon_report_utility.beans;
 
-import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
-import com.p3solutions.archon_report_utility.constants.ColorConstants;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +35,7 @@ public class FooterBean implements ReportBean {
     @Builder.Default
     private int fontSize = 8;  // Default font size for footer text
     @Builder.Default
-    private String font = "Helvetica";  // Default font for footer text
+    private String fontProgram = "src/main/resources/fonts/Roboto-Regular.ttf";  // Default font for footer text
     @Builder.Default
     private String fontColor = "3F3F3F";  // Default font color for footer text
     @Builder.Default

@@ -2,6 +2,7 @@ package com.p3solutions.archon_report_utility.components;
 
 
 import static com.p3solutions.archon_report_utility.constants.ColorConstants.BLUE_BG_COLOR;
+import static com.p3solutions.archon_report_utility.constants.SpecialCharacterConstants.COMMA;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
 import static com.p3solutions.archon_report_utility.utils.CommonUtils.configTable;
 
@@ -9,12 +10,10 @@ import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.beans.GridTableBean;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
@@ -40,9 +39,10 @@ public class GridTableComponent implements ReportComponent {
       Table table = configTable(inputBean);
       table.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
       table.setKeepTogether(inputBean.isKeepTogether());
-      table.setMarginLeft(-18f);
-      table.setMarginRight(-18f);
-      table.setBorder(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 1));
+      table.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
+      table.setMarginRight(inputBean.getMarginBean().getRightMargin());
+      table.setBorder(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor()),
+              inputBean.getBorderBean().getSolidBorderWidth()));
 
       Map<String, List<String>> parameterMap = inputBean.getParameterMap();
       for (String header : parameterMap.keySet()) {
@@ -52,14 +52,14 @@ public class GridTableComponent implements ReportComponent {
                     new Paragraph(header)
                         .setFont(
                             PdfFontFactory.createFont(
-                                "src/main/resources/fonts/Roboto-Regular.ttf",
+                                inputBean.getFontProgram(),
                                 PdfEncodings.IDENTITY_H,
                                 PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED)))
-                .setBorder(Border.NO_BORDER)
-                .setTextAlignment(TextAlignment.LEFT)
-                .setFontSize(10)
+                .setBorder(inputBean.getCellInputBean().getBorder())
+                .setTextAlignment(inputBean.getCellInputBean().getTextAlignment())
+                .setFontSize(inputBean.getCellInputBean().getFontSize())
                 .setBackgroundColor(hexaDecimalToRGB(BLUE_BG_COLOR))
-                .setPadding(5);
+                .setPadding(inputBean.getPadding());
         table.addCell(headerCell);
       }
 
@@ -67,25 +67,30 @@ public class GridTableComponent implements ReportComponent {
       for (int i = 0; i < rowCount; i++) {
         for (List<String> values : parameterMap.values()) {
           String originalValue = values.get(i);
-          Color fontColor = retrieveCellFontColor(originalValue);
+          Color fontColor = retrieveCellFontColor(originalValue, inputBean);
 
           Paragraph paragraph = new Paragraph();
-          String[] parts = originalValue.split(",", 2);
-          paragraph.add(new Paragraph(parts[0]).setFontSize(10));
+          String[] parts = originalValue.split(COMMA, 2);
+          paragraph.add(new Paragraph(parts[0])
+                  .setFontSize(inputBean.getCellInputBean().getFontSize()));
 
           if (parts.length > 1) {
-            paragraph.add("\n").add(new Paragraph(parts[1].trim()).setFontSize(8));
+            paragraph.add("\n")
+                    .add(new Paragraph(parts[1].trim())
+                    .setFontSize(inputBean.getCellInputBean().getFontSize() - 2f));
 
           }
 
-          Cell cell = new Cell()
+          Cell cell =
+              new Cell()
                   .add(paragraph)
-                  .setBorderTop(Border.NO_BORDER)
-                  .setBorderLeft(Border.NO_BORDER)
-                  .setBorderRight(Border.NO_BORDER)
+                  .setBorderTop(inputBean.getBorderBean().getBorderTop())
+                  .setBorderLeft(inputBean.getBorderBean().getBorderLeft())
+                  .setBorderRight(inputBean.getBorderBean().getBorderRight())
                   .setFontColor(fontColor)
-                  .setBorderBottom(new SolidBorder(hexaDecimalToRGB("DCDCDC"), 0.5f))
-                  .setPadding(5);
+                  .setBorderBottom(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderBottomColor()),
+                          inputBean.getBorderBean().getSolidBorderWidth()))
+                  .setPadding(inputBean.getPadding());
 
           table.addCell(cell);
         }
@@ -94,14 +99,15 @@ public class GridTableComponent implements ReportComponent {
     }
   }
 
-  private static Color retrieveCellFontColor(String value) {
+  private static Color retrieveCellFontColor(String value,
+                                             GridTableBean inputBean) {
     Color fontColor;
     if (value.equalsIgnoreCase("Disposed Success") || value.equalsIgnoreCase("Success")) {
-      fontColor = hexaDecimalToRGB("007D2B");
+      fontColor = hexaDecimalToRGB(inputBean.getSuccessColor());
     } else if (value.equalsIgnoreCase("Disposed Failure") || value.equalsIgnoreCase("Failed")) {
-      fontColor = hexaDecimalToRGB("D60000");
+      fontColor = hexaDecimalToRGB(inputBean.getFailureColor());
     } else {
-      fontColor = hexaDecimalToRGB("000000");
+      fontColor = hexaDecimalToRGB(inputBean.getFontColor());
     }
 
     return fontColor;

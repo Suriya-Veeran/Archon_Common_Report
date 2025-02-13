@@ -10,16 +10,13 @@ import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.p3solutions.archon_report_utility.beans.CellInputBean;
 import com.p3solutions.archon_report_utility.beans.TableBean;
-
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.interfaces.ReportComponent;
 import java.io.IOException;
@@ -38,10 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 public class TableComponent implements ReportComponent {
   private TableBean inputBean;
 
-  public static final String LIGHT_GREEN_HEXA_DECIMAL = "007D2B";
-
-  public static final String RED_HEXA_DECIMAL = "D60000";
-
   public void render(Document document) throws IOException {
 
     if (inputBean.getTableType().equals(TableType.HEADER)) {
@@ -56,15 +49,15 @@ public class TableComponent implements ReportComponent {
       jobStatusTable.setKeepTogether(inputBean.isKeepTogether());
       jobStatusTable.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
       jobStatusTable.setMarginRight(inputBean.getMarginBean().getRightMargin());
-      jobStatusTable.setMarginTop(-10f);
+      jobStatusTable.setMarginTop(inputBean.getMarginBean().getTopMargin());
       document.add(jobStatusTable);
       addEmptyLines(1, document);
     }
 
     if (inputBean.getParameters() != null && !inputBean.getParameters().isEmpty()) {
       Table table = configTable(inputBean);
-      table.setMarginLeft(-36);
-      table.setMarginTop(-5);
+      table.setMarginLeft(inputBean.getMarginLeft());
+      table.setMarginTop(inputBean.getMarginTop());
       table.setWidth(PageSize.A4.getWidth());
       setCellValues(inputBean, table);
       table.setBorder(inputBean.getBorder());
@@ -77,40 +70,44 @@ public class TableComponent implements ReportComponent {
 
   private void setJobStatusCellValue(TableBean inputBean, Table jobStatusTable) throws IOException {
 
-    Cell jobStatusCell = new Cell(1, 3);
+    Cell jobStatusCell = new Cell(inputBean.getJobStatusInputBean().getRowSpan(),
+            inputBean.getJobStatusInputBean().getColumnSpan());
 
     Color fontColor =
         inputBean.getJobStatusInputBean().getJobStatus().getStatus().equalsIgnoreCase("Success")
-            ? hexaDecimalToRGB(LIGHT_GREEN_HEXA_DECIMAL)
-            : hexaDecimalToRGB(RED_HEXA_DECIMAL);
+            ? hexaDecimalToRGB(inputBean.getSuccessFontColor())
+            : hexaDecimalToRGB(inputBean.getErrorFontColor());
 
     jobStatusCell.add(
-        new Paragraph(new Text("Job Status: " + inputBean.getJobStatusInputBean().getJobStatus().getStatus()))
-            .setFont(PdfFontFactory.createFont("src/main/resources/fonts/Roboto-BlackItalic.ttf",
+        new Paragraph(new Text(inputBean.getJobStatusInputBean().getHeader()
+                + inputBean.getJobStatusInputBean().getJobStatus().getStatus()))
+            .setFont(PdfFontFactory.createFont(inputBean.getJobStatusInputBean().getFontProgram(),
                     PdfEncodings.IDENTITY_H,
                     PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
-            .setFontSize(7)
-            .setFontColor(hexaDecimalToRGB("FFFFFF"))
-            .setTextAlignment(TextAlignment.LEFT)
-            .setMarginLeft(4f));
+            .setFontSize(inputBean.getJobStatusInputBean().getFontSize())
+            .setFontColor(hexaDecimalToRGB(inputBean.getJobStatusInputBean().getJobStatusFontColor()))
+            .setTextAlignment(inputBean.getJobStatusInputBean().getTextAlignment())
+            .setMarginLeft(inputBean.getJobStatusInputBean().getMarginLeft()));
     jobStatusCell.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
     jobStatusCell.setBackgroundColor(fontColor);
-    jobStatusCell.setBorder(Border.NO_BORDER);
+    jobStatusCell.setBorder(inputBean.getJobStatusInputBean().getBorder());
     jobStatusTable.addCell(jobStatusCell);
 
     if(!inputBean.getJobStatusInputBean().getJobStatus().getStatus().equalsIgnoreCase("Success")) {
-      Cell errorCell = new Cell(1, 3);
-      errorCell.add(new Paragraph(new Text("Error Message: " + inputBean.getJobStatusInputBean().getErrorMessage()))
-              .setFont(PdfFontFactory.createFont("src/main/resources/fonts/Roboto-BlackItalic.ttf",
+      Cell errorCell = new Cell(inputBean.getJobStatusInputBean().getRowSpan(),
+              inputBean.getJobStatusInputBean().getColumnSpan());
+      errorCell.add(new Paragraph(new Text(inputBean.getJobStatusInputBean().getErrorHeader()
+              + inputBean.getJobStatusInputBean().getErrorMessage()))
+              .setFont(PdfFontFactory.createFont(inputBean.getJobStatusInputBean().getErrorFontProgram(),
                       PdfEncodings.IDENTITY_H,
                       PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED))
-              .setFontSize(7)
+              .setFontSize(inputBean.getJobStatusInputBean().getFontSize())
               .setFontColor(fontColor)
-              .setTextAlignment(TextAlignment.LEFT)
-              .setMarginLeft(4f));
+              .setTextAlignment(inputBean.getJobStatusInputBean().getTextAlignment())
+              .setMarginLeft(inputBean.getJobStatusInputBean().getMarginLeft()));
       errorCell.setWidth(UnitValue.createPercentValue(inputBean.getWidth()));
-      errorCell.setBackgroundColor(hexaDecimalToRGB("FFEAEA"));
-      errorCell.setBorder(Border.NO_BORDER);
+      errorCell.setBackgroundColor(hexaDecimalToRGB(inputBean.getJobStatusInputBean().getErrorBackgroundColor()));
+      errorCell.setBorder(inputBean.getJobStatusInputBean().getBorder());
       jobStatusTable.addCell(errorCell);
     }
 
@@ -124,14 +121,11 @@ public class TableComponent implements ReportComponent {
   private void cellConfiguration(
       CellInputBean cellInputBean, Table table, Map<String, String> parameters) throws IOException {
 
-    Color headerColor = hexaDecimalToRGB("2C2C2C");
-    Color valueColor = hexaDecimalToRGB("000000");
+    Color headerColor = hexaDecimalToRGB(cellInputBean.getCellHeaderColor());
+    Color valueColor = hexaDecimalToRGB(cellInputBean.getCellValueColor());
 
-    String regularFontPath = "src/main/resources/fonts/Roboto-Regular.ttf";
-    String mediumFontPath = "src/main/resources/fonts/Roboto-Medium.ttf";
-
-    String headerFontPath = cellInputBean.isValueHeader() ? regularFontPath : mediumFontPath;
-    String valueFontPath = cellInputBean.isValueHeader() ? mediumFontPath : regularFontPath;
+    String headerFontPath = cellInputBean.isValueHeader() ? cellInputBean.getRobotoRegularFont() : cellInputBean.getRobotMediumFont();
+    String valueFontPath = cellInputBean.isValueHeader() ? cellInputBean.getRobotMediumFont() : cellInputBean.getRobotoRegularFont();
 
     PdfFont headerFont = PdfFontFactory.createFont(headerFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
     PdfFont valueFont = PdfFontFactory.createFont(valueFontPath, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
@@ -153,7 +147,7 @@ public class TableComponent implements ReportComponent {
       Color backgroundColor =
           (inputBean.getTableType() == TableType.SUMMARY)
               ? cellInputBean.getBackgroundColor()
-              : hexaDecimalToRGB("F9F9F9");
+              : hexaDecimalToRGB(cellInputBean.getHeaderCellBackgroundColor());
 
       Cell cell =
           new Cell()
@@ -161,15 +155,15 @@ public class TableComponent implements ReportComponent {
                   new Paragraph(new Text(header))
                       .setFont(headerFont)
                       .setFontColor(headerColor)
-                          .setPaddingLeft(17)
-                      .setBorder(Border.NO_BORDER)
+                          .setPaddingLeft(cellInputBean.getCellPaddingLeft())
+                      .setBorder(cellInputBean.getBorder())
                       .setFontSize(headerFontSize))
               .add(
                   new Paragraph(new Text(value))
                       .setFont(valueFinalFont)
                       .setFontColor(valueColor)
-                          .setPaddingLeft(17)
-                      .setBorder(Border.NO_BORDER)
+                          .setPaddingLeft(cellInputBean.getCellPaddingLeft())
+                      .setBorder(cellInputBean.getBorder())
                       .setFontSize(valueFontSize))
               .setBackgroundColor(backgroundColor)
               .setBorder(cellInputBean.getBorder())

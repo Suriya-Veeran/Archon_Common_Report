@@ -1,16 +1,14 @@
 package com.p3solutions.archon_report_utility.beans;
 
 import com.itextpdf.layout.borders.Border;
-import com.p3solutions.archon_report_utility.enums.JobStatusEnum;
 import com.p3solutions.archon_report_utility.enums.TableType;
 import com.p3solutions.archon_report_utility.enums.TableTypeEnum;
 import com.p3solutions.archon_report_utility.interfaces.ReportBean;
+import java.util.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.*;
 
 @Data
 @Builder
@@ -40,4 +38,13 @@ public class TableBean implements ReportBean {
   @Builder.Default private Boolean isJobStatusTableNeeded = true;
 
   @Builder.Default private TableType tableType = TableType.HEADER;
+
+  @Builder.Default private String successFontColor = "007D2B";
+
+  @Builder.Default private String errorFontColor = "D60000";
+
+  @Builder.Default private float marginLeft = -36;
+
+  @Builder.Default private float marginTop = -5;
+
 }

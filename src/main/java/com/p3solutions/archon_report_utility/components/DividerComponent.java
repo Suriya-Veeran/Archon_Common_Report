@@ -19,22 +19,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DividerComponent implements ReportComponent {
-    private DividerBean inputBean;
+  private DividerBean inputBean;
 
-    public void render(Document document) {
-        PdfPage pdfPage = document.getPdfDocument().getPage(inputBean.getPageNumber());
-        PdfCanvas canvas = new PdfCanvas(pdfPage);
-        canvas.setStrokeColor(hexaDecimalToRGB(inputBean.getHexDecimal()));
+  public void render(Document document) {
+    PdfPage pdfPage = document.getPdfDocument().getPage(inputBean.getPageNumber());
+    PdfCanvas canvas = new PdfCanvas(pdfPage);
+    canvas.setStrokeColor(hexaDecimalToRGB(inputBean.getHexDecimal()));
 
-        if (inputBean.getDividerType() == DividerType.CONTENT) {
-            canvas.moveTo(20, inputBean.getHeight());
-            canvas.lineTo(pdfPage.getPageSize().getWidth() - 17, inputBean.getHeight());
-        } else if (inputBean.getDividerType() == DividerType.PAGE_TO_PAGE) {
-            canvas.moveTo(0, inputBean.getHeight());
-            canvas.lineTo(pdfPage.getPageSize().getWidth(), inputBean.getHeight());
-        }
-        canvas.setLineWidth(inputBean.getLineWidth());
-        canvas.closePathStroke();
-        addEmptyLines(1, document);
+    if (inputBean.getDividerType() == DividerType.CONTENT) {
+      canvas.moveTo(inputBean.getStartXAxis(), inputBean.getHeight());
+      canvas.lineTo(
+          pdfPage.getPageSize().getWidth() - inputBean.getEndXAxis(), inputBean.getHeight());
+    } else if (inputBean.getDividerType() == DividerType.PAGE_TO_PAGE) {
+      canvas.moveTo(0, inputBean.getHeight());
+      canvas.lineTo(pdfPage.getPageSize().getWidth(), inputBean.getHeight());
     }
+    canvas.setLineWidth(inputBean.getLineWidth());
+    canvas.closePathStroke();
+    addEmptyLines(inputBean.getEmptyLines(), document);
+  }
 }

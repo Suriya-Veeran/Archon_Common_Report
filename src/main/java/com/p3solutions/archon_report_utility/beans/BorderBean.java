@@ -38,5 +38,5 @@ public class BorderBean {
 
   @Builder.Default private float borderBottomRightRadius = 0f;
 
-  @Builder.Default private float borderBottomLeftRadius = 0f;
+  @Builder.Default private float borderBottomLeftRadius = 1f;
 }

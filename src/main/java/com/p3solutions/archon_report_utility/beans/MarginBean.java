@@ -17,6 +17,11 @@ public class MarginBean {
     @Builder.Default
     private float rightMargin = -18f;
 
+    @Builder.Default
+    private float bottomMargin = -18f;
+
+    @Builder.Default
+    private float topMargin = -10f;
 
 
 
