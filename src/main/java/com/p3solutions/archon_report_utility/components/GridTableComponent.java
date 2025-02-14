@@ -1,6 +1,5 @@
 package com.p3solutions.archon_report_utility.components;
 
-
 import static com.p3solutions.archon_report_utility.constants.ColorConstants.BLUE_BG_COLOR;
 import static com.p3solutions.archon_report_utility.constants.SpecialCharacterConstants.COMMA;
 import static com.p3solutions.archon_report_utility.utils.ColorUtils.hexaDecimalToRGB;
@@ -42,34 +41,35 @@ public class GridTableComponent implements ReportComponent {
       table.setKeepTogether(inputBean.isKeepTogether());
       table.setMarginLeft(inputBean.getMarginBean().getLeftMargin());
       table.setMarginRight(inputBean.getMarginBean().getRightMargin());
-      table.setBorder(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor()),
-              inputBean.getBorderBean().getSolidBorderWidth()));
+      table.setPadding(0);
+
+      float borderRadius = 8f; // Adjust the curve radius as needed
+      float borderWidth = inputBean.getBorderBean().getSolidBorderWidth();
+      Color borderColor = hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor());
 
       Map<String, List<String>> parameterMap = inputBean.getParameterMap();
       for (String header : parameterMap.keySet()) {
 
         Paragraph paragraph = new Paragraph();
         paragraph.setFont(
-                PdfFontFactory.createFont(
-                        inputBean.getFontProgram(),
-                        PdfEncodings.IDENTITY_H,
-                        PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
+            PdfFontFactory.createFont(
+                inputBean.getFontProgram(),
+                PdfEncodings.IDENTITY_H,
+                PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
 
         String[] parts = header.split(COMMA, 2);
-        paragraph.add(new Paragraph(parts[0])
-                .setBackgroundColor(hexaDecimalToRGB("953553"))
-                .setFontSize(inputBean.getCellInputBean().getFontSize()));
+        paragraph
+            .add(new Paragraph(parts[0]).setFixedLeading(10f))
+            .setFontSize(inputBean.getCellInputBean().getFontSize());
 
         if (parts.length > 1) {
           paragraph
               .add("\n")
               .add(
                   new Paragraph(parts[1].trim())
-                          .setMarginTop(-1000f)
-                          .setPaddingTop(20f)
-                          .setBackgroundColor(hexaDecimalToRGB("EE4B2B"))
+                      .setPaddingTop(-45f)
                       .setFontSize(inputBean.getCellInputBean().getFontSize()));
-          }
+        }
 
         Cell headerCell =
             new Cell()
@@ -90,15 +90,16 @@ public class GridTableComponent implements ReportComponent {
 
           Paragraph paragraph = new Paragraph();
           String[] parts = originalValue.split(COMMA, 2);
-          paragraph.add(new Paragraph(parts[0])
-                  .setFontSize(inputBean.getCellInputBean().getFontSize()));
+          paragraph.add(
+              new Paragraph(parts[0]).setFontSize(inputBean.getCellInputBean().getFontSize()));
 
           if (parts.length > 1) {
-            paragraph.add("\n")
-                    .add(new Paragraph(parts[1].trim())
-                            .setPaddingLeft(-10)
-                    .setFontSize(inputBean.getCellInputBean().getFontSize() - 2f));
-
+            paragraph
+                .add("\n")
+                .add(
+                    new Paragraph(parts[1].trim())
+                        .setPaddingLeft(-10)
+                        .setFontSize(inputBean.getCellInputBean().getFontSize() - 2f));
           }
 
           Cell cell =
@@ -108,19 +109,21 @@ public class GridTableComponent implements ReportComponent {
                   .setBorderLeft(inputBean.getBorderBean().getBorderLeft())
                   .setBorderRight(inputBean.getBorderBean().getBorderRight())
                   .setFontColor(fontColor)
-                  .setBorderBottom(new SolidBorder(hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderBottomColor()),
+                  .setBorderBottom(
+                      new SolidBorder(
+                          hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderBottomColor()),
                           inputBean.getBorderBean().getSolidBorderWidth()))
                   .setPadding(inputBean.getPadding());
-
           table.addCell(cell);
         }
       }
+      table.setNextRenderer(new RoundedTableRenderer(table, borderRadius, borderColor, borderWidth , inputBean.getMarginBean().getLeftMargin() ,
+              inputBean.getMarginBean().getRightMargin()));
       document.add(table);
     }
   }
 
-  private static Color retrieveCellFontColor(String value,
-                                             GridTableBean inputBean) {
+  private static Color retrieveCellFontColor(String value, GridTableBean inputBean) {
     Color fontColor;
     if (value.equalsIgnoreCase("Disposed Success") || value.equalsIgnoreCase("Success")) {
       fontColor = hexaDecimalToRGB(inputBean.getSuccessColor());
