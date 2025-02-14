@@ -43,7 +43,7 @@ public class GridTableComponent implements ReportComponent {
       table.setMarginRight(inputBean.getMarginBean().getRightMargin());
       table.setPadding(0);
 
-      float borderRadius = 8f; // Adjust the curve radius as needed
+      float borderRadius = 2f;
       float borderWidth = inputBean.getBorderBean().getSolidBorderWidth();
       Color borderColor = hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderColor());
 
@@ -109,16 +109,26 @@ public class GridTableComponent implements ReportComponent {
                   .setBorderLeft(inputBean.getBorderBean().getBorderLeft())
                   .setBorderRight(inputBean.getBorderBean().getBorderRight())
                   .setFontColor(fontColor)
-                  .setBorderBottom(
-                      new SolidBorder(
-                          hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderBottomColor()),
-                          inputBean.getBorderBean().getSolidBorderWidth()))
                   .setPadding(inputBean.getPadding());
+          if (i == rowCount - 1) {
+            cell.setBorderBottom(null);
+          } else {
+            cell.setBorderBottom(
+                new SolidBorder(
+                    hexaDecimalToRGB(inputBean.getBorderBean().getSolidBorderBottomColor()),
+                    inputBean.getBorderBean().getSolidBorderWidth()));
+          }
           table.addCell(cell);
         }
       }
-      table.setNextRenderer(new RoundedTableRenderer(table, borderRadius, borderColor, borderWidth , inputBean.getMarginBean().getLeftMargin() ,
-              inputBean.getMarginBean().getRightMargin()));
+      table.setNextRenderer(
+          new RoundedTableRenderer(
+              table,
+              borderRadius,
+              borderColor,
+              borderWidth,
+              hexaDecimalToRGB("FFFFFF"),
+              hexaDecimalToRGB(BLUE_BG_COLOR)));
       document.add(table);
     }
   }

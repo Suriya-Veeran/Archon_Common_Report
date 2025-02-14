@@ -12,48 +12,59 @@ public class RoundedTableRenderer extends TableRenderer {
   private final float borderRadius;
   private final Color borderColor;
   private final float borderWidth;
-  private final float leftMargin;
-  private final float rightMargin;
+  private final Color backgroundColor;
+  private final Color headerBackgroundColor;
+  private final float headerHeight = 30f;
 
   public RoundedTableRenderer(
-      Table modelElement,
+      Table table,
       float borderRadius,
       Color borderColor,
       float borderWidth,
-      float leftMargin,
-      float rightMargin) {
-    super(modelElement);
+      Color backgroundColor,
+      Color headerBackgroundColor) {
+    super(table);
     this.borderRadius = borderRadius;
     this.borderColor = borderColor;
     this.borderWidth = borderWidth;
-    this.leftMargin = leftMargin;
-    this.rightMargin = rightMargin;
+    this.backgroundColor = backgroundColor;
+    this.headerBackgroundColor = headerBackgroundColor;
   }
 
   @Override
   public void draw(DrawContext drawContext) {
-    super.draw(drawContext);
 
-    Rectangle rect = getOccupiedAreaBBox();
     PdfCanvas canvas = drawContext.getCanvas();
+    Rectangle rect = getOccupiedAreaBBox();
 
-    float adjustedX = rect.getX() + leftMargin - (borderWidth / 2);
-    float adjustedY = rect.getY() ;
-    float adjustedWidth = rect.getWidth() - leftMargin - rightMargin + borderWidth;
-    float adjustedHeight = rect.getHeight();
+    float adjustedRadius = Math.min(borderRadius, headerHeight / 2); // Ensures proper fit
+    float x = rect.getLeft() - 18;
+    float y = rect.getBottom();
+    float width = rect.getWidth() + 18 + 18;
+    float height = rect.getHeight();
+    float top = rect.getTop();
+    float headerBottom = top - headerHeight;
 
-    canvas
-        .saveState()
-        .setStrokeColor(borderColor)
-        .setLineWidth(borderWidth)
-            .roundRectangle(adjustedX, adjustedY, adjustedWidth, adjustedHeight, borderRadius)
-        .stroke()
-        .restoreState();
-  }
+    // 1️⃣ Draw Table Background
+    canvas.saveState();
+    canvas.setFillColor(backgroundColor);
+    canvas.roundRectangle(x, y, width, height, adjustedRadius).fill();
+    canvas.restoreState();
 
-  @Override
-  public TableRenderer getNextRenderer() {
-    return new RoundedTableRenderer(
-        (Table) modelElement, borderRadius, borderColor, borderWidth, leftMargin, rightMargin);
+    // 2️⃣ **Fix Header Background Overflow by Clipping to Border**
+    canvas.saveState();
+    canvas.setFillColor(headerBackgroundColor);
+    canvas.rectangle(x, headerBottom, width, headerHeight).clip().fill(); // Clip header inside bounds
+    canvas.restoreState();
+
+    // 3️⃣ Draw Table Border (Ensures Header Background Doesn't Exceed)
+    canvas.saveState();
+    canvas.setStrokeColor(borderColor)
+            .setLineWidth(borderWidth)
+            .roundRectangle(x, y, width, height, adjustedRadius)
+            .stroke();
+    canvas.restoreState();
+
+    super.draw(drawContext);
   }
 }
