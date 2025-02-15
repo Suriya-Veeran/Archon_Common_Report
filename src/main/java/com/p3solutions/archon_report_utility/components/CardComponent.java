@@ -79,16 +79,18 @@ public class CardComponent implements ReportComponent {
       Paragraph paragraph = new Paragraph();
       paragraph.setFont(headerFont).setTextAlignment(TextAlignment.LEFT);
       String[] parts = inputBean.getHeader().split(COMMA, 2);
-      paragraph.add(new Paragraph(parts[0]).setFontSize(10));
+      paragraph.add(new Paragraph(parts[0]).setFontSize(inputBean.getCellInputBean().getFontSize()));
 
       if (parts.length > 1) {
-        paragraph.add("\n").add(new Paragraph(parts[1].trim()).setFontSize(8));
+        paragraph.add("\n")
+                .add(new Paragraph(parts[1].trim())
+                .setFontSize(inputBean.getCellInputBean().getFontSize() - 2));
 
       }
 
       Cell paragraphCell = new Cell(1,3).add(paragraph)
               .setBackgroundColor(cardBackground)
-              .setBorder(new SolidBorder(borderColor, 1));
+              .setBorder(new SolidBorder(borderColor, inputBean.getBorderBean().getSolidBorderWidth()));
       paragraphCell.setKeepTogether(true);
       parameterTable.addCell(paragraphCell);
       for (Map.Entry<String, String> entry : inputBean.getParameters().entrySet()) {
@@ -154,7 +156,7 @@ public class CardComponent implements ReportComponent {
                 new Paragraph(inputBean.getHeader())
                     .setFont(headerFont)
                     .setFontColor(hexaDecimalToRGB("030303"))
-                    .setFontSize(10))
+                    .setFontSize(inputBean.getCellInputBean().getFontSize()))
             .setBorder(Border.NO_BORDER)
             .setPadding(5)
             .setTextAlignment(TextAlignment.LEFT));
@@ -165,7 +167,7 @@ public class CardComponent implements ReportComponent {
                 new Paragraph(inputBean.getGeneratedTime())
                     .setFont(headerFont)
                     .setFontColor(hexaDecimalToRGB("030303"))
-                    .setFontSize(10))
+                    .setFontSize(inputBean.getCellInputBean().getFontSize()))
             .setBorder(Border.NO_BORDER)
             .setPadding(5)
             .setTextAlignment(TextAlignment.RIGHT));

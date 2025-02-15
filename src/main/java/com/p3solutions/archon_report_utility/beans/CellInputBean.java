@@ -26,7 +26,6 @@ public class CellInputBean {
   @Builder.Default private TextAlignment textAlignment = TextAlignment.LEFT;
   @Builder.Default private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;
   @Builder.Default private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
-  @Builder.Default private Table table = new Table(1);
   @Builder.Default private boolean isHeader = false;
 
   @Builder.Default private int rowSpan = 0;
